@@ -7,8 +7,8 @@
 ## 環境設定
 ### Git
 **Windows**  
-下記のURLからインストーラをダウンロードして、手順通りに進めていけばインストールできます。
-ULR:<https://git-for-windows.github.io/>
+下記のURLからインストーラをダウンロードして、手順通りに進めていけばインストールできます。  
+ULR:<https://git-for-windows.github.io/>  
 ※特にこだわりが無ければ、初期設定のまま先に進めれば問題ありません。
 
 **Mac**  
@@ -16,10 +16,10 @@ ULR:<https://git-for-windows.github.io/>
 
 **Linux**  
 Debian系統のディストリビュージョンであれば  
-    $ apt-get install git
+`$ apt-get install git`
 
 Fedora系統のディストリビュージョンであれば  
-    $ yum install git
+`$ yum install git`
 
 でインストールできます。
 
