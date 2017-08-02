@@ -1,27 +1,27 @@
-# DW 2YearsGroup
+﻿# DW 2YearsGroup
 
-## ���i�T�v
+## 製品概要
 
 
 
-## ���ݒ�
+## 環境設定
 ### Git
 **Windows**  
-���L��URL����C���X�g�[�����_�E�����[�h���āA�菇�ʂ�ɐi�߂Ă����΃C���X�g�[���ł��܂��B  
+下記のURLからインストーラをダウンロードして、手順通りに進めていけばインストールできます。  
 ULR:<https://git-for-windows.github.io/>  
-�����ɂ�����肪������΁A�����ݒ�̂܂ܐ�ɐi�߂�Ζ�肠��܂���B
+※特にこだわりが無ければ、初期設定のまま先に進めれば問題ありません。
 
 **Mac**  
-����͊���
+今回は割愛
 
 **Linux**  
-Debian�n���̃f�B�X�g���r���[�W�����ł����  
+Debian系統のディストリビュージョンであれば  
 `$ apt-get install git`
 
-Fedora�n���̃f�B�X�g���r���[�W�����ł����  
+Fedora系統のディストリビュージョンであれば  
 `$ yum install git`
 
-�ŃC���X�g�[���ł��܂��B
+でインストールできます。
 
 
 ### Vagrant
