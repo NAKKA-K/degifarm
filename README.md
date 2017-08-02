@@ -12,14 +12,14 @@ ULR:<https://git-for-windows.github.io/>
 ※特にこだわりが無ければ、初期設定のまま先に進めれば問題ありません。
 
 **Mac**
-
+今回は割愛
 
 **Linux**
 Debian系統のディストリビュージョンであれば
-`$ apt-get install git`
+    $ apt-get install git
 
 Fedora系統のディストリビュージョンであれば
-`$ yum install git`
+    $ yum install git
 
 でインストールできます。
 
