@@ -1,19 +1,21 @@
-@echo off
-SET virtual="VirtualBox.exe"
-SET git="Git.exe"
-SET vag="vagrant.msi"
-IF EXIST %virtual%==true %git%==true %vag%==true (GOTO FILE_TRUE) ELSE GOTO FILE_FALSE
+echo off
+set virtual="VirtualBox.exe"
+set git="Git.exe"
+set vagrant="vagrant.msi"
+set file="false"
 
-:FILE_TRUE
+if exist %virtual% if exist %git% if exist %vagrant% set file="true"
 
-rem VirtualBoxをインストール
-call %virtual%
+if %file%=="true" (
+			rem VirtualBoxをインストール
+			call %virtual%
 
-rem gitをインストール
-call %git%
+			rem gitをインストール
+			call %git%
 
-rem Vagrantをインストール
-msiexec/i %vag%
-
-:FILE_FALSE
-  echo "いずれかのファイルが存在しません"
+			rem Vagrantをインストール
+			msiexec/i %vagrant%
+) else (
+			echo  "いずれかのファイルが見つかりませんでした。"
+)
+pause
