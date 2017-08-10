@@ -1,10 +1,22 @@
-@echo off
+echo off
+set virtual="VirtualBox.exe"
+set git="Git.exe"
+set vagrant="vagrant.msi"
+set file="false"
 
-rem VirtualBoxをインストール
-call VirtualBox-5.1.26-117224-Win.exe
+if exist %virtual% if exist %git% if exist %vagrant% set file="true"
 
-rem gitをインストール
-call Git-2.13.3-64-bit.exe
+if %file%=="true" (
+	echo OK、インストールを開始します
+	rem VirtualBoxをインストール
+	call %virtual%
 
-rem Vagrantをインストール
-msiexec/i vagrant_1.9.7_x86_64.msi
+	rem gitをインストール
+	call %git%
+
+	rem Vagrantをインストール
+	msiexec/i %vagrant%
+) else (
+	echo いずれかのファイルが見つかりませんでした。
+)
+pause
