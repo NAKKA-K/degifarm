@@ -14,8 +14,7 @@
 ## 環境設定
 1.Windows上でgit、virtualbox、vagrantをインストールする。(各自のPCがWindowsであるとして解説)  
 2.vagrantに仮想マシンを追加する。(dw2018_server/vagrant/README.mdを参照)  
-3.dw2018_serverでGitBashを起動(右クリックで選べる)。  
-4.GitBashで下記のコマンドを打ち込むとVagrantfileという設定ファイルが作られる。  
+3.dw2018_serverでGitBashを起動(右クリックで選べる)。コマンドを打ち込むとVagrantfileという設定ファイルが作られる。  
 
     $ vagrant init dw2018_server
 
