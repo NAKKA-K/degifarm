@@ -12,8 +12,7 @@ echo -e 'postgresqlを起動しました\n'
 
 #postgresql管理者アカウントのパスワードを新しく設定(postgresに統一)
 echo -e 'パスワードを設定してください。postgresに統一します。\n'
-
-#sudo passwd postgres
+sudo passwd postgres
 echo -e 'postgreユーザのパスワードを設定しました\n'
 
 #develop17ユーザを作成
