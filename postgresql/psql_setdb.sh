@@ -2,13 +2,13 @@
 
 #postgres管理者アカウントを使うのはセキュリティ上良くないため、DBユーザーを作成
 createuser develop17
+echo 'develop17ユーザを作成しました'
 
 #データベース作成(オーナーはdevelop17)
 createdb dw2018db -O develop17
+echo 'dw2018dbデータベースを作成しました'
 
-#dw2018dbに接続
-psql dw2018db
+#develop17ユーザのパスワードを設定
+psql -c "alter user develop17 with password 'develop17'"
+echo 'develop17ユーザのパスワードを設定しました(パスワードはdevelop17) '
 
-#86行目に他ユーザ(デフォのvagrantユーザなど)からもpsqlのdevelop17ユーザにアクセスできるように追加(仮)
-sudo sed -i -e "85a local   all             develop17                               md5" /etc/postgresql/9.4/main/pg_hba.conf
- 

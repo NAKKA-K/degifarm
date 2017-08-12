@@ -11,6 +11,7 @@ sudo sed -i -e "58a listen_address = '*'" /etc/postgresql/9.4/main/postgresql.co
 sudo /etc/init.d/postgresql start
 
 #postgresql管理者アカウントのパスワードを新しく設定(postgresに統一)
+echo 'パスワードを設定してください。postgresに統一します。'
 sudo passwd postgres
 
 #postgresqlにログイン
