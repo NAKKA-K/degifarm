@@ -1,14 +1,18 @@
 #!/bin/bash
 
-#postgres管理者アカウントを使うのはセキュリティ上良くないため、DBユーザーを作成
+#postgres管理者アカウントを使うのはセキュリティ上良くないため、新しくユーザーを作成
 createuser develop17
-echo 'develop17ユーザを作成しました'
+echo -e 'develop17ユーザを作成しました\n'
 
-#データベース作成(オーナーはdevelop17)
-createdb dw2018db -O develop17
-echo 'dw2018dbデータベースを作成しました'
+#データベース作成
+createdb dw2018db
+echo -e 'dw2018dbデータベースを作成しました\n'
 
-#develop17ユーザのパスワードを設定
-psql -c "alter user develop17 with password 'develop17'"
-echo 'develop17ユーザのパスワードを設定しました(パスワードはdevelop17) '
+#このDBが不正アクセスされないように権限を削除
+psql -c "revoke connect on database dw2018db from public"
+echo -e 'dw2018dbデータベースの権限を削除しました\n'
+
+#develop17ユーザからのみのアクセスを受け付ける
+psql -c "grant connect on database dw2018db to develop17"
+echo -e 'develop17ユーザからのアクセスのみできるように設定しました\n'
 
