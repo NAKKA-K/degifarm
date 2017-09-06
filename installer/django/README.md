@@ -5,7 +5,7 @@ start.shはプロジェクトを作成し、必要な設定を書き込むシェ
 
 まず初めにシェルファイルをホームディレクトリにコピーしてください。  
 ```
- $ cp ~/dw2018_server/installer/django/start.sh ~/dw2018_server/start.sh && cd dw2018_server
+ $ cp ~/dw2018_server/installer/django/start.sh ~/dw2018_server/start.sh && cd ~/dw2018_server
 ```
 そして実行
 ```
