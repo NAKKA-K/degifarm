@@ -7,7 +7,7 @@ start.shはプロジェクトを作成し、必要な設定を書き込むシェ
 ```
  $ cp ~/dw2018_server/installer/django/start.sh ~/start.sh
 ```
-そしてホームディレクトリへ
+そしてホームディレクトリへ移動
 ```
  $ cd ~/
 ```
