@@ -5,9 +5,6 @@ sudo apt-get update
 sudo apt-get -y install postgresql
 echo -e 'postgresqlをインストールしました\n'
 
-#58行目に他ホストからもアクセスできるように追加
-sudo sed -i -e "58a listen_address = '*'" /etc/postgresql/9.4/main/postgresql.conf
-
 #posgreを起動
 sudo /etc/init.d/postgresql start
 echo -e 'postgresqlを起動しました\n'
