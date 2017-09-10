@@ -13,9 +13,10 @@
 
 ## 環境設定
 1.Windows上でgit、virtualbox、vagrantをインストールする。(各自のPCがWindowsであるとして解説)  
+
 2.vagrantに仮想マシンを追加する。(カレントディレクトリにpackage.boxをダウンロードしておく。GitBashを起動(右クリックで選べる))  
 
-  $ vagrant box add dw2018_server package.box
+    $ vagrant box add dw2018_server package.box
 
 3.仮想マシンを作成する。(Vagrantfileという設定ファイルが作られる。)  
 
@@ -28,7 +29,7 @@
 
 6.後はgit cloneでNAKKA-K/sw2018_serverを取得して、開発に参加する。  
 
-  $ git clone https://github.com/NAKKA-K/dw2018_server.git
+    $ git clone https://github.com/NAKKA-K/dw2018_server.git
 
 ※各インストール方法については下に書いているのでそちらを参照  
 
