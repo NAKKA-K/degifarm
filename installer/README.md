@@ -5,16 +5,19 @@
 
 
 ## 使用環境
-* pyenv
-* Django(python3.5.0)
+* pyenv 1.1.3-25-gfd0b8fc
+* Django1.11.4(python3.5.0)
 * Git
 * VirtualBox
-* Vagrant(virtualBox)
+* Vagrant
 
 ## 環境設定
 1.Windows上でgit、virtualbox、vagrantをインストールする。(各自のPCがWindowsであるとして解説)  
-2.vagrantに仮想マシンを追加する。(dw2018_server/vagrant/README.mdを参照)  
-3.dw2018_serverでGitBashを起動(右クリックで選べる)。コマンドを打ち込むとVagrantfileという設定ファイルが作られる。  
+2.vagrantに仮想マシンを追加する。(カレントディレクトリにpackage.boxをダウンロードしておく。GitBashを起動(右クリックで選べる))  
+
+  $ vagrant box add dw2018_server package.box
+
+3.仮想マシンを作成する。(Vagrantfileという設定ファイルが作られる。)  
 
     $ vagrant init dw2018_server
 
@@ -23,7 +26,9 @@
     $ vagrant up
     $ vagrant ssh
 
-6.pyenvとDjangoをインストール。  
+6.後はgit cloneでNAKKA-K/sw2018_serverを取得して、開発に参加する。  
+
+  $ git clone https://github.com/NAKKA-K/dw2018_server.git
 
 ※各インストール方法については下に書いているのでそちらを参照  
 
