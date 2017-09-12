@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #postgres管理者アカウントを使うのはセキュリティ上良くないため、新しくユーザーを作成
-#psql -c "create role develop17 with superuser login 'develop17'"
-createuser develop17
+psql -c "create role develop17 with superuser login 'develop17'"
+#createuser develop17
 echo -e 'develop17ユーザを作成しました\n'
 
 #データベース作成
