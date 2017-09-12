@@ -31,15 +31,17 @@
 
     $ git clone https://github.com/NAKKA-K/dw2018_server.git
 
+7.開発のテストをするためにvagrantの設定を編集する。vagrant設定のwikiを参照してください。  
 ※各インストール方法については下に書いているのでそちらを参照  
 
 
 ### Windows上(Git,VirtualBox,Vagrant)
-指定のGoogleDriveからインストーラー(git,virtualbox,vagrant)をダウンロードして、プロジェクトの先頭にコピー。  
-3つのインストーラーがそろったうえで、install.batを起動。  
-GUIのインストーラーが順番に立ち上がるので、すべてデフォルトで進めていけば問題なく終了。  
+指定のGoogleDriveからインストーラー(git,virtualbox,vagrant)をダウンロードして、起動。  
+GUIのインストーラーが立ち上がるので、すべてデフォルトで進めていけば問題なく終了。  
 
 ### 仮想マシン上
+今回はすでに環境を構築し終わったpackageをそのまま使用しますが、一部のみのインストールなどを別途したい場合は下記を参照してください。  
+
 #### pyenv  
 このページのpyenvディレクトリに移動してREADMEを参照  
 
