@@ -2,7 +2,7 @@
 
 #postgresqlをインストール
 sudo apt-get update
-sudo apt-get -y install postgresql livpq-dev python-psycopg2
+sudo apt-get -y install postgresql libpq-dev python-psycopg2
 echo -e 'postgresqlをインストールしました\n'
 
 #posgreを起動
