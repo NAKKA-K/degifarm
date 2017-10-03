@@ -2,7 +2,9 @@
 project=projecttest
 #djangoのプロジェクト作成
 django-admin startproject ${project}
-
+#マイグレーション作成
+cd ${project}
+python manage.py migrate
 #設定ファイルに書き込み
 sed -i -e "s/'django.db.backends.sqlite3'/'django.db.backends.postgresql_psycopg2'/g" ~/dw2018_server/${project}/${project}/settings.py
 sed -i -e "s/os.path.join(BASE_DIR, 'db.sqlite3')/'dw2018db'/g" ~/dw2018_server/${project}/${project}/settings.py 
