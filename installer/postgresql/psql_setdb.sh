@@ -20,3 +20,15 @@ echo -e 'develop17ユーザからのアクセスのみできるように設定�
 #作成したDBのオーナーを変更
 psql -c "alter database dw2018db owner to develop17"
 echo -e '作成したdw2018dbのオーナーをdevelop17に変更'
+
+#develop17ユーザにスーパユーザを付与
+psql -c "alter role develop17 with superuser"
+echo -e 'develop17ユーザにスーパユーザを付与しました'
+
+#dw2018dbのオーナーをdevelop17ユーザに
+psql -c "alter database dw2018db owner to develop17"
+echo -e 'dw2018dbのオーナーをdevelop17ユーザに変更しました'
+
+#develop17ユーザのパスワードを設定
+psql -c "alter role develop17 with password develop17"
+echo -e 'develop17ユーザのパスワードを設定しました(develop17)'
