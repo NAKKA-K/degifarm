@@ -30,5 +30,5 @@ psql -c "alter database dw2018db owner to develop17"
 echo -e 'dw2018dbのオーナーをdevelop17ユーザに変更しました'
 
 #develop17ユーザのパスワードを設定
-psql -c "alter role develop17 with password develop17"
+psql -c "alter role develop17 with password 'develop17'"
 echo -e 'develop17ユーザのパスワードを設定しました(develop17)'

@@ -20,7 +20,7 @@ sudo adduser develop17
 echo -e 'develop17ユーザを作成しました\n'
 
 #postgresユーザのホームディレクトリにpsql_setdb.shを実行できるようにコピーしておく
-sudo cp ~/dw2018_server/postgresql/psql_setdb.sh /var/lib/postgresql/psql_setdb.sh 
+sudo cp ~/dw2018_server/installer/postgresql/psql_setdb.sh /var/lib/postgresql/psql_setdb.sh 
 echo -e 'psql_setdbをpostgresユーザのホームディレクトリに移動しました\n'
 
 #postgresqlにログイン
