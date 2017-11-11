@@ -1,4 +1,7 @@
 #!/bin/sh
+
+pip install -r requirements.txt
+
 project=projecttest
 #djangoのプロジェクト作成
 django-admin startproject ${project}
