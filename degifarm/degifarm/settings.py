@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'bootstrap3',
     'submission_form',
 ]
 
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'degifarm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +66,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'bootstrap3.templatetags.bootstrap3',
+            ]
         },
     },
 ]
@@ -123,3 +128,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static'),
+)
+
