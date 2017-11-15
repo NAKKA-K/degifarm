@@ -23,6 +23,6 @@ def upload_file(request):
 def read_file(file_source):
   data = file_source.name + ' : '
   for chunk in file_source.chunks():
-    data = data + str(chunk)
+    data = data + chunk.decode('utf-8')
 
   return data
