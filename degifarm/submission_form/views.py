@@ -13,7 +13,7 @@ def upload_file(request):
     if form.is_valid():
       file_data = read_file(request.FILES['file']) # ファイル取得(メモリ展開状態)したものを、文字列に変換
 
-      return render(request, 'submission_form/sucess.html', { # アップロード完了ページに遷移
+      return render(request, 'submission_form/upload_success.html', { # アップロード完了ページに遷移
         'file_data': file_data,
       })
 
