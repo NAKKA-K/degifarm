@@ -27,13 +27,13 @@ class UploadFilesView(FormView):
     else:
       return self.form_invalid(form)
 
-  # メモリ展開されたバイトデータを文字列に変換する
-  def read_file(file_source):
-    data = file_source.name + ' : \n'
-    for chunk in file_source.chunks():
-      data = data + chunk.decode('utf-8')
+# メモリ展開されたバイトデータを文字列に変換する
+def read_file(file_source):
+  data = file_source.name + ' : \n'
+  for chunk in file_source.chunks():
+    data = data + chunk.decode('utf-8')
 
-    return data
+  return data
 
 
 
