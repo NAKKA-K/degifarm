@@ -28,7 +28,7 @@ class Classification(models.Model):
 # 学生テーブル
 class Student(models.Model):
   organization_id = models.ForeignKey(Organization, primary_key = True)
-  id = models.CharField(primary_key = True, max_length = 32)
+  id = models.IntegerField(primary_key = True)
   group_id = models.ForeignKey(Group)
   sex_id = models.ForeignKey(Sex)
   name = models.CharField(null = False, max_length = 64)
@@ -47,6 +47,23 @@ class Submission(models.Model):
   path = models.CharField(max_length = 128)
 
 
+# 先生テーブル
+class Teacher(models.Model):
+  organization_id = models.ForeignKey(Organization, primary_key = True)
+  id = models.Integer(primary_key = True)
+  name = models.CharField(null = False, max_length = 64)
+  email = models.CharField(null = False)
+
+# 配布物テーブル
+class Distribution(models.Model):
+  organization_id = models.ForeignKey(Organization, primary_key = True)
+  teacher_id = models.ForeignKey(Teacher, primary_key = True)
+  id = models.UUIDField(primary_key = True, defaukt = uuid.uuid4, editable = False)
+  classification_id = models.ForeignKey(Classification)
+  name = models.CharField(null = False, max_length = 64)
+  published_date = models.DateTimeField(null = False, default = timezone.now, editable = False)
+  # TODO: 権限をどうするか？
+  path = models.CharField(null = False, max_length = 128)
 
 
 
