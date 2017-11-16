@@ -1,0 +1,15 @@
+{% extends "submission_form/base.html" %}
+
+{% block contents %}
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "upload" %} Submit
+    </button>
+
+    {% bootstrap_button "reset" button_type="reset" button_class="btn-primary" %}
+
+  </form>
+{% endblock contents %}
