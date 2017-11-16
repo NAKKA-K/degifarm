@@ -1,16 +1,17 @@
 from django.db import models
 from django.utils import timezone
+import uuid
 
 # Create your models here.
 
 # 団体テーブル
-class Qrganization(models.Model):
+class Organization(models.Model):
   uuid = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   name = models.CharField(max_length = 64)
 
 # 性別マスタ
 class Sex(models.Model):
-  name = CharField(max_length = 4)
+  name = models.CharField(max_length = 4)
 
 # 学科テーブル
 class Group(models.Model):
@@ -20,7 +21,7 @@ class Group(models.Model):
 
 # 分類テーブル
 class Classification(models.Model):
-  organization_id = models.ForeignKey(Qrganization, primary_key = True)
+  organization_id = models.ForeignKey(Organization, primary_key = True)
   id = models.IntegerField(primary_key = True)
   name = models.CharField(max_length = 64)
 
@@ -41,7 +42,7 @@ class Submission(models.Model):
   uuid = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
   name = models.CharField(max_length = 64)
-  published_date = models.DataTimeField(null = False, default = timezpne.now, editable = False)
+  published_date = models.DateTimeField(null = False, default = timezone.now, editable = False)
   # TODO: 権限をどうするか？
   path = models.CharField(max_length = 128)
 
