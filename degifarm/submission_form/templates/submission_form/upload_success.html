@@ -3,7 +3,14 @@
 {% block contents %}
   <h1>Success Upload File!</h1>
 
-  {{ file_data | linebreaks }}
+  {% if files_data %}
+    {% for file in files_data %}
+      <h3>{{ forloop.counter }}</h3>
+      {{ file | linebreaks }} <!-- ファイルデータを改行しつつ表示 -->
+    {% endfor %}
+  {% else %}
+    <h3>NotFiles!</h3>
+  {% endif %}
 
   ----------------------------------------------
 {% endblock contents %}
