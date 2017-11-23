@@ -9,19 +9,31 @@ class Organization(models.Model):
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   name = models.CharField(null = False, max_length = 64)
 
+  def __str__(self):
+    return self.name
+
 # 性別マスタ
 class Sex(models.Model):
   name = models.CharField(null = False, max_length = 4)
+
+  def __str__(self):
+    return self.name
 
 # 学科テーブル
 class Group(models.Model):
   organization_id = models.ForeignKey(Organization)
   name = models.CharField(null = False, max_length = 64)
 
+  def __str__(self):
+    return self.name
+
 # 分類テーブル
 class Classification(models.Model):
   organization_id = models.ForeignKey(Organization)
   name = models.CharField(null = False, max_length = 64)
+
+  def __str__(self):
+    return self.name
 
 # 学生テーブル
 class Student(models.Model):
@@ -31,6 +43,9 @@ class Student(models.Model):
   name = models.CharField(null = False, max_length = 64)
   # TODO: 学年、クラス、番号をどうするか？
   email = models.EmailField(null = False)
+
+  def __str__(self):
+    return self.name
 
 # 提出物テーブル
 class Submission(models.Model):
@@ -43,12 +58,18 @@ class Submission(models.Model):
   # TODO: 権限をどうするか？
   path = models.CharField(max_length = 128)
 
+  def __str__(self):
+    return self.name
+
 
 # 先生テーブル
 class Teacher(models.Model):
   organization_id = models.ForeignKey(Organization)
   name = models.CharField(null = False, max_length = 64)
   email = models.EmailField(null = False)
+
+  def __str__(self):
+    return self.name
 
 # 配布物テーブル
 class Distribution(models.Model):
@@ -61,6 +82,7 @@ class Distribution(models.Model):
   # TODO: 権限をどうするか？
   path = models.CharField(null = False, max_length = 128)
 
-
+  def __str__(self):
+    return self.name
 
 
