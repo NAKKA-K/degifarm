@@ -4,11 +4,36 @@ from .models import Organization, Sex, Group, Classification, Student, Submissio
 
 # Register your models here.
 
-admin.site.register(Organization)
-admin.site.register(Sex)
-admin.site.register(Group)
-admin.site.register(Classification)
-admin.site.register(Student)
-admin.site.register(Submission)
-admin.site.register(Teacher)
-admin.site.register(Distribution)
+class OrganizationAdmin(admin.ModelAdmin):
+  list_display = ('id', 'name', )
+
+class SexAdmin(admin.ModelAdmin):
+  list_display = ('name', )
+
+class GroupAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'name', )
+
+class ClassificationAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'name', )
+
+class StudentAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'group_id', 'name', 'email', 'sex_id', )
+
+class SubmissionAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'name', 'student_id', 'published_date', )
+
+class TeacherAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'name', 'email', )
+
+class DistributionAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'name', 'teacher_id', 'published_date', )
+
+
+admin.site.register(Organization, OrganizationAdmin)
+admin.site.register(Sex, SexAdmin)
+admin.site.register(Group, GroupAdmin)
+admin.site.register(Classification, ClassificationAdmin)
+admin.site.register(Student, StudentAdmin)
+admin.site.register(Submission, SubmissionAdmin)
+admin.site.register(Teacher, TeacherAdmin)
+admin.site.register(Distribution, DistributionAdmin)
