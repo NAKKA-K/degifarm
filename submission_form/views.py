@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import FormView
 from .forms import UploadFilesForm
-
+from chardet.universaldetector import UniversalDetector
+import chardet
 # Create your views here.
 
 def index(request):
@@ -29,13 +30,9 @@ class UploadFilesView(FormView):
 
 # メモリ展開されたバイトデータを文字列に変換する
 def read_file(file_source):
-  data = file_source.name + ' : \n'
+  data = file_source.name + ' : '
+  charcode=chardet.detect(file_source.read())
   for chunk in file_source.chunks():
-    data = data + chunk.decode('utf-8')
+    data = data + chunk.decode(charcode['encoding'])
 
   return data
-
-
-
-
-
