@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic.edit import FormView
+from django.views import generic
+
 from .forms import UploadFilesForm
+
 from chardet.universaldetector import UniversalDetector
 import chardet
+
 # Create your views here.
 
-def index(request):
-  return render(request, 'submission_form/index.html', {})
+class IndexView(generic.base.TemplateView):
+  template_name = 'submission_form/index.html'
 
-class UploadFilesView(FormView):
+class UploadFilesView(generic.edit.FormView):
   form_class = UploadFilesForm
   template_name = 'submission_form/upload_file.html'
   success_url = reverse_lazy('submission_form:upload') # urlsの項目からURLを生成するメソッド
