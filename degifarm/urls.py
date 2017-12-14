@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from submission_form import views 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'submission_form/', include('submission_form.urls', namespace = "submission_form")),
+    url(r'^submission_form/', include('submission_form.urls', namespace = "submission_form")),
+    url(r'^$', views.index)
 ]
