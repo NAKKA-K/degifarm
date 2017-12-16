@@ -15,27 +15,30 @@
 
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <!-- filesのinput要素自体は使用するが、見た目は別のものを使いたいため隠している -->
         <div class="hide">
             {{ form.files}} <!-- ID : id_files -->
         </div>
 
-        <h4>{{ form.files.label }}</h4>
-        <div class="input-group">
-          <input type="text" id="photoCover" class="form-control" onfocus="this.blur()" placeholder="select file...">
-          <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=id_files]').click();"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button></span>
+        <div class="form-group">
+          <label class="control-label">{{ form.files.label }}</label>
+          <div class="input-group">
+            <input type="text" id="photoCover" class="form-control" onfocus="this.blur()" placeholder="select file...">
+            <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=id_files]').click();"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button></span>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-          {% bootstrap_icon "upload" %} Submit
-        </button>
-
-        <button type="reset" class="btn btn-primary">
-          {% bootstrap_icon "delete" %} Delete
-        </button>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "upload" %} Submit
+          </button>
+          <button type="reset" class="btn btn-primary">
+            {% bootstrap_icon "delete" %} Delete
+          </button>
+        </div>
 
       </form>
 
-      <iframe name="fomr_response" style="display: none;"></iframe>
     </div>
   </div>
 
