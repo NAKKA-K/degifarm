@@ -1,15 +1,55 @@
 {% extends "submission_form/base.html" %}
 
+{% block head %}
+<style type="text/css">
+  .hide {
+    display: none;
+  }
+</style>
+{% endblock head %}
+
 {% block contents %}
-  <form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form form %}
 
-    <button type="submit" class="btn btn-primary">
-      {% bootstrap_icon "upload" %} Submit
-    </button>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
 
-    {% bootstrap_button "reset" button_type="reset" button_class="btn-primary" %}
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="hide">
+            {{ form.files}} <!-- ID : id_files -->
+        </div>
 
-  </form>
+        <h4>{{ form.files.label }}</h4>
+        <div class="input-group">
+          <input type="text" id="photoCover" class="form-control" onfocus="this.blur()" placeholder="select file...">
+          <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=id_files]').click();"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          {% bootstrap_icon "upload" %} Submit
+        </button>
+
+        <button type="reset" class="btn btn-primary">
+          {% bootstrap_icon "delete" %} Delete
+        </button>
+
+      </form>
+
+      <iframe name="fomr_response" style="display: none;"></iframe>
+    </div>
+  </div>
+
+  <script>
+    $('input[id=id_files]').change(function(){
+      $('#photoCover').val(function(){
+          var files = "";
+          var input = $('input[id=id_files]')[0].files; //id_filesに格納されたファイル要素を取得
+          $.each(input, function(){
+            if(this == null) return false;
+            files += "[" + this.name + "], ";
+          });
+          return files;
+      });
+    });
+  </script>
 {% endblock contents %}
