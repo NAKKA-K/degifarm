@@ -1,11 +1,12 @@
 {% extends "submission_form/base.html" %}
 
 {% block head %}
-<style type="text/css">
-  .hide {
-    display: none;
-  }
-</style>
+  <!-- Djangoのフォームを見えなくするため -->
+  <style type="text/css">
+    .hide {
+      display: none;
+    }
+  </style>
 {% endblock head %}
 
 {% block contents %}
@@ -42,6 +43,11 @@
     </div>
   </div>
 
+{% endblock contents %}
+
+
+{% block script %}
+  <!-- 選択したファイル名を一覧表示させるスクリプト -->
   <script>
     $('input[id=id_files]').change(function(){
       $('#photoCover').val(function(){
@@ -55,4 +61,5 @@
       });
     });
   </script>
-{% endblock contents %}
+{% endblock script %}
+
