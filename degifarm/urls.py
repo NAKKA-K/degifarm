@@ -19,6 +19,6 @@ from submission_form import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.IndexView.as_view(), name = "index"),
     url(r'^submission_form/', include('submission_form.urls', namespace = "submission_form")),
-    url(r'^$', views.IndexView.as_view())
 ]
