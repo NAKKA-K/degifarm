@@ -43,8 +43,9 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
 
-            <!-- 開発時のショートカット用 -->
-            <li><a href="{% url 'admin:index' %}">admin</a></li>
+            <li class="{% block nav_index %}{% endblock %}">
+              <a href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span> HOME</a>
+            </li>
 
             <!-- プルダウンの提出 -->
             <li role="presentation" class="dropdown {% block nav_submission_form %}{% endblock %}">
@@ -63,7 +64,11 @@
               </ul>
             </li>
 
+            <!-- 開発時のショートカット用 -->
+            <li><a href="{% url 'admin:index' %}">admin</a></li>
+
           </ul>
+
 
           <!-- ヘッダー右側のアイコン -->
           <ul class="nav navbar-nav navbar-right">
