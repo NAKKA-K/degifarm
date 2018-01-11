@@ -7,14 +7,14 @@ import uuid
 # 団体テーブル
 class Organization(models.Model):
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-  name = models.CharField(null = False, max_length = 64)
+  name = models.CharField(max_length = 64)
 
   def __str__(self):
     return self.name
 
 # 性別マスタ
 class Sex(models.Model):
-  name = models.CharField(null = False, max_length = 4)
+  name = models.CharField(max_length = 4)
 
   def __str__(self):
     return self.name
@@ -22,7 +22,7 @@ class Sex(models.Model):
 # 学科テーブル
 class Group(models.Model):
   organization_id = models.ForeignKey(Organization)
-  name = models.CharField(null = False, max_length = 64)
+  name = models.CharField(max_length = 64)
 
   def __str__(self):
     return self.name
@@ -30,7 +30,7 @@ class Group(models.Model):
 # 分類テーブル
 class Classification(models.Model):
   organization_id = models.ForeignKey(Organization)
-  name = models.CharField(null = False, max_length = 64)
+  name = models.CharField(max_length = 64)
 
   def __str__(self):
     return self.name
@@ -40,9 +40,9 @@ class Student(models.Model):
   organization_id = models.ForeignKey(Organization)
   group_id = models.ForeignKey(Group)
   sex_id = models.ForeignKey(Sex)
-  name = models.CharField(null = False, max_length = 64)
+  name = models.CharField(max_length = 64)
   # TODO: 学年、クラス、番号をどうするか？
-  email = models.EmailField(null = False)
+  email = models.EmailField()
 
   def __str__(self):
     return self.name
@@ -53,8 +53,8 @@ class Submission(models.Model):
   student_id = models.ForeignKey(Student)
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
-  name = models.CharField(null = False, max_length = 64)
-  published_date = models.DateTimeField(null = False, editable = False)
+  name = models.CharField(max_length = 64)
+  published_date = models.DateTimeField(editable = False)
   # TODO: 権限をどうするか？
   path = models.CharField(max_length = 128)
 
@@ -65,8 +65,8 @@ class Submission(models.Model):
 # 先生テーブル
 class Teacher(models.Model):
   organization_id = models.ForeignKey(Organization)
-  name = models.CharField(null = False, max_length = 64)
-  email = models.EmailField(null = False)
+  name = models.CharField(max_length = 64)
+  email = models.EmailField()
 
   def __str__(self):
     return self.name
@@ -77,10 +77,10 @@ class Distribution(models.Model):
   teacher_id = models.ForeignKey(Teacher)
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
-  name = models.CharField(null = False, max_length = 64)
-  published_date = models.DateTimeField(null = False, editable = False)
+  name = models.CharField(max_length = 64)
+  published_date = models.DateTimeField(editable = False)
   # TODO: 権限をどうするか？
-  path = models.CharField(null = False, max_length = 128)
+  path = models.CharField(max_length = 128)
 
   def __str__(self):
     return self.name

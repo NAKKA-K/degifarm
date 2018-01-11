@@ -1,6 +1,65 @@
 {% extends "submission_form/base.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
 
 {% block contents %}
-<h1>Hello! Here is Degifarm!</h1>
+  {% if not user.is_authenticated %}
+    <h1 class="text-center">Hello! Here is Degifarm!</h1>
+    <!-- TODO: ログイン用のボタンを表示させる(Googleのサイトを参考に) -->
+
+    <a class="home_link" href="{% url 'admin:index' %}">LOGIN</a>
+
+  {% else %}
+    <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+      <h1 class="text-center">ホーム</h1>
+    </div>
+
+    <ol class="breadcrumb">
+      <li class="active"><a href="#">ホーム</a></li>
+    </ol>
+
+
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-3">
+        <h1 class="page-header text-center" style="font-size:130%;">今月の出欠率</h1>
+        <ul style="font-size:140%;">
+          <center>75%</center>
+
+        <input type="text" id="colname">
+        </ul>
+      </div>
+
+      <div class="col-xs-12 col-sm-9">
+        <h1 class="page-header">1週間以内の提出物</h1>
+
+        <table class="table table-striped">
+          <thead>
+            <tr bgcolor="#000000">
+              <th><font color="#FFFFF">科目</th>
+              <th><font color="#FFFFF">課題名</th>
+              <th><font color="#FFFFF">期限</th>
+              <th><font color="#FFFFF">状況</th></font></tr>
+          </thead>
+          <tbody>
+            <tr class="danger"><td>Java</td><td>Javakadai011.java</td><td>2017/12/08</td><td>未</td></tr>
+            <tr class="warning"><td>Java</td><td>Diary.java</td><td>2017/12/11</td><td>未</td></tr>
+            <tr><td>C</td><td>ckadai03-1.c</td><td>2017/12/12</td><td>済</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  {% endif %}
 
 {% endblock contents%}
+
+
+{% block script %}
+
+{% endblock script %}
