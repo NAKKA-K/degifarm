@@ -1,18 +1,18 @@
+# django module
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from .forms import UploadFilesForm
+# app module
+from submission_form.forms import UploadFilesForm
 
+# lib
 from chardet.universaldetector import UniversalDetector
 import chardet
 
-# Create your views here.
 
-class IndexView(TemplateView):
-  template_name = 'submission_form/index.html'
-
+# here views ============================================
 
 class TaskHomeView(TemplateView):
   template_name = 'submission_form/task_home.html'
@@ -45,3 +45,4 @@ def read_file(file_source):
     data = data + chunk.decode(charcode['encoding'])
 
   return data
+
