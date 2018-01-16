@@ -6,7 +6,7 @@ from django.views.generic.edit import FormView
 
 # app module
 from submission_form.forms import UploadFilesForm
-from submission_form.views import FileUploader
+from submission_form.views.FileUploader import FileUploader
 
 # lib
 
@@ -31,7 +31,7 @@ class UploadFilesView(FormView):
       file_uploader.handle_uploaded_files()
 
       return render(request, 'submission_form/upload_success.html', { # アップロード完了ページに遷移
-        'files_list': file_uploader.files_list,
+        'files_list': file_uploader.files_path_list,
       })
     else:
       return self.form_invalid(form)
