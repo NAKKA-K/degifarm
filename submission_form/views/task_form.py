@@ -6,10 +6,9 @@ from django.views.generic.edit import FormView
 
 # app module
 from submission_form.forms import UploadFilesForm
+from submission_form.views.FileUploader import FileUploader
 
 # lib
-from chardet.universaldetector import UniversalDetector
-import chardet
 
 
 # here views ============================================
@@ -28,11 +27,11 @@ class UploadFilesView(FormView):
     form = self.get_form(form_class)
     files = request.FILES.getlist('files')
     if form.is_valid():
-      files_data = []
-      for f in files: # ファイルデータをリストに挿入
-        files_data.append(read_file(f))
+      file_uploader = FileUploader(files)
+      file_uploader.handle_uploaded_files()
+
       return render(request, 'submission_form/upload_success.html', { # アップロード完了ページに遷移
-        'files_data': files_data,
+        'files_list': file_uploader.files_path_list,
       })
     else:
       return self.form_invalid(form)
@@ -45,4 +44,3 @@ def read_file(file_source):
     data = data + chunk.decode(charcode['encoding'])
 
   return data
-
