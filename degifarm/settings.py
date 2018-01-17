@@ -133,6 +133,9 @@ STATICFILES_DIRS = (
 )
 
 
+LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'submission_form.User'
 
 # Heroku settings ===========================================
 # Parse database cofiguration from $DATABASE_URL
