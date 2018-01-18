@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.conf import settings
 
+from submission_form.models.info import Organization, Group, Sex
+
 class UserManager(BaseUserManager):
   use_in_migrations = True
 
@@ -85,7 +87,6 @@ class User(AbstractBaseUser, PermissionsMixin):
   def email_user(self, subject, message, from_email = None, **kwargs):
     """Send an email to this user."""
     send_mail(subject, message, from_email, [self.email], **kwargs)
-
 
 
 # 学生テーブル
