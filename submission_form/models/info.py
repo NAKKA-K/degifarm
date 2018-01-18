@@ -48,11 +48,11 @@ class Classification(models.Model):
 # 提出物テーブル
 class Submission(models.Model):
   organization_id = models.ForeignKey(Organization)
-  user_id = models.ForeignKey(settins.AUTH_USER_MODEL)
+  user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
   name = models.CharField(max_length = 64)
-  published_date = models.DateTimeField(default = timezone.now(), editable = False)
+  published_date = models.DateTimeField(default = timezone.now, editable = False)
   path = models.CharField(max_length = 255)
   # TODO: 権限をどうするか？
 
@@ -62,11 +62,11 @@ class Submission(models.Model):
 # 配布物テーブル
 class Distribution(models.Model):
   organization_id = models.ForeignKey(Organization)
-  user_id = models.ForeignKey(settins.AUTH_USER_MODEL)
+  user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
   name = models.CharField(max_length = 64)
-  published_date = models.DateTimeField(default = timezone.now(), editable = False)
+  published_date = models.DateTimeField(default = timezone.now, editable = False)
   path = models.CharField(max_length = 255)
   # TODO: 権限をどうするか？
 
