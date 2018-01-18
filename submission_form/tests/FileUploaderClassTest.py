@@ -43,8 +43,8 @@ class FileUploderClassTest(TestCase):
     
     # Exist files?
     for file_path in file_uploader.files_path_list:
-      if not os.path.exists(file_path):
-        assert()
-      else:
+      if os.path.exists(file_path):
         os.remove(file_path)
+      else:
+        self.fail('ファイルが保存されていません')
 
