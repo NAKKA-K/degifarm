@@ -1,6 +1,5 @@
 # django module
 from django.test import TestCase
-from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 from django.core.files.base import File
 
