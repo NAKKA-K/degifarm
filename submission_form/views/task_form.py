@@ -7,17 +7,18 @@ from django.views.generic.edit import FormView
 # app module
 from submission_form.forms import UploadFilesForm
 from submission_form.views.FileUploader import FileUploader
+from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 
 # lib
 
 
 # here views ============================================
 
-class TaskHomeView(TemplateView):
+class TaskHomeView(LoginRequiredMessageMixin, TemplateView):
   template_name = 'submission_form/task_home.html'
 
 
-class UploadFilesView(FormView):
+class UploadFilesView(LoginRequiredMessageMixin, FormView):
   form_class = UploadFilesForm
   template_name = 'submission_form/upload_file.html'
   success_url = reverse_lazy('submission_form:upload') # urlsの項目からURLを生成するメソッド
