@@ -10,20 +10,19 @@ from submission_form.models import User
 
 class LoginLogoutTest(TestCase):
   def setUp(self):
-    self.user = User.objects.create_user(email = 'test@test.com', password = 'testpass1', first_name = 'first', last_name = 'last')
-    
+    User.objects.create_user(email = 'test@test.com', password = 'testpass1')
 
   def test_login(self):
     client = self.client
 
-    # non login
+    # non logined
     response = client.get('/')
     self.assertEqual(response.status_code, 200)
 
     response = client.get('/submission_form/')
     self.assertEqual(response.status_code, 302)
 
-    # login
+    # logined
     client.login(email = 'test@test.com', password = 'testpass1')
 
     response = client.get('/')
