@@ -13,6 +13,16 @@ from PIL import Image
 
 
 class FileUploderClassTest(TestCase):
+  def setUp(self):
+    # Generate test files
+    self.upload_file_instances = []
+    self.upload_file_instances.append(
+        UploadedFile(file = File(self.generate_text_file()))
+    )
+    self.upload_file_instances.append(
+      UploadedFile(file = File(self.generate_image_file()))
+    )
+    
   def generate_text_file(self):
     test_file = io.BytesIO(b'This is test file.')
     test_file.name = 'test.txt'
@@ -27,18 +37,9 @@ class FileUploderClassTest(TestCase):
     test_file.seek(0)
     return test_file
 
-  def test_upload(self):
-    # Generate test files
-    upload_file_instances = []
-    upload_file_instances.append(
-        UploadedFile(file = File(self.generate_text_file()))
-    )
-    upload_file_instances.append(
-      UploadedFile(file = File(self.generate_image_file()))
-    )
-
+  def test_file_uploder(self):
     # File upload
-    file_uploader = FileUploader(upload_file_instances)
+    file_uploader = FileUploader(self.upload_file_instances)
     file_uploader.handle_uploaded_files()
     
     # Exist files?
@@ -48,3 +49,5 @@ class FileUploderClassTest(TestCase):
       else:
         self.fail('ファイルが保存されていません')
 
+  #def test_upload_page(self):
+    
