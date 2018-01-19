@@ -16,7 +16,7 @@ class FileUploader(object):
     self.files = files
     self.files_path_list = []
     self.user = user
-    self.files_dir = '{}{}'.format(settings.MEDIA_ROOT, user) # TODO:後に課題ごとなどにディレクトリをまとめる可能性あり
+    self.files_dir = '{}{}/'.format(settings.MEDIA_ROOT, user) # TODO:後に課題ごとなどにディレクトリをまとめる可能性あり
 
   def handle_uploaded_files(self):
     """
