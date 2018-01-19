@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from submission_form import views 
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.IndexView.as_view(), name = "index"),
-    url(r'^submission_form/', include('submission_form.urls', namespace = "submission_form")),
+    url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name = 'registration/login.html'), name = 'login'),
+    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(next_page = 'index'), name = 'logout'),
+
+    url(r'^$', views.IndexView.as_view(), name = 'index'),
+    url(r'^submission_form/', include('submission_form.urls', namespace = 'submission_form')),
 ]

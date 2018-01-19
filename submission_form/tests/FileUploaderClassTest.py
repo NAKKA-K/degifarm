@@ -5,6 +5,7 @@ from django.core.files.base import File
 
 # app module
 from submission_form.views.FileUploader import FileUploader
+from submission_form.models import User
 
 # lib
 import os
@@ -13,6 +14,18 @@ from PIL import Image
 
 
 class FileUploderClassTest(TestCase):
+  def setUp(self):
+    User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+
+    # Generate test files
+    self.upload_file_instances = []
+    self.upload_file_instances.append(
+        UploadedFile(file = File(self.generate_text_file()))
+    )
+    self.upload_file_instances.append(
+      UploadedFile(file = File(self.generate_image_file()))
+    )
+    
   def generate_text_file(self):
     test_file = io.BytesIO(b'This is test file.')
     test_file.name = 'test.txt'
@@ -27,24 +40,27 @@ class FileUploderClassTest(TestCase):
     test_file.seek(0)
     return test_file
 
-  def test_upload(self):
-    # Generate test files
-    upload_file_instances = []
-    upload_file_instances.append(
-        UploadedFile(file = File(self.generate_text_file()))
-    )
-    upload_file_instances.append(
-      UploadedFile(file = File(self.generate_image_file()))
-    )
-
+  def test_file_uploder(self):
     # File upload
-    file_uploader = FileUploader(upload_file_instances)
+    file_uploader = FileUploader(self.upload_file_instances)
     file_uploader.handle_uploaded_files()
     
     # Exist files?
     for file_path in file_uploader.files_path_list:
-      if not os.path.exists(file_path):
-        assert()
-      else:
+      if os.path.exists(file_path):
         os.remove(file_path)
+      else:
+        self.fail('ファイルが保存されていません')
+
+  def test_upload_page(self):
+    client = self.client
+    client.login(email = 'test@test.com', password = 'testpass1')
+
+    data = {
+      'files': self.upload_file_instances
+    }
+    
+    response = client.post('/submission_form/upload/', data)
+    self.assertEqual(response.status_code, 200)
+
 
