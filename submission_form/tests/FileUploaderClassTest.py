@@ -5,6 +5,7 @@ from django.core.files.base import File
 
 # app module
 from submission_form.views.FileUploader import FileUploader
+from submission_form.models import User
 
 # lib
 import os
@@ -14,6 +15,8 @@ from PIL import Image
 
 class FileUploderClassTest(TestCase):
   def setUp(self):
+    User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+
     # Generate test files
     self.upload_file_instances = []
     self.upload_file_instances.append(
@@ -49,5 +52,15 @@ class FileUploderClassTest(TestCase):
       else:
         self.fail('ファイルが保存されていません')
 
-  #def test_upload_page(self):
+  def test_upload_page(self):
+    client = self.client
+    client.login(email = 'test@test.com', password = 'testpass1')
+
+    data = {
+      'files': self.upload_file_instances
+    }
     
+    response = client.post('/submission_form/upload/', data)
+    self.assertEqual(response.status_code, 200)
+
+
