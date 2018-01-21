@@ -51,8 +51,9 @@
             <li role="presentation" class="dropdown {% block nav_submission_form %}{% endblock %}">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> 提出<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><a href="{% url 'submission_form:index' %}">HOME</a></li>
-                <li role="presentation"><a href="{% url 'submission_form:upload' %}">アップロード</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:upload_index' %}">HOME</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:upload_form' %}">アップロード</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:task_index' %}">課題リスト</a></li>
               </ul>
             </li>
 
