@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
   url(r'^$', views.TaskHomeView.as_view(), name = 'index'),
-  url(r'^upload/$', views.UploadFilesView.as_view(), name = 'upload')
+  url(r'^upload/form/$', views.UploadFilesView.as_view(), name = 'upload_form'),
+  url(r'^upload/$', views.UploadList.as_view(), name = 'upload_index')
 ]

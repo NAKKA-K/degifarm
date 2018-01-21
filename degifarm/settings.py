@@ -159,7 +159,7 @@ STATICFILES_DIRS = (
 
 DEBUG = False
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 try:
   from .local_settings import *
