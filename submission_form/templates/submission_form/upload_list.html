@@ -1,0 +1,53 @@
+{% extends "submission_form/base.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
+
+{% block contents %}
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">ホーム</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li class="active"><a href="#">ホーム</a></li>
+  </ol>
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-3">
+      <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
+      <ul style="font-size:140%;">
+        {% for class in classification %}
+          <li><a href=""> {{ class.name }}</a></li>
+        {% empty %}
+          <li><a href="{% url 'submission_form:index' %}"> 分類がありません</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-9">
+      <h1 class="page-header">提出物</h1>
+
+      <table class="table table-striped">
+        <thead>
+          <tr bgcolor="#000000">
+            <th><font color="#FFFFF">科目</th>
+            <th><font color="#FFFFF">ファイル名</th>
+            <th><font color="#FFFFF">更新日</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for file in upload_list %}
+            <tr><td>{{ file.classification_id }}</td><td>{{ file.name }}</td><td>{{ file.published_date }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+{% endblock contents %}
