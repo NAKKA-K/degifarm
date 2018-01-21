@@ -21,7 +21,7 @@ class TaskHomeView(LoginRequiredMessageMixin, TemplateView):
 class UploadFilesView(LoginRequiredMessageMixin, FormView):
   form_class = UploadFilesForm
   template_name = 'submission_form/upload_file.html'
-  success_url = reverse_lazy('submission_form:upload') # urlsの項目からURLを生成するメソッド
+  success_url = reverse_lazy('submission_form:upload_index') # urlsの項目からURLを生成するメソッド
 
   def post(self, request, *args, **kwargs):
     form_class = self.get_form_class()
@@ -31,9 +31,7 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
       file_uploader = FileUploader(files)
       file_uploader.handle_uploaded_files()
 
-      return render(request, 'submission_form/upload_success.html', { # アップロード完了ページに遷移
-        'files_list': file_uploader.files_path_list,
-      })
+      return self.form_valid(form)
     else:
       return self.form_invalid(form)
 
