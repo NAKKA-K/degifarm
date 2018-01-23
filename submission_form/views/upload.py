@@ -41,6 +41,10 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
   template_name = 'submission_form/upload_file.html'
   success_url = reverse_lazy('submission_form:upload_index') # urlsの項目からURLを生成するメソッド
 
+  def get_form(self, form_class = None):
+     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
+     return UploadFilesForm(org_id = user_info.organization_id) 
+
   def post(self, request, *args, **kwargs):
     form_class = self.get_form_class()
     form = self.get_form(form_class)
@@ -49,10 +53,10 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
     if form.is_valid():
       file_uploader = FileUploader(files, class_id, request.user)
       file_uploader.handle_uploaded_files()
-
       return self.form_valid(form)
     else:
       return self.form_invalid(form)
+
 
 # メモリ展開されたバイトデータを文字列に変換する
 def read_file(file_source):
