@@ -54,7 +54,6 @@ class Submission(models.Model):
   name = models.CharField(max_length = 64)
   published_date = models.DateTimeField(default = timezone.now, editable = False)
   path = models.CharField(max_length = 255)
-  # TODO: 権限をどうするか？
 
   def __str__(self):
     return self.name
@@ -68,9 +67,9 @@ class Distribution(models.Model):
   name = models.CharField(max_length = 64)
   published_date = models.DateTimeField(default = timezone.now, editable = False)
   path = models.CharField(max_length = 255)
-  # TODO: 権限をどうするか？
 
   def __str__(self):
     return self.name
+
 
 
