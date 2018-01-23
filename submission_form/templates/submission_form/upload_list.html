@@ -8,11 +8,13 @@
 
 {% block contents %}
   <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">ホーム</h1>
+    <h1 class="text-center">提出リスト</h1>
   </div>
 
   <ol class="breadcrumb">
-    <li class="active"><a href="#">ホーム</a></li>
+    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li>
+    <li class="active"><a href="{% url 'submission_form:upload_index' %}">提出リスト</a></li>
   </ol>
 
 
