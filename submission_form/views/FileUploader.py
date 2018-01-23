@@ -1,7 +1,9 @@
 # django module
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 # app module
+from submission_form.models import Organization, Classification, Student, Teacher, Submission
 
 # lib
 import mimetypes
@@ -12,11 +14,13 @@ class FileUploader(object):
   """
   UploadFileオブジェクトのリストを受け取って、色々処理してくれるクラス。
   """
-  def __init__(self, files, user = '__TMP__'):
+  def __init__(self, files, class_id, user = '__TMP__'):
     self.files = files
-    self.files_path_list = []
     self.user = user
     self.files_dir = '{}{}/'.format(settings.MEDIA_ROOT, user) # TODO:後に課題ごとなどにディレクトリをまとめる可能性あり
+    self.class_id = class_id
+    self.set_user_info()
+
 
   def handle_uploaded_files(self):
     """
@@ -27,11 +31,23 @@ class FileUploader(object):
     for f in self.files:
       file = self.UploadFileHandler(f, self.files_dir)
       file.handle_uploaded_file()
-      self.files_path_list.append(file.get_full_path())
+      file.add_object_to_model(self.org_id, self.user, self.class_id)
 
   def make_dir(self):
     if not os.path.exists(self.files_dir):
       os.makedirs(self.files_dir)
+
+  def set_user_info(self):
+    # userの追加情報を取得(生徒か先生かわからないため、両方で取得を試みる)
+    try:
+      user_info = Student.objects.get(user = self.user)
+    except Student.DoesNotExist:
+      try:
+        user_info = Teacher.objects.get(user = self.user)
+      except Teacher.DoesNotExist:
+        user_info = None
+
+    self.org_id = user_info.organization_id
 
   
   class UploadFileHandler(object):
@@ -57,4 +73,13 @@ class FileUploader(object):
       
     def get_mime_types(self):
       return mimetypes.guess_type(self.get_full_path())
+
+    def add_object_to_model(self, org_id, user, class_id):
+      Submission.objects.create(
+        organization_id = get_object_or_404(Organization, pk = org_id.id),
+        user_id = user,
+        classification_id = get_object_or_404(Classification, pk = class_id),
+        name = self.file.name,
+        path = self.get_full_path()
+      )
 
