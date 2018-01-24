@@ -39,7 +39,9 @@
             </thead>
             <tbody>
               {% for task in task_list %}
-                <tr><td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>未</td></tr>
+                <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
+                  <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>未</td>
+                </tr>
               {% endfor %}
 
               <tr><td>C</td><td>ckadai03-1.c</td><td>2017/11/21</td><td>済</td></tr>
@@ -53,3 +55,7 @@
     </div>
 {% endblock contents %}
 
+
+{% block script %}
+  <script src="{% static 'js/data-href.js' %}"></script> 
+{% endblock script %}
