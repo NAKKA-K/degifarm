@@ -1,0 +1,58 @@
+{% extends "submission_form/base.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
+
+
+{% block contents %}
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">ホーム</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li>
+    <li class="active"><a href="#">課題詳細</a></li>
+  </ol>
+
+
+  <div style="font-size: 18px;">
+
+    <h2>{{ task.name }}
+      <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_edit' pk=task.pk %}">
+        <span title="Edit" class="glyphicon glyphicon-pencil"></span>
+      </a>
+      <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_delete' pk=task.pk %}">
+        <span title="Delete" class="glyphicon glyphicon-remove"></span>
+      </a>
+    </h2>
+      
+
+    {% if task.published_date %}
+      <p>公開日: {{ task.published_date }}</p>
+    {% else %}
+      <p>公開日: 未公開</p>
+    {% endif %}
+
+    <p>作成者: {{ task.user_id }}<p>
+    <Hr>
+    <h3>提出期限: </h3>
+    <p>{{ task.deadline }}</p>
+    <h3>提出ファイル: </h3>
+    <p>{{ task.name }}</p>
+    <h3>説明: </h3>
+    <p>{{ task.text }}</p>
+
+  </div>
+
+{% endblock contents%}
+
+
+{% block script %}
+
+{% endblock script %}
+
+
