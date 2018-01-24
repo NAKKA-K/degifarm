@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
+from django.utils import timezone
 
 # app module
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
@@ -24,7 +25,7 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
     try:
       if user_info is None:
         raise Task.DoesNotExist
-      return Task.objects.filter(organization_id = user_info.organization_id)
+      return Task.objects.filter(organization_id = user_info.organization_id).filter(published_date__lte = timezone.now())
     except Task.DoesNotExist:
       return None
 
@@ -38,6 +39,7 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
     return context
 
 
+# TODO: 先生しかアクセスできないようにする
 class TaskCreateView(LoginRequiredMessageMixin, CreateView):
   model = Task
   fields = ['classification_id', 'name', 'text', 'deadline']
