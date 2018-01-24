@@ -8,4 +8,7 @@ urlpatterns = [
 
   # 先生のみアクセス可
   url(r'^task/create/$', views.TaskCreateView.as_view(), name = 'task_create'),
+  url(r'^task/(?P<pk>[0-9]+)/$', views.TaskDetailView.as_view(), name = 'task_detail'),
+  url(r'^task/(?P<pk>[0-9]+)/edit/$', views.TaskEditView.as_view(), name = 'task_edit'),
+  url(r'^task/(?P<pk>[0-9]+)/delete/$', views.TaskDeleteView.as_view(), name = 'task_delete'),
 ]
