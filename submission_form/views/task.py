@@ -52,4 +52,8 @@ class TaskCreateView(LoginRequiredMessageMixin, CreateView):
     task.save()
     return super().form_valid(form)
 
+class TaskDetailView(LoginRequiredMessageMixin, DetailView):
+  model = Task
+  template_name = 'submission_form/task_detail.html' 
+
 
