@@ -32,24 +32,27 @@
       </div>
 
       <div class="col-xs-12 col-sm-9">
-        <h1 class="page-header">出題中の課題</h1>
-          <table class="table table-striped">
-            <thead>
-              <tr><th>科目</th><th>課題名</th><th>期限</th><th>状況</th></tr>
-            </thead>
-            <tbody>
-              {% for task in task_list %}
-                <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
-                  <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>未</td>
-                </tr>
-              {% endfor %}
+        <h1 class="page-header">出題中の課題
+          {% if is_teacher %}
+            <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_create' %}">
+              <span title="New Task" class="glyphicon glyphicon-plus"> 課題の追加</span>
+            </a>
+          {% endif %}
+        </h1>
 
-              <tr><td>C</td><td>ckadai03-1.c</td><td>2017/11/21</td><td>済</td></tr>
-              <tr><td>C</td><td>ckadai03-2.c</td><td>2017/11/21</td><td>済</td></tr>
-              <tr><td>Java</td><td>Javakadai011.java</td><td>2017/11/25</td><td>済</td></tr>
-              <tr><td>Java</td><td>Diary.java</td><td>2017/11/25</td><td>未</td></tr>
-            </tbody>
-          </table>
+        <table class="table table-striped">
+          <thead>
+            <tr><th>科目</th><th>課題名</th><th>期限</th><th>状況</th></tr>
+          </thead>
+          <tbody>
+            {% for task in task_list %}
+              <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
+                <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>未</td>
+              </tr>
+            {% endfor %}
+         </tbody>
+        </table>
+
       </div>
 
     </div>
