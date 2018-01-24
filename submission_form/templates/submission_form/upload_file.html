@@ -69,5 +69,14 @@
       });
     });
   </script>
+
+
+  <!-- URLのパラメータにclassificationの値が含まれている場合、セレクトボックスの値を自動的に選択する -->
+  <script>
+    const params = location.search.substring(1).split('&');
+    const item = params[0].split('=');
+
+    document.getElementById('id_classification').selectedIndex = item[1];
+  </script>
 {% endblock script %}
 

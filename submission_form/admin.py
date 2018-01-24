@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 # app module
-from .models import Organization, Sex, Group, Classification, Student, Submission, Teacher, Distribution
+from .models import Organization, Sex, Group, Classification, Student, Submission, Teacher, Distribution, Task
 from .models import User
 
 # lib
@@ -69,6 +69,9 @@ class TeacherAdmin(admin.ModelAdmin):
 class DistributionAdmin(admin.ModelAdmin):
   list_display = ('organization_id', 'user_id', 'path', 'published_date', )
 
+class TaskAdmin(admin.ModelAdmin):
+  list_display = ('organization_id', 'user_id', 'name', 'deadline',)
+
 
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Sex, SexAdmin)
@@ -78,4 +81,4 @@ admin.site.register(Student, StudentAdmin)
 admin.site.register(Submission, SubmissionAdmin)
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Distribution, DistributionAdmin)
-
+admin.site.register(Task, TaskAdmin)

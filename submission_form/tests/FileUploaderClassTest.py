@@ -5,7 +5,7 @@ from django.core.files.base import File
 
 # app module
 from submission_form.views.FileUploader import FileUploader
-from submission_form.models import User
+from submission_form.models import User, Organization, Group, Sex, Student, Classification
 
 # lib
 import os
@@ -15,7 +15,12 @@ from PIL import Image
 
 class FileUploderClassTest(TestCase):
   def setUp(self):
-    User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+    self.user = User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+    org = Organization.objects.create(name = 'test org')
+    group = Group.objects.create(organization_id = org, name = 'test group')
+    sex = Sex.objects.create(name = '男性')
+    Student.objects.create(user = self.user, organization_id = org, group_id = group, sex_id = sex)
+    self.classes = Classification.objects.create(organization_id = org, name = 'test class')
 
     # Generate test files
     self.upload_file_instances = []
@@ -42,25 +47,33 @@ class FileUploderClassTest(TestCase):
 
   def test_file_uploder(self):
     # File upload
-    file_uploader = FileUploader(self.upload_file_instances)
+    file_uploader = FileUploader(self.upload_file_instances, self.classes.id, self.user)
     file_uploader.handle_uploaded_files()
     
     # Exist files?
-    for file_path in file_uploader.files_path_list:
+    for file_path in ['test.txt', 'test.png']:
+      file_path = file_uploader.files_dir + file_path
       if os.path.exists(file_path):
         os.remove(file_path)
       else:
         self.fail('ファイルが保存されていません')
 
+    import shutil
+    shutil.rmtree(file_uploader.files_dir)
+   
+
   def test_upload_page(self):
     client = self.client
     client.login(email = 'test@test.com', password = 'testpass1')
 
+    self.assertEqual(client.get('/submission_form/upload/form/').status_code, 200)
+
     data = {
+      'classification': self.classes,
       'files': self.upload_file_instances
     }
     
-    response = client.post('/submission_form/upload/', data)
+    response = client.post('/submission_form/upload/form/', data)
     self.assertEqual(response.status_code, 200)
 
 

@@ -31,7 +31,8 @@ class UploadList(LoginRequiredMessageMixin, ListView):
 
     # userにリーレーションされるStudentかTeacherのレコードを取得する
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
+    if user_info is not None:
+      context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
     return context
 
 

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
+
+{% block nav_submission_form %}active{% endblock %}
+
+
+{% block contents %}
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">課題編集</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li>
+    <li class="active"><a href="#">課題編集</a></li>
+  </ol>
+
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-lg">
+        {% bootstrap_icon "pencil" %} 更新
+      </button>
+    </div>
+  </form>
+
+{% endblock contents%}
+
+
+{% block script %}
+
+{% endblock script %}
+
+

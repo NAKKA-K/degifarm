@@ -1,0 +1,75 @@
+{% extends "submission_form/base.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
+
+
+{% block contents %}
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">ホーム</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li>
+    <li class="active"><a href="#">課題詳細</a></li>
+  </ol>
+
+
+  <div style="font-size: 18px;">
+
+      
+    {% url 'submission_form:task_detail' pk=task.pk as detail_url %}
+    {% url 'submission_form:task_delete' pk=task.pk as delete_url %}
+    {% if request.path == detail_url %}
+      <h2>{{ task.name }}
+        <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_edit' pk=task.pk %}">
+          <span title="Edit" class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_delete' pk=task.pk %}">
+          <span title="Delete" class="glyphicon glyphicon-trash"></span>
+        </a>
+      </h2>
+    {% elif request.path == delete_url %}
+      <div style="margin-bottom: 100px;"><form action="" method="POST">
+        {% csrf_token %}
+        <p><strong>{{ object.name }}</strong>を削除してもよろしいですか？</p>
+        <button type="submit" class="btn btn-danger">
+          {% bootstrap_icon "trash" %} 削除
+        </button>
+        <a class="btn btn-default" href="javascript:void(0);" onclick="window.history.back();">
+          {% bootstrap_icon "remove" %} キャンセル 
+        </a>
+      </form></div>
+    {% endif %}
+
+
+
+    {% if task.published_date %}
+      <p>公開日: {{ task.published_date }}</p>
+    {% else %}
+      <p>公開日: 未公開</p>
+    {% endif %}
+
+    <p>作成者: {{ task.user_id }}<p>
+    <Hr>
+    <h3>提出期限: </h3>
+    <p>{{ task.deadline }}</p>
+    <h3>提出ファイル: </h3>
+    <p>{{ task.name }}</p>
+    <h3>説明: </h3>
+    <p>{{ task.text }}</p>
+
+  </div>
+
+{% endblock contents%}
+
+
+{% block script %}
+
+{% endblock script %}
+
+

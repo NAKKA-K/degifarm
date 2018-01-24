@@ -9,12 +9,12 @@
 
 {% block contents %}
     <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header1.jpg' %}); background-size:1150px 420px;">
-      <h1 class="text-center">課題提出</h1>
+      <h1 class="text-center">課題ホーム</h1>
     </div>
 
     <ol class="breadcrumb">
       <li><a href="{% url 'index' %}">ホーム</a></li>
-      <li class="active"><a href="{% url 'submission_form:upload_index' %}">課題提出</li>
+      <li class="active"><a href="{% url 'submission_form:upload_index' %}">課題ホーム</li>
     </ol>
 
 
@@ -23,28 +23,42 @@
       <div class="col-xs-12 col-sm-3">
         <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
         <ul style="font-size:140%;">
-          <li class="active"><a href="#"> C</a></li>
-          <li ><a href="#" > Java</a></li>
-          <li><a href="#"> Visual Basic</a></li>
-          <li><a href="#"> Network</a></li>
+          {% for class in classification %}
+            <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
+          {% empty %}
+            <li><a href="{% url 'submission_form:upload_form' %}"> 分類がありません</a></li>
+          {% endfor %}
         </ul>
       </div>
 
       <div class="col-xs-12 col-sm-9">
-        <h1 class="page-header">出題中の課題</h1>
-          <table class="table table-striped">
-            <thead>
-              <tr><th>科目</th><th>課題名</th><th>期限</th><th>状況</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>C</td><td>ckadai03-1.c</td><td>2017/11/21</td><td>済</td></tr>
-              <tr><td>C</td><td>ckadai03-2.c</td><td>2017/11/21</td><td>済</td></tr>
-              <tr><td>Java</td><td>Javakadai011.java</td><td>2017/11/25</td><td>済</td></tr>
-              <tr><td>Java</td><td>Diary.java</td><td>2017/11/25</td><td>未</td></tr>
-            </tbody>
-          </table>
+        <h1 class="page-header">出題中の課題
+          {% if is_teacher %}
+            <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_create' %}">
+              <span title="New Task" class="glyphicon glyphicon-plus"> 課題の追加</span>
+            </a>
+          {% endif %}
+        </h1>
+
+        <table class="table table-striped">
+          <thead>
+            <tr><th>科目</th><th>課題名</th><th>期限</th><th>状況</th></tr>
+          </thead>
+          <tbody>
+            {% for task in task_list %}
+              <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
+                <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>未</td>
+              </tr>
+            {% endfor %}
+         </tbody>
+        </table>
+
       </div>
 
     </div>
 {% endblock contents %}
 
+
+{% block script %}
+  <script src="{% static 'js/data-href.js' %}"></script> 
+{% endblock script %}
