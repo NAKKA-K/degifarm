@@ -21,15 +21,32 @@
 
   <div style="font-size: 18px;">
 
-    <h2>{{ task.name }}
-      <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_edit' pk=task.pk %}">
-        <span title="Edit" class="glyphicon glyphicon-pencil"></span>
-      </a>
-      <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_delete' pk=task.pk %}">
-        <span title="Delete" class="glyphicon glyphicon-remove"></span>
-      </a>
-    </h2>
       
+    {% url 'submission_form:task_detail' pk=task.pk as detail_url %}
+    {% url 'submission_form:task_delete' pk=task.pk as delete_url %}
+    {% if request.path == detail_url %}
+      <h2>{{ task.name }}
+        <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_edit' pk=task.pk %}">
+          <span title="Edit" class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_delete' pk=task.pk %}">
+          <span title="Delete" class="glyphicon glyphicon-trash"></span>
+        </a>
+      </h2>
+    {% elif request.path == delete_url %}
+      <div style="margin-bottom: 100px;"><form action="" method="POST">
+        {% csrf_token %}
+        <p><strong>{{ object.name }}</strong>を削除してもよろしいですか？</p>
+        <button type="submit" class="btn btn-danger">
+          {% bootstrap_icon "trash" %} 削除
+        </button>
+        <button type="reset" class="btn btn-default">
+          {% bootstrap_icon "remove" %} キャンセル 
+        </button>
+      </form></div>      
+    {% endif %}
+
+
 
     {% if task.published_date %}
       <p>公開日: {{ task.published_date }}</p>
