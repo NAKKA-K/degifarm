@@ -37,7 +37,7 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
     if user_info is not None:
       context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
-      context['is_teacher'] = StudentOrTeacherGetter.is_teacher(request.user)
+      context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
 
     return context
 
