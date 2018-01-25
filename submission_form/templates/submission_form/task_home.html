@@ -1,5 +1,6 @@
 {% extends "submission_form/base.html" %}
 {% load static %}
+{% load index %}
 
 
 {% block head %}
@@ -47,7 +48,7 @@
         <tbody>
           {% for task in task_list %}
             <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
-              <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>未</td>
+              <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>{{ status_list | index:forloop.counter0 }}</td>
             </tr>
           {% endfor %}
        </tbody>
