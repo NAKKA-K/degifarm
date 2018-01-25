@@ -76,4 +76,12 @@ class FileUploderClassTest(TestCase):
     response = client.post('/submission_form/upload/form/', data)
     self.assertEqual(response.status_code, 200)
 
+  def test_upload_page(self):
+    user = User.objects.create_user(email = 'test@test.jp', password = 'testpass1')
+
+    client = self.client
+    client.login(email = 'test@test.jp', password = 'testpass1')
+
+    self.assertEqual(client.get('/submission_form/upload/form/').status_code, 200)
+
 
