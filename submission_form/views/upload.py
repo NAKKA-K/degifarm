@@ -43,8 +43,11 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
   success_url = reverse_lazy('submission_form:upload_index') # urlsの項目からURLを生成するメソッド
 
   def get_form(self, form_class = None):
-     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-     return UploadFilesForm(org_id = user_info.organization_id) 
+    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
+    if user_info is None:
+      return UploadFilesForm()   
+
+    return UploadFilesForm(org_id = user_info.organization_id) 
 
   def post(self, request, *args, **kwargs):
     form_class = self.get_form_class()
