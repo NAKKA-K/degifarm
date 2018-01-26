@@ -41,7 +41,7 @@ a.home_link:hover{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100vw;
-  height: 98vh;
+  height: 100vh;
   text-align: center;
 }
 
@@ -56,6 +56,12 @@ img.title {
 }
 
 @media screen and (max-width:479px){
+  .header_bottom {
+    margin-top: 0px;
+    padding-top: 50px;
+    position: relative;
+  }
+
   img.sample {
     width: 100vw;
     height: 40vh;
