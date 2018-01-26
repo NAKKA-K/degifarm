@@ -3,27 +3,8 @@
 
 
 {% block head %}
-  <style type="text/css">
-    a.home_link{
-      display: block;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      margin: 0 auto;
-
-      width: 120px;
-      background: #337AB7;
-
-      text-align: center;
-      color: #FFF;
-      font-size:1.5em;
-    }
-
-    a.home_link:hover{
-      background: #2060A0;
-
-      color: #FFF;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/scroll_down.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
 
 
@@ -32,12 +13,50 @@
 
 {% block contents %}
   {% if not user.is_authenticated %}
-    <h1 class="text-center">Hello! Here is Degifarm!</h1>
-    <!-- TODO: ログイン用のボタンを表示させる(Googleのサイトを参考に) -->
+  <div id="ascensor">
 
-    <a class="home_link" href="{% url 'login' %}">LOGIN</a>
+
+    <div id="main_page" class="header_bottom">
+      <section id="section1">
+      <!-- TODO: ログイン用のボタンを表示させる(Googleのサイトを参考に) 
+      <div class="jumbotron" style="background:url({% static 'images/degi.png' %}); background-size:1150px 420px;">
+        <h1 class="text-center">でじふぁーむ。</h1>
+      </div>
+      -->
+      <div class="title_logo">
+        <img src="{% static 'images/degi.png' %}" class="title" alt="でじふぁーむ。">
+      </div>
+
+      <div class="text-center" style="font-size: 18px;">
+        <h2>みんなで、どこでも提出できる課題管理ツール</h2>
+        <p>課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
+        <p><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
+      </div>
+
+      <div style="padding-top: 15px;"></div>
+      <a class="home_link" href="{% url 'login' %}">LOGIN</a>
+      </section>
+    </div>
+
+
+    <div id="status_page" class="header_bottom">
+      <section id="section2">
+      <div class="block_center" style="font-size: 18px; background: #E7EAEF;">
+        <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面">
+        <h1>時間、人材、費用のすべてを削減できます</h1>
+        <p>提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
+
+        <div style="padding-top: 15px;"></div>
+        <a class="home_link" href="{% url 'login' %}">サービスを始める</a>
+      </div>
+      </section>
+    </div>
+
+
+  </div>
 
   {% else %}
+
     <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
       <h1 class="text-center">ホーム</h1>
     </div>
@@ -85,5 +104,10 @@
 
 
 {% block script %}
+  <script src="{% static 'js/Ascensor.js' %}"></script>
+  <script>
+    $('#ascensor').ascensor();
+  </script>
 
+  <script src="{% static 'js/scroll_down.js' %}"></script>
 {% endblock script %}
