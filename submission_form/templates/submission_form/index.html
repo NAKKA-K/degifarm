@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load index %}
 
 
 {% block head %}
@@ -17,13 +18,7 @@
 
 
     <div id="main_page" class="header_bottom">
-      <section id="section1">
-      <!-- TODO: ログイン用のボタンを表示させる(Googleのサイトを参考に) 
-      <div class="jumbotron" style="background:url({% static 'images/degi.png' %}); background-size:1150px 420px;">
-        <h1 class="text-center">でじふぁーむ。</h1>
-      </div>
-      -->
-      <div class="title_logo">
+      <div class="title_logo" style="margin-top:30px;">
         <img src="{% static 'images/degi.png' %}" class="title" alt="でじふぁーむ。">
       </div>
 
@@ -35,21 +30,18 @@
 
       <div style="padding-top: 15px;"></div>
       <a class="home_link" href="{% url 'login' %}">LOGIN</a>
-      </section>
     </div>
 
 
     <div id="status_page" class="header_bottom">
-      <section id="section2">
       <div class="block_center" style="font-size: 18px; background: #E7EAEF;">
         <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面">
         <h1>時間、人材、費用のすべてを削減できます</h1>
         <p>提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
 
         <div style="padding-top: 15px;"></div>
-        <a class="home_link" href="{% url 'login' %}">サービスを始める</a>
+        <a class="home_link" href="{% url 'service_start' %}">サービスを始める</a>
       </div>
-      </section>
     </div>
 
 
@@ -69,16 +61,24 @@
     <div class="row">
 
       <div class="col-xs-12 col-sm-3">
-        <h1 class="page-header text-center" style="font-size:130%;">今月の出欠率</h1>
+        <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
         <ul style="font-size:140%;">
-          <center>75%</center>
-
-        <input type="text" id="colname">
+          {% for class in classification %}
+            <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
+          {% empty %}
+            <li><a href="{% url 'submission_form:upload_form' %}"> 分類がありません</a></li>
+          {% endfor %}
         </ul>
       </div>
 
       <div class="col-xs-12 col-sm-9">
-        <h1 class="page-header">1週間以内の提出物</h1>
+        <h1 class="page-header">1週間以内の未提出物
+          {% if is_teacher %}
+            <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_create' %}">
+              <span title="New Task" class="glyphicon glyphicon-plus"> 課題の追加</span>
+            </a>
+          {% endif %}
+        </h1>
 
         <table class="table table-striped">
           <thead>
@@ -86,9 +86,19 @@
               <th><font color="#FFFFF">科目</th>
               <th><font color="#FFFFF">課題名</th>
               <th><font color="#FFFFF">期限</th>
-              <th><font color="#FFFFF">状況</th></font></tr>
+            </tr>
           </thead>
           <tbody>
+            {% for task in task_list %}
+              {% with status=status_list|index:forloop.counter0 %}
+                {% if status == '未' %}
+                  <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
+                    <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td>
+                  </tr>
+                {% endif %}
+              {% endwith %}
+            {% endfor %}
+
             <tr class="danger"><td>Java</td><td>Javakadai011.java</td><td>2017/12/08</td><td>未</td></tr>
             <tr class="warning"><td>Java</td><td>Diary.java</td><td>2017/12/11</td><td>未</td></tr>
             <tr><td>C</td><td>ckadai03-1.c</td><td>2017/12/12</td><td>済</td></tr>
