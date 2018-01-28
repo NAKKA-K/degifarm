@@ -1,29 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load index %}
 
 
 {% block head %}
-  <style type="text/css">
-    a.home_link{
-      display: block;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      margin: 0 auto;
-
-      width: 120px;
-      background: #337AB7;
-
-      text-align: center;
-      color: #FFF;
-      font-size:1.5em;
-    }
-
-    a.home_link:hover{
-      background: #2060A0;
-
-      color: #FFF;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
 
 
@@ -32,12 +13,41 @@
 
 {% block contents %}
   {% if not user.is_authenticated %}
-    <h1 class="text-center">Hello! Here is Degifarm!</h1>
-    <!-- TODO: ログイン用のボタンを表示させる(Googleのサイトを参考に) -->
+  <div id="ascensor">
 
-    <a class="home_link" href="{% url 'login' %}">LOGIN</a>
+
+    <div id="main_page" class="header_bottom">
+      <div class="title_logo" style="margin-top:30px;">
+        <img src="{% static 'images/degi.png' %}" class="title" alt="でじふぁーむ。">
+      </div>
+
+      <div class="text-center" style="font-size: 18px;">
+        <h2>みんなで、どこでも提出できる課題管理ツール</h2>
+        <p>課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
+        <p><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
+      </div>
+
+      <div style="padding-top: 15px;"></div>
+      <a class="home_link" href="{% url 'login' %}">LOGIN</a>
+    </div>
+
+
+    <div id="status_page" class="header_bottom">
+      <div class="block_center" style="font-size: 18px; background: #E7EAEF;">
+        <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面">
+        <h1>時間、人材、費用のすべてを削減できます</h1>
+        <p>提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
+
+        <div style="padding-top: 15px;"></div>
+        <a class="home_link" href="{% url 'service_start' %}">サービスを始める</a>
+      </div>
+    </div>
+
+
+  </div>
 
   {% else %}
+
     <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
       <h1 class="text-center">ホーム</h1>
     </div>
@@ -50,16 +60,24 @@
     <div class="row">
 
       <div class="col-xs-12 col-sm-3">
-        <h1 class="page-header text-center" style="font-size:130%;">今月の出欠率</h1>
+        <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
         <ul style="font-size:140%;">
-          <center>75%</center>
-
-        <input type="text" id="colname">
+          {% for class in classification %}
+            <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
+          {% empty %}
+            <li><a href="{% url 'submission_form:upload_form' %}"> 分類がありません</a></li>
+          {% endfor %}
         </ul>
       </div>
 
       <div class="col-xs-12 col-sm-9">
-        <h1 class="page-header">1週間以内の提出物</h1>
+        <h1 class="page-header">1週間以内の未提出課題
+          {% if is_teacher %}
+            <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_create' %}">
+              <span title="New Task" class="glyphicon glyphicon-plus"> 課題の追加</span>
+            </a>
+          {% endif %}
+        </h1>
 
         <table class="table table-striped">
           <thead>
@@ -67,14 +85,21 @@
               <th><font color="#FFFFF">科目</th>
               <th><font color="#FFFFF">課題名</th>
               <th><font color="#FFFFF">期限</th>
-              <th><font color="#FFFFF">状況</th></font></tr>
+            </tr>
           </thead>
           <tbody>
-            <tr class="danger"><td>Java</td><td>Javakadai011.java</td><td>2017/12/08</td><td>未</td></tr>
-            <tr class="warning"><td>Java</td><td>Diary.java</td><td>2017/12/11</td><td>未</td></tr>
-            <tr><td>C</td><td>ckadai03-1.c</td><td>2017/12/12</td><td>済</td></tr>
+            {% for task in task_list %}
+              {% with status=status_list|index:forloop.counter0 %}
+                {% if status == '未' %}
+                  <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}" class="danger">
+                    <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td>
+                  </tr>
+                {% endif %}
+              {% endwith %}
+            {% endfor %}
           </tbody>
         </table>
+
       </div>
 
     </div>
@@ -85,5 +110,10 @@
 
 
 {% block script %}
+  <script src="{% static 'js/Ascensor.js' %}"></script>
+  <script>
+    $('#ascensor').ascensor();
+  </script>
 
+  <script src="{% static 'js/data-href.js' %}"></script> 
 {% endblock script %}

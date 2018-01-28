@@ -47,7 +47,7 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
     しかし、djangoのqueryの仕様上、どう書けばよいのか不明だったため後回しとする。
     """
     # データ量削減のためにnameだけを取得し、userだけに絞る
-    submission = Submission.objects.values_list('name', flat = True).filter(user_id = self.request.user)
+    submission = Submission.objects.filter(user_id = self.request.user)
 
     status_list = []
     for task in context['task_list']:
@@ -56,7 +56,7 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
         next
 
       for sub in submission:
-        if task.name == sub:
+        if task.classification_id == sub.classification_id and task.name == sub.name:
           status_list.append('済')
           break
         else:

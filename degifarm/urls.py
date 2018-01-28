@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name = 'registration/login.html'), name = 'login'),
     url(r'^accounts/logout/$', auth_views.LogoutView.as_view(next_page = 'index'), name = 'logout'),
 
+    url(r'^accounts/$', auth_views.LoginView.as_view(template_name = 'registration/login.html'), name = 'service_start'),
+
     url(r'^$', views.IndexView.as_view(), name = 'index'),
     url(r'^submission_form/', include('submission_form.urls', namespace = 'submission_form')),
 ]
