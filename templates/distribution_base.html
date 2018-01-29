@@ -5,15 +5,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --> <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
     <title>でじふぁーむ。</title>
 
     {% block head %}{% endblock head %}
-
+    <!-- Sweet Alert CSS -->
+    <!--<link rel="stylesheet" type="text/css" href="{@% static 'css/sweetalert.css' %}">
+    <link rel="stylesheet" type="text/css" href="{@% static 'css/css/icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{@% static 'css/css/buttons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{@% static 'css/css/content.css' %}">
+    <link rel="stylesheet" type="text/css" href="{@% static 'css/css/text.css' %}">-->
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap3/css/bootstrap.min.css' %}" rel="stylesheet"/>
     <style type="text/css">
@@ -21,6 +25,7 @@
        padding-top: 50px;
       }
     </style>
+    
 
   </head>
 
@@ -65,16 +70,31 @@
               </ul>
             </li>
 
-
+                        
             <!--プルダウンのダウンロード-->
             <li role="presentation" class="dropdown {% block nav_download %}{% endblock nav_download %}">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> ダウンロード <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><a href="">HOME</a><li>
-                <li role="presentation"><a href="">配布</a></li>
-                <li role="presentation"><a href="">配布資料アップロード</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:dist_index' %}">配布</a></li>
+
+               {% if category_pk %}
+                  <li role="presentation"><a href="{% url 'submission_form:dist_create' category_pk%}">配布物アップロード</a></li>      
+               {% else %}
+                  <li role="presentation"><a href="{% url 'submission_form:dist_create' %}"> 配布物アップロード</a>
+               {% endif %}
+
               </ul>
             </li>
+           
+            <!--プルダウンのカテゴリ-->
+            <li role="presentation" class="dropdown {% block nav_category %}{% endblock nav_category %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span>  カテゴリ設定 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="{% url 'submission_form:category_index' %}">カテゴリ一覧</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:category_create' %}">カテゴリ追加</a></li>
+              </ul>
+            </li>
+               
 
             <!-- 開発時のショートカット用 -->
             <li><a href="{% url 'admin:index' %}">admin</a></li>
@@ -96,8 +116,13 @@
 
       </div>
     </nav>
-
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>-->
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+   <!-- <link rel="stylesheet" type="text/css" href="{@% static 'css/sweetalert.css' %}">-->
+   <!-- <script src="{@% static 'js/sweetalert.min.js' %}"></script>-->
+   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+   // import swal from 'sweetalert';
     $('.delete').on('click',function(e){
         e.preventDefault();
         var form = $(this).parents('form');
@@ -114,8 +139,7 @@
             if (isConfirm) form.submit();
         });
     });
-    </script>
-
+    </script>-->
 
     <div class="container">
 
@@ -134,9 +158,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
-    <!-- Sweet Alert -->
-    <script src="https://torina.top/media/sweetalert/sweetalert.min.js"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {% block script %}{% endblock script %}
   </body>
