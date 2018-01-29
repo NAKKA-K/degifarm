@@ -50,7 +50,7 @@ class SiteGetTest(TestCase):
 
     # 生徒は入れない
     client.login(email = 'test@test.com', password = 'testpass1')
-    self.assertEqual(client.get('/accounts/create/').status_code, 302)
+    self.assertEqual(client.get('/accounts/create/').status_code, 404)
 
     # 先生は入れる
     client.login(email = 'test@test.teacher', password = 'testpass1')
