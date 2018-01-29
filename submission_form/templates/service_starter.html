@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
+
+
+{% block contents %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form org_form %}
+    {% bootstrap_form user_form %}
+    {% bootstrap_form teacher_form %}
+
+    <button type="submit" class="btn btn-primary">サービス開始</button>
+  </form>
+
+{% endblock contents%}
+
+
+{% block script %}
+
+{% endblock script %}
+
+

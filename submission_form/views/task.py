@@ -9,7 +9,7 @@ from django.http import Http404
 # app module
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
-from submission_form.models import Task, Classification, Teacher
+from submission_form.models import Task, Classification, Teacher, Submission
 
 # lib
 
@@ -35,9 +35,35 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
 
     # userにリーレーションされるStudentかTeacherのレコードを取得する
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is not None:
-      context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
-      context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+    if user_info is None:
+      return context
+
+    context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
+    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+
+    """ # TODO:
+    現状、submissionの取得。taskの取得。その後2つのリストを2重ループで比較という処理になっている。
+    同じことをSQL文でleft joinすれば簡単に処理できる。
+    しかし、djangoのqueryの仕様上、どう書けばよいのか不明だったため後回しとする。
+    """
+    # データ量削減のためにnameだけを取得し、userだけに絞る
+    submission = Submission.objects.filter(user_id = self.request.user)
+
+    status_list = []
+    for task in context['task_list']:
+      if not submission:
+        status_list.append('未')
+        next
+
+      for sub in submission:
+        if task.classification_id == sub.classification_id and task.name == sub.name:
+          status_list.append('済')
+          break
+        else:
+          status_list.append('未')
+          break
+    else:
+      context['status_list'] = status_list
 
     return context
 
