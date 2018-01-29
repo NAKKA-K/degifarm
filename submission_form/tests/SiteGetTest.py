@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from submission_form.models import User
+from submission_form.models import User, Organization, Group, Sex, Student, Teacher
 
 class SiteGetTest(TestCase):
   def setUp(self):
@@ -12,7 +12,7 @@ class SiteGetTest(TestCase):
     Student.objects.create(user = student_user, organization_id = org, group_id = group, sex_id = sex)
 
     teacher_user = User.objects.create_user(email = 'test@test.teacher', password = 'testpass1')
-    Teacher.objects.create(user = teacher_user, organization_id = org, group_id = group, sex_id = sex)
+    Teacher.objects.create(user = teacher_user, organization_id = org, sex_id = sex)
     
 
   def test_get_all_page(self):
