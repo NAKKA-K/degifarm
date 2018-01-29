@@ -1,0 +1,85 @@
+{% extends "distribution_base.html" %}
+{% load static %}
+{% block file_page %}active{% endblock %}
+{% block contents %}
+
+
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">配布リスト</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
+  </ol>
+
+   <div class="row">
+    <div class="col-xs-12 col-sm-3">
+      <h1 class="page-header text-center" style="font-size:130%;">#</h1>
+      <ul style="font-size:140%;">
+        {% for class in classification %}
+          <li><a href=""> {{ class.name }}</a></li>
+        {% empty %}
+          <li><a href=""></a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  <div class="col-xs-12 col-sm-9">
+      <h1 class="page-header">配布物</h1>
+
+      <table class="table table-striped">
+        <thead>
+          <tr bgcolor="#000000">
+            <th><font color="#FFFFF">タイトル</th>
+            <th><font color="#FFFFF">ファイル名</th>
+            <th><font color="#FFFFF">分類</th>
+ 
+            <th><font color="#FFFFF">更新日</th>
+             <th><font color="#FFFFF">操作</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+
+
+
+  <div class="container">
+      {% if category_pk %}
+      <a href="{% url 'submission_form:dist_create' category_pk %}" class="btn btn-warning">
+          新規作成
+      </a>
+      {% else %}
+      <a href="{% url 'submission_form:dist_create' %}" class="btn btn-warning">
+          新規作成
+      </a>      
+      {% endif %}
+
+      <hr>
+        {% for file in file_list %}
+          <tr>
+            <td>{{ file.name }}</td>
+            <td>{{ file.name }}</td>
+            <td><a href="{@% url 'submission_form:dist_category' file.dist.pk %}">{{ file.classification.name }}</a></td>
+            <td>{{ file.published_date }}</td>
+            <td>
+            <form method="post">
+              <input type="checkbox" name="check" value="checked" />
+            </form>
+                <a href="" download="{@{ file.get_filename }}" class="btn btn-info btn-sm">
+                  ダウンロード
+                </a>
+
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      
+    </table>
+    <div class="text-center">
+    <a href="" class="btn btn-primary btn-sm">
+          一括ダウンロード
+    </a>
+      {% include "submission_form/page.html" %}
+    </div>
+  </div>
+{% endblock %}

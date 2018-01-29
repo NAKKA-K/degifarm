@@ -1,0 +1,16 @@
+{% extends "distribution_base.html" %}
+{% block file_page %}active{% endblock %}
+{% block contents %}
+
+  <div class="container">
+    <form action="" method="POST" enctype='multipart/form-data'>
+	  <div class="text-center">
+	    <p>タイトル:{{ file.name }}</p>
+	    <p>カテゴリ名:{{ file.category.name }}</p>
+	    <button type="submit" class="btn btn-outline-primary">削除する</button>
+	    <a class="btn btn-primary" href="javascript:void(0);" onclick="window.history.back();">戻る</a>
+	  </div>
+	  {% csrf_token %}
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "distribution_base.html" %}
+{% block category_page %}active{% endblock %}
+{% block contents %}
+
+  <div class="container">
+    <form action="" method="POST" enctype='multipart/form-data'>
+	  <div class="text-center">
+	    <p>カテゴリ名:{{ category.name }}</p>
+	    <button type="submit" class="btn btn-primary">削除する</button>
+	    <a href="{% url 'submission_form:category_index' %}" class="btn btn-primary">やめる</a>
+	  </div>
+	  {% csrf_token %}
+    </form>
+  </div>
+{% endblock %}
