@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from .models import Organization, Sex, Group, Classification, Student, Submission, Teacher, Distribution, Task
 from .models import User
 
+
 # lib
 
 # Register your models here.
@@ -82,3 +83,5 @@ admin.site.register(Submission, SubmissionAdmin)
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Distribution, DistributionAdmin)
 admin.site.register(Task, TaskAdmin)
+
+

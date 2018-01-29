@@ -1,4 +1,4 @@
-# django module
+
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
@@ -39,7 +39,9 @@ class Group(models.Model):
 # 分類テーブル
 class Classification(models.Model):
   organization_id = models.ForeignKey(Organization)
-  name = models.CharField(max_length = 64)
+  name = models.CharField('カテゴリ名',max_length = 64)
+  published_date = models.DateTimeField('作成日', default=timezone.now)
+
 
   def __str__(self):
     return self.name
@@ -52,20 +54,24 @@ class Submission(models.Model):
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
   name = models.CharField(max_length = 64)
-  published_date = models.DateTimeField(default = timezone.now, editable = False)
+  published_date = models.DateTimeField('作成日', default=timezone.now)
   path = models.CharField(max_length = 255)
 
   def __str__(self):
     return self.name
+
 
 # 配布物テーブル
 class Distribution(models.Model):
   organization_id = models.ForeignKey(Organization)
   user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-  classification_id = models.ForeignKey(Classification)
+  classification_id = models.ForeignKey(
+  Classification,
+  verbose_name='カテゴリ',
+  )
   name = models.CharField(max_length = 64)
-  published_date = models.DateTimeField(default = timezone.now, editable = False)
+  published_date = models.DateTimeField('作成日', default=timezone.now)
   path = models.CharField(max_length = 255)
 
   def __str__(self):
