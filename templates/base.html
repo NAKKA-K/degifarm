@@ -129,6 +129,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
+     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>-->
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+   <!-- <link rel="stylesheet" type="text/css" href="{@% static 'css/sweetalert.css' %}">-->
+   <!-- <script src="{@% static 'js/sweetalert.min.js' %}"></script>-->
+   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+   // import swal from 'sweetalert';
+    $('.delete').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+        swal({
+            title: "確認します",
+            text: "削除してよろしいですか？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "YES",
+            cancelButtonText: "NO",
+            closeOnConfirm: false
+        }, function(isConfirm){
+            if (isConfirm) form.submit();
+        });
+    });
+    </script>-->
+
 
     {% block script %}{% endblock script %}
   </body>

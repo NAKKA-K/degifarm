@@ -157,7 +157,7 @@ STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
 
-DEBUG = True
+DEBUG = False
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 

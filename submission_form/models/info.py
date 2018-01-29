@@ -40,7 +40,7 @@ class Group(models.Model):
 class Classification(models.Model):
   organization_id = models.ForeignKey(Organization)
   name = models.CharField('カテゴリ名',max_length = 64)
-  published_date = models.DateTimeField('作成日', default=timezone.now,null=True)
+  published_date = models.DateTimeField('作成日', default=timezone.now)
 
 
   def __str__(self):
@@ -54,7 +54,7 @@ class Submission(models.Model):
   id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
   classification_id = models.ForeignKey(Classification)
   name = models.CharField(max_length = 64)
-  published_date = models.DateTimeField(null = True)
+  published_date = models.DateTimeField('作成日', default=timezone.now)
   path = models.CharField(max_length = 255)
 
   def __str__(self):
@@ -71,7 +71,7 @@ class Distribution(models.Model):
   verbose_name='カテゴリ',
   )
   name = models.CharField(max_length = 64)
-  published_date = models.DateTimeField('作成日', default=timezone.now, null = True)
+  published_date = models.DateTimeField('作成日', default=timezone.now)
   path = models.CharField(max_length = 255)
 
   def __str__(self):
