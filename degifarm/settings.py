@@ -137,6 +137,8 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'submission_form.User'
 
+ATOMIC_REQUESTS = True
+
 # Heroku settings ===========================================
 # Parse database cofiguration from $DATABASE_URL
 import dj_database_url

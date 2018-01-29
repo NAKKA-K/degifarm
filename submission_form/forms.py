@@ -2,7 +2,7 @@ from django import forms
 from submission_form.models import Classification,Distribution
 from django.contrib.auth.forms import UserCreationForm
 
-from submission_form.models import Classification, Organization, Teacher, User
+from submission_form.models import Classification, Organization, Teacher, User, Student
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 class UploadFilesForm(forms.Form):
@@ -61,4 +61,9 @@ class TeacherForm(forms.ModelForm):
   class Meta:
     model = Teacher
     fields = ['sex_id']
+
+class StudentForm(forms.ModelForm):
+  class Meta:
+    model = Student
+    fields = ['group_id', 'sex_id', 'school_year', 'school_class', 'school_number']
 

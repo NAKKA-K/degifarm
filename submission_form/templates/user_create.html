@@ -8,15 +8,18 @@
 
 
 {% block contents %}
-  <h1>サービス登録</h1>
+  <h1>ユーザー作成フォーム</h1>
 
   <form action="" method="POST">
     {% csrf_token %}
-    {% bootstrap_form org_form %}
     {% bootstrap_form user_form %}
-    {% bootstrap_form teacher_form %}
+    {% bootstrap_form user_info_form %}
 
-    <button type="submit" class="btn btn-primary">サービス開始</button>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-lg">
+        {% bootstrap_icon "upload" %} 作成
+      </button>
+    </div>
   </form>
 
 {% endblock contents%}

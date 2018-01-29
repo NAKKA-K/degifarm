@@ -26,7 +26,7 @@ urlpatterns = [
 
     url(r'^accounts/$', views.start_service, name = 'service_start'),
     url(r'^accounts/create/$', views.LinkUserCreateView.as_view(), name = 'user_create_link'),
-    url(r'^accounts/(?P<uuid>.*)/(?P<uuid_hash>.*)/$', views.LinkUserCreateView.as_view(), name = 'user_create'),
+    url(r'^accounts/(?P<uuid>.*)/(?P<uuid_hash>.*)/$', views.UserCreateView.as_view(), name = 'user_create'),
 
     url(r'^$', views.IndexView.as_view(), name = 'index'),
     url(r'^submission_form/', include('submission_form.urls', namespace = 'submission_form')),
