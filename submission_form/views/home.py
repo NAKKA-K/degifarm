@@ -1,5 +1,4 @@
 # django module
-from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.utils import timezone
 
