@@ -6,6 +6,8 @@ from django.http import Http404
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
+import hashlib
+
 
 class LinkUserCreateView(TemplateView):
   template_name = 'link_to_user_create.html'
@@ -34,8 +36,28 @@ class LinkUserCreateView(TemplateView):
     domain = get_current_site(self.request).domain
     url = "{}://{}".format(protocol, domain)
     
-    context['teacher_url'] = "{}{}".format(url, reverse('user_create', kwargs = {'uuid': user_info.organization_id.id, 'uuid_hash': user_info.organization_id.id}))
-    context['student_url'] = "{}{}".format(url, reverse('user_create', kwargs = {'uuid': user_info.organization_id.id, 'uuid_hash': user_info.organization_id.id}))
+    teacher_hash = hashlib.sha224(str(user_info.organization_id.id).encode('utf-8'))
+    teacher_hash.update('teacher'.encode('utf-8'))
+    teacher_hash = teacher_hash.hexdigest() 
+
+    student_hash = hashlib.sha224(str(user_info.organization_id.id).encode('utf-8'))
+    student_hash.update('student'.encode('utf-8'))
+    student_hash = student_hash.hexdigest()
+
+
+    context['teacher_url'] = "{}{}".format(url,
+      reverse('user_create', kwargs = {
+        'uuid': user_info.organization_id.id,
+        'uuid_hash': teacher_hash
+      })
+    )
+
+    context['student_url'] = "{}{}".format(url,
+      reverse('user_create', kwargs = {
+        'uuid': user_info.organization_id.id,
+        'uuid_hash': student_hash
+      })
+    )
 
     return context
 
