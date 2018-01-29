@@ -40,13 +40,10 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Classification
-        exclude = ('organization_id',)
+        exclude = ('organization_id','published_date')
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': "form-control",
-            }),
-            'published_date': forms.DateTimeInput(attrs={
-                'class': 'form-control',
             }),
         }
 
