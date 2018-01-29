@@ -52,12 +52,16 @@
         {% for file in file_list %}
           <tr>
             <td>{{ file.name }}</td>
-            <td><a href="{@% url 'submission_form:dist_category' file.dist.pk %}">{{ file.classification.name }}</a></td>
+            <td><a href="{~% url 'submission_form:dist_category' file.dist.pk %}">{{ file.classification_id.name }}</a></td>
             <td>{{ file.published_date }}</td>
             <td>
-                <a href="" download="{@{ file.get_filename }}" class="btn btn-info btn-sm">
+                <a href="" download="" class="btn btn-info btn-sm">
                   ダウンロード
                 </a>
+                <a href="" class="btn btn-warning btn-sm">
+                  削除
+                </a>
+
               <input type="checkbox" name="check" value="checked" />
             </td>
           </tr>
