@@ -26,7 +26,6 @@ class SiteGetTest(TestCase):
     self.assertEqual(client.get('/submission_form/').status_code, 302)
     self.assertEqual(client.get('/submission_form/upload/').status_code, 302)
     self.assertEqual(client.get('/submission_form/upload/form/').status_code, 302)
-    self.assertEqual(client.get('/accounts/create/').status_code, 302)
 
 
     # login
@@ -38,7 +37,6 @@ class SiteGetTest(TestCase):
     self.assertEqual(client.get('/submission_form/').status_code, 200)
     self.assertEqual(client.get('/submission_form/upload/').status_code, 200)
     self.assertEqual(client.get('/submission_form/upload/form/').status_code, 200)
-    self.assertEqual(client.get('/accounts/create/').status_code, 302)
 
     self.assertEqual(client.get('/accounts/logout/').status_code, 302)
 
@@ -46,7 +44,7 @@ class SiteGetTest(TestCase):
   def test_account_create_page(self):
     client = self.client
 
-    self.assertEqual(client.get('/accounts/create/').status_code, 302)
+    self.assertEqual(client.get('/accounts/create/').status_code, 404)
 
     # 生徒は入れない
     client.login(email = 'test@test.com', password = 'testpass1')
