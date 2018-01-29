@@ -80,7 +80,6 @@ class TaskCreateView(LoginRequiredMessageMixin, CreateView):
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
-
   def form_valid(self, form):
     task = form.save(commit = False)
     task.user_id = self.request.user
@@ -89,18 +88,37 @@ class TaskCreateView(LoginRequiredMessageMixin, CreateView):
     task.save()
     return super().form_valid(form)
 
+
 class TaskDetailView(LoginRequiredMessageMixin, DetailView):
   model = Task
   template_name = 'submission_form/task_detail.html' 
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+    return context
+
 
 class TaskEditView(LoginRequiredMessageMixin, UpdateView):
   model = Task
   fields = ['classification_id', 'name', 'text', 'deadline']
   template_name = 'submission_form/task_edit.html'
 
+  def get(self, request, **kwargs):
+    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
+    if not is_teacher:
+      raise Http404 # 先生でなければ、PageNotFound
+    return super().get(request, **kwargs)
+
+
 class TaskDeleteView(LoginRequiredMessageMixin, DeleteView):
   model = Task
   template_name = 'submission_form/task_detail.html'
   success_url = reverse_lazy('submission_form:index')
 
+  def get(self, request, **kwargs):
+    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
+    if not is_teacher:
+      raise Http404 # 先生でなければ、PageNotFound
+    return super().get(request, **kwargs)
 
