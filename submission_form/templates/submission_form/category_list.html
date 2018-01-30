@@ -34,15 +34,13 @@
             <td><a href="{% url 'submission_form:category_update' category.pk %}" class="btn btn-info btn-sm">
                   更新
                 </a>
-                <!--<form class="delete-form" action="{@% url 'submission_form:category_delete' category.pk %}" method="POST">
-                <button type="button" class="btn btn-warning btn-sm delete">削除</button>
-                    {@% csrf_token %}</form>-->
+              <!--<form class="delete-form" action="{% url 'submission_form:category_delete' category.pk %}" method="POST">
+                    <button type="button" class="btn btn-warning btn-sm delete" >削除</button>
+                    {% csrf_token %}
+              </form>-->
                <a href="{% url 'submission_form:category_delete' category.pk %}" class="btn btn-warning btn-sm">
                   削除
                </a>
-               <!-- <a href="{@% url 'submission_form:dist_category' category.pk %}" class="btn btn-primary btn-sm">
-                  カテゴリのファイル一覧
-                </a>-->
 
             </td>
           </tr>

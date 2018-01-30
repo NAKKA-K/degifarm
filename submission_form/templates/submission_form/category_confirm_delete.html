@@ -14,14 +14,13 @@
     <li class="active"><a href="#">カテゴリ削除</a></li>
   </ol>
 
-
   <form action="" method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
     <div class="text-center">
       <h2>カテゴリ名:{{ category.name }}</h2>
       <button type="submit" class="btn btn-primary btn-lg">削除</button>
       <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-danger btn-lg">戻る</a>
-    </div>
+      </div>
   </form>
 
 {% endblock %}
