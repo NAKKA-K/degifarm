@@ -64,12 +64,7 @@
               <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> 配布<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li role="presentation"><a href="{% url 'submission_form:dist_index' %}">配布一覧</a></li>
-
-              {% if category_pk %}
-                <li role="presentation"><a href="{% url 'submission_form:dist_create' category_pk%}">配布物アップロード</a></li>      
-              {% else %}
-                <li role="presentation"><a href="{% url 'submission_form:dist_create' %}"> 配布物アップロード</a>
-              {% endif %}
+                <li role="presentation"><a href="{% url 'submission_form:dist_create' %}">配布物アップロード</a></li>      
               </ul>
             </li>
             
