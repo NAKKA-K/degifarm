@@ -32,16 +32,17 @@ class FileCategoryView(LoginRequiredMessageMixin, generic.ListView):
 
   model = Distribution
   paginate_by = 20
+  template_name = 'submission_form/dist_list.html'
 
   def get_queryset(self):
     """カテゴリ(分類)ごとにフィルターかける"""
     category_pk = self.kwargs['category_pk']
     return Distribution.objects.filter(
-      category__pk=category_pk).order_by('-published_date')
+      classification_id = category_pk).order_by('-published_date')
 
-  def get_context_data(self):
+  def get_context_data(self, **kwargs):
     """カテゴリのpkをテンプレートへ渡す"""
-    context = super().get_context_data(*args, **kwargs) 
+    context = super().get_context_data(**kwargs) 
     context['category_pk'] = self.kwargs.get('category_pk')
 
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
@@ -79,7 +80,6 @@ class FileCreateView(LoginRequiredMessageMixin, FormView):
 
     file = request.FILES['file']
     class_id = request.POST.get('classification', None)
-    print(form.is_valid, form.errors,type(form.errors))
     if not bool(form.errors):
       file_dir = '{}{}/'.format(settings.MEDIA_ROOT, request.user)
       self.make_dir(file_dir)
@@ -103,7 +103,7 @@ class FileCreateView(LoginRequiredMessageMixin, FormView):
 
   def make_dir(self, file_dir):
     if not os.path.exists(file_dir):
-      os.makedirs(self.file_dir)
+      os.makedirs(file_dir)
 
 
 class FileUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
@@ -127,13 +127,22 @@ class FileDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
   model = Distribution
   context_object_name = 'file'
   template_name = 'submission_form/dist_confirm_delete.html'
-  success_url = reverse_lazy('submission_form:dict_index')
+  success_url = reverse_lazy('submission_form:dist_index')
 
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
+
+  def post(self, request, **kwargs):
+    dist = Distribution.objects.get(id = kwargs.get('pk'))
+    try:
+      os.remove(dist.path)
+    except:
+      pass
+
+    return super().post(request, **kwargs)
 
 
 class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
