@@ -1,0 +1,93 @@
+{% extends "submission_form/base.html" %}
+{% load static %}
+
+{% block head %}
+  <!-- Djangoのフォームを見えなくするため -->
+  <style type="text/css">
+    .hide {
+      display: none;
+    }
+  </style>
+{% endblock head %}
+
+{% block contents %}
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">配布物アップロード</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li><a href="{% url 'index' %}">ホーム</a></li>
+    <li><a href="{% url 'submission_form:dist_index' %}">配布物リスト</a></li>
+    <li class="active"><a href="{% url 'submission_form:upload_form' %}">配布物アップロード</a></li>
+  </ol>
+
+
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          {% bootstrap_field form.classification %}
+        </div>
+
+
+        <!-- filesのinput要素自体は使用するが、見た目は別のものを使いたいため隠している -->
+        <div class="hide">
+            {{ form.files}} <!-- ID : id_files -->
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">{{ form.files.label }}</label>
+          <div class="input-group">
+            <input type="text" id="photoCover" class="form-control" onfocus="this.blur()" placeholder="select file..." onclick="$('input[id=id_files]').click();">
+            <span class="input-group-btn"><button type="button" class="btn btn-info" onclick="$('input[id=id_files]').click();"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button></span>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg">
+            {% bootstrap_icon "upload" %} 送信
+          </button>
+          <button type="reset" class="btn btn-danger btn-lg">
+            {% bootstrap_icon "trash" %} 削除
+          </button>
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock contents %}
+
+
+{% block script %}
+  <!-- 選択したファイル名を一覧表示させるスクリプト -->
+  <script>
+    $('input[id=id_files]').change(function(){
+      $('#photoCover').val(function(){
+          var files = "";
+          var input = $('input[id=id_files]')[0].files; //id_filesに格納されたファイル要素を取得
+          $.each(input, function(){
+            if(this == null) return false;
+            files += "[" + this.name + "], ";
+          });
+          return files;
+     });
+    });
+  </script>
+
+
+  <!-- URLのパラメータにclassificationの値が含まれている場合、セレクトボックスの値を自動的に選択する -->
+  <script>
+    const params = location.search.substring(1).split('&');
+    const item = params[0].split('=');
+
+    document.getElementById('id_classification').selectedIndex = item[1];
+  </script>
+{% endblock script %}
+
