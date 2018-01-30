@@ -6,6 +6,8 @@ from django.views.generic.edit import FormView
 from django.utils import timezone
 from django.http import Http404
 from django.conf import settings
+from sweetify.views import SweetifySuccessMixin
+import sweetify
 
 #app module
 from submission_form.models import Distribution,Organization,Classification
@@ -16,6 +18,7 @@ from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessage
 
 import os
 
+ERROR_404_TEMPLATE_NAME = '404.html'
 
 class FileIndexView(LoginRequiredMessageMixin, generic.ListView):
   """ファイル一覧"""
@@ -65,6 +68,8 @@ class FileCreateView(LoginRequiredMessageMixin, FormView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
+      template_name=ERROR_404_TEMPLATE_NAME
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
@@ -117,6 +122,8 @@ class FileUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
+      template_name=ERROR_404_TEMPLATE_NAME
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
@@ -132,6 +139,8 @@ class FileDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
+      template_name=ERROR_404_TEMPLATE_NAME
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
@@ -166,6 +175,8 @@ class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
+      template_name=ERROR_404_TEMPLATE_NAME
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
@@ -189,6 +200,7 @@ class CategoryUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
@@ -204,6 +216,9 @@ class CategoryDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
-      raise Http404 # 先生でなければ、PageNotFound
+      # 先生でなければ、PageNotFound
+      template_name=ERROR_404_TEMPLATE_NAME
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
+      raise Http404
     return super().get(request, **kwargs)
 

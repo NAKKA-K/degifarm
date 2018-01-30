@@ -19,8 +19,8 @@
     <style type="text/css">
       body {
        padding-top: 50px;
-      }
-    </style>
+      } </style>
+
 
   </head>
 
@@ -126,14 +126,20 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
 
+
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
     <!-- sweetalertを導入するかもしれない時のため -->
     <link rel="stylesheet" type="text/css" href="{% static 'sweetalert2/css/sweetalert2.min.css' %}">
     <script src="{% static 'sweetalert2/js/sweetalert2.all.min.js' %}"></script>
-
+    <script src="{% static 'sweetalert2/js/sweetalert2.min.js' %}"></script>
+  <!--  <script src="{% static 'sweetalert/js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'sweetalert/css/sweetalert.css' %}"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css"/>-->
 
     {% block script %}
-    <script>
+    <!--<script>
     $('.delete').on('click',function(e){
         e.preventDefault();
         var form = $(this).parents('form');
@@ -142,15 +148,17 @@
             text: "削除してよろしいですか？",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "YES",
-            cancelButtonText: "NO",
-            closeOnConfirm: false
+            confirmButtonColor: "#dd6b55",
+            confirmButtonText: "yes",
+            cancelButtonText: "no",
         }, function(isConfirm){
             if (isConfirm) form.submit();
         });
     });
-    </script>
+    </script>-->
     {% endblock script %}
+
+    {% load sweetify %}
+    {% sweetify %}
   </body>
 </html>
