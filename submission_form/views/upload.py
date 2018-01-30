@@ -54,7 +54,7 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
     form = self.get_form(form_class)
     files = request.FILES.getlist('files')
     class_id = request.POST['classification']
-    if form.is_valid():
+    if not bool(form.errors): # form.__init__をオーバーライドした場合に、is_boundがfalseになってしまうためis_validではだめ
       file_uploader = FileUploader(files, class_id, request.user)
       file_uploader.handle_uploaded_files()
       return self.form_valid(form)
