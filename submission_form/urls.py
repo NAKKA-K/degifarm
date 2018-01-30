@@ -16,8 +16,8 @@ urlpatterns = [
   url(r'^distribution/$', views.FileIndexView.as_view(), name='dist_index'),
   url(r'^distribution/(?P<category_pk>[0-9]+)/$', views.FileCategoryView.as_view(), name='dist_category'),
   url(r'^distribution/create/$', views.FileCreateView.as_view(), name='dist_create'),
-  url(r'^distribution/update/(?P<pk>[0-9]+)/$',views.FileUpdateView.as_view(), name='dist_update'),
-  url(r'^distribution/delete/(?P<pk>[0-9]+)/$',views.FileDeleteView.as_view(), name='dist_delete'),
+  url(r'^distribution/update/(?P<pk>.*)/$',views.FileUpdateView.as_view(), name='dist_update'),
+  url(r'^distribution/delete/(?P<pk>.*)/$',views.FileDeleteView.as_view(), name='dist_delete'),
 
   # 分類(カテゴリ)
   url(r'^category/$', views.CategoryIndexView.as_view(), name='category_index'),
