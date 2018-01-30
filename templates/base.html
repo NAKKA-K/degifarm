@@ -47,15 +47,39 @@
               <a href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span> HOME</a>
             </li>
 
+
             <!-- プルダウンの提出 -->
             <li role="presentation" class="dropdown {% block nav_submission_form %}{% endblock %}">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> 提出<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><a href="{% url 'submission_form:index' %}">HOME</a></li>
-                <li role="presentation"><a href="{% url 'submission_form:upload_index' %}">提出リスト</a></li>
-                <li role="presentation"><a href="{% url 'submission_form:upload_form' %}">アップロード</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:index' %}">課題一覧</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:upload_index' %}">提出一覧</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:upload_form' %}">提出物アップロード</a></li>
               </ul>
             </li>
+
+
+            <!--プルダウンのダウンロード-->
+            <li role="presentation" class="dropdown {% block nav_download %}{% endblock nav_download %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> 配布<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="{% url 'submission_form:dist_index' %}">配布一覧</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:dist_create' %}">配布物アップロード</a></li>      
+              </ul>
+            </li>
+            
+
+            <!--プルダウンのカテゴリ-->
+            <li role="presentation" class="dropdown {% block nav_category %}{% endblock nav_category %}">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span>  設定 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a href="">学科一覧</a></li>
+                <li role="presentation"><a href="">学科追加</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:category_index' %}">カテゴリ一覧</a></li>
+                <li role="presentation"><a href="{% url 'submission_form:category_create' %}">カテゴリ追加</a></li>
+              </ul>
+            </li>
+            
 
             <!-- プルダウンの出席 -->
             <li role="presentation" class="dropdown {% block nav_attend %}{% endblock nav_attend %}">
@@ -64,34 +88,6 @@
                 <li role="presentation"><a href="">出席確認</a></li>
               </ul>
             </li>
-
-
-            <!--プルダウンのダウンロード-->
-            <li role="presentation" class="dropdown {% block nav_download %}{% endblock nav_download %}">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> ダウンロード <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><a href="{% url 'submission_form:dist_index' %}">配布</a></li>
-
-              {% if category_pk %}
-                <li role="presentation"><a href="{% url 'submission_form:dist_create' category_pk%}">配布物アップロード</a></li>      
-              {% else %}
-                <li role="presentation"><a href="{% url 'submission_form:dist_create' %}"> 配布物アップロード</a>
-              {% endif %}
-              </ul>
-            </li>
-            
-             <!--プルダウンのカテゴリ-->
-            <li role="presentation" class="dropdown {% block nav_category %}{% endblock nav_category %}">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span>  カテゴリ設定 <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><a href="{% url 'submission_form:category_index' %}">カテゴリ一覧</a></li>
-                <li role="presentation"><a href="{% url 'submission_form:category_create' %}">カテゴリ追加</a></li>
-              </ul>
-            </li>
-            
-
-            <!-- 開発時のショートカット用 -->
-            <li><a href="{% url 'admin:index' %}">admin</a></li>
 
           </ul>
 
@@ -129,13 +125,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
-     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>-->
-    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-   <!-- <link rel="stylesheet" type="text/css" href="{@% static 'css/sweetalert.css' %}">-->
-   <!-- <script src="{@% static 'js/sweetalert.min.js' %}"></script>-->
-   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- sweetalertを導入するかもしれない時のため -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>-->
+    <!-- <link rel="stylesheet" type="text/css" href="{@% static 'css/sweetalert.css' %}">-->
+    <!-- <script src="{@% static 'js/sweetalert.min.js' %}"></script>-->
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-   // import swal from 'sweetalert';
+    // import swal from 'sweetalert';
     $('.delete').on('click',function(e){
         e.preventDefault();
         var form = $(this).parents('form');

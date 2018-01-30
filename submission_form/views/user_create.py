@@ -64,7 +64,6 @@ class LinkUserCreateView(TemplateView):
     return context
 
 
-@transaction.atomic
 class UserCreateView(View):
   template_name = 'user_create.html'
   success_url = reverse_lazy('index')
@@ -82,6 +81,7 @@ class UserCreateView(View):
       }
     return render(request, self.template_name, data)
 
+  @transaction.atomic
   def post(self, request, **kwargs):
     if self.is_teacher_create(self.kwargs['uuid'], self.kwargs['uuid_hash']):
       user_form = CustomUserCreationForm(request.POST)

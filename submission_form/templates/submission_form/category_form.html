@@ -3,7 +3,7 @@
 {% block category_page %}active{% endblock %}
 {% block contents %}
    <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">カテゴリ追加,変更</h1>
+    <h1 class="text-center">カテゴリ作成</h1>
   </div>
 
   <ol class="breadcrumb">
@@ -15,6 +15,8 @@
 
   <div class="container">
     <form action="" method="POST" enctype='multipart/form-data'>
+      {% csrf_token %}
+
       {% for field in form %}
         <div class="form-group row">
           <label for="{{ field.id_for_label }}" class="col-sm-2 col-form-label">
@@ -25,11 +27,12 @@
           </div>
         </div>
       {% endfor %}
-      {% csrf_token %}
+
       <div class="text-center">
-        <button type="submit" class="btn btn-primary">送信する</button>
+        <button type="submit" class="btn btn-primary">送信</button>
         <a href="{% url 'submission_form:category_index' %}" class="btn btn-primary">やめる</a>
       </div>
+
     </form>
   </div>
 {% endblock %}

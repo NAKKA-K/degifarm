@@ -6,6 +6,8 @@
 
 
 {% block file_page %}active{% endblock %}
+
+
 {% block contents %}
 
   <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
@@ -13,35 +15,37 @@
   </div>
 
   <ol class="breadcrumb">
-    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class="active"><a href="#">配布</a></li>
-    {% if category_pk %}
-    <li class=""><a href="{% url 'submission_form:dist_create'  category_pk %}">配布物アップロード</a></li>
-    {% else %}
-    <li class=""><a href="{% url 'submission_form:dist_create' %}">配布物アップロード</a></li>
-    {% endif%}
+    <li><a href="{% url 'index' %}">ホーム</a></li>
+    <li class="active"><a href="#">配布リスト</a></li>
   </ol>
 
 
-   <div class="row">
+  <div class="row">
     <div class="col-xs-12 col-sm-3">
-      <h1 class="page-header text-center" style="font-size:130%;">#</h1>
+      <h1 class="page-header text-center" style="font-size:130%;">分類毎はこちらから</h1>
       <ul style="font-size:140%;">
-        {% for class in file_list %}
-          <li><a href=""> {{ class.name }}</a></li>
+        {% for class in class_list %}
+          <li><a href="{% url 'submission_form:dist_category' category_pk=class.id %}"> {{ class.name }}</a></li>
         {% empty %}
-          <li><a href=""></a></li>
+          <li><a href="#"></a> 分類がありません</li>
         {% endfor %}
       </ul>
     </div>
 
   <div class="col-xs-12 col-sm-9">
-      <h1 class="page-header">配布物</h1>
-      <table class="table table-striped">
+      <h1 class="page-header">配布物
+        {% if is_teacher %}
+          <a class="btn btn-default pull-rigth" href="{% url 'submission_form:dist_create' %}">
+            <span title="New Dist" class="glyphicon glyphicon-plus"> 配布の追加</span>
+          </a>
+        {% endif %}
+      </h1>
+
+      <table class="table table-hover">
         <thead>
           <tr bgcolor="#000000">
-            <th><font color="#FFFFF">ファイル名</th>
             <th><font color="#FFFFF">分野</th>
+            <th><font color="#FFFFF">ファイル名</th>
             <th><font color="#FFFFF">更新日</th>
             <th><font color="#FFFFF">操作</th>
           </tr>
@@ -51,17 +55,12 @@
 
         {% for file in file_list %}
           <tr>
+            <td>{{ file.classification_id.name }}</td>
             <td>{{ file.name }}</td>
-            <td><a href="{~% url 'submission_form:dist_category' file.dist.pk %}">{{ file.classification_id.name }}</a></td>
             <td>{{ file.published_date }}</td>
             <td>
-                <a href="" download="" class="btn btn-info btn-sm">
-                  ダウンロード
-                </a>
-                <a href="" class="btn btn-warning btn-sm">
-                  削除
-                </a>
-
+              <a href="" download="" class="btn btn-info btn-sm">ダウンロード</a>
+              <a href="{% url 'submission_form:dist_delete' pk=file.id %}" class="btn btn-warning btn-sm">削除</a>
               <input type="checkbox" name="check" value="checked" />
             </td>
           </tr>
@@ -69,11 +68,16 @@
       </tbody>
       
     </table>
+
     <div class="text-center">
-    <a href="" class="btn btn-primary btn-sm">
-          一括ダウンロード
-    </a>
+      <a href="" class="btn btn-primary btn-sm">一括ダウンロード</a>
       {% include "submission_form/page.html" %}
     </div>
+
   </div>
 {% endblock contents%}
+
+
+{% block script %}
+  <script src="{% static 'js/data-href.js' %}"></script> 
+{% endblock script %}
