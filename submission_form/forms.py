@@ -7,33 +7,23 @@ from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 class UploadFilesForm(forms.Form):
     classification = forms.ModelChoiceField(Classification.objects, label = '分野')
-    files = forms.FileField(widget = forms.ClearableFileInput(attrs = {'multiple': True}))
+    files = forms.FileField(widget = forms.ClearableFileInput(attrs = {'multiple': True}), label = 'ファイル(複数)')
 
     def __init__(self, org_id = None, *args, **kwargs):
       super().__init__(*args, **kwargs)
       self.fields['classification'].queryset = Classification.objects.filter(organization_id = org_id)
 
 
-class FileForm(forms.ModelForm):
+class FileForm(forms.Form):
     """Fileモデルのフォーム."""
 
-    class Meta:
-        model = Distribution
-        fields = '__all__'
-        widgets = {
-            #'title': forms.TextInput(attrs={
-            #    'class': "form-control",
-            #}),
-            'file': forms.ClearableFileInput(attrs={
-                'class': "form-control-file",
-            }),
-          #  'classification_id': forms.Select(attrs={
-          #      'class': "form-control",
-          #  }),
-            'published_date': forms.DateTimeInput(attrs={
-                'class': 'form-control',
-            }),
-        }
+    classification = forms.ModelChoiceField(Classification.objects, label = 'カテゴリ')
+    file = forms.FileField(label = 'ファイル')
+
+    def __init__(self, org_id = None, *args, **kwargs):
+      super().__init__(*args, **kwargs)
+      self.fields['classification'].queryset = Classification.objects.filter(organization_id = org_id)
+
 
 class CategoryForm(forms.ModelForm):
     """Subjectモデルのフォーム."""
