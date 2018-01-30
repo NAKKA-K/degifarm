@@ -59,7 +59,7 @@
             <td>{{ file.name }}</td>
             <td>{{ file.published_date }}</td>
             <td>
-              <a href="" download="" class="btn btn-info btn-sm">ダウンロード</a>
+              <a href="{% url 'submission_form:dist_download' pk=file.id %}" class="btn btn-info btn-sm">ダウンロード</a>
               <a href="{% url 'submission_form:dist_delete' pk=file.id %}" class="btn btn-warning btn-sm">削除</a>
               <input type="checkbox" name="check" value="checked" />
             </td>
