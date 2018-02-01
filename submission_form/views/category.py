@@ -2,7 +2,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.http import Http404
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 from submission_form.models import Distribution,Organization,Classification
 from submission_form.forms import CategoryForm
