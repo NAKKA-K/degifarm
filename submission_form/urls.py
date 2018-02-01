@@ -22,7 +22,7 @@ urlpatterns = [
   url(r'^distribution/create/$', views.FileCreateView.as_view(), name='dist_create'),
   url(r'^distribution/update/(?P<pk>.*)/$',views.FileUpdateView.as_view(), name='dist_update'),
   url(r'^distribution/delete/(?P<pk>.*)/$',views.FileDeleteView.as_view(), name='dist_delete'),
-  url(r'^distribution/download/(?P<pk>.*)/$',views.DownloadView.as_view(), name='dist_download'),
+  url(r'^distribution/download/(?P<pk>.*)/$',views.DownloadDistView.as_view(), name='dist_download'),
 
   # 分類(カテゴリ)
   url(r'^category/$', views.CategoryIndexView.as_view(), name='category_index'),

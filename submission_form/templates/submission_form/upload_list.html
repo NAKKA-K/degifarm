@@ -23,9 +23,9 @@
       <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
       <ul style="font-size:140%;">
         {% for class in classification %}
-          <li><a href=""> {{ class.name }}</a></li>
+          <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
         {% empty %}
-          <li><a href="{% url 'submission_form:index' %}"> 分類がありません</a></li>
+          <li><a href=""> 分類がありません</a></li>
         {% endfor %}
       </ul>
     </div>
