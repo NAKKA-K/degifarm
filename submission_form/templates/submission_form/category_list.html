@@ -13,44 +13,39 @@
   </ol>
 
 
-    <div class="">
-      <h1 class="page-header">カテゴリ一覧</h1>
+  <div class="">
+    <h1 class="page-header">カテゴリ一覧</h1>
 
-      <table class="table table-striped">
-        <thead>
-          <tr bgcolor="#000000">
-            <th><font color="#FFFFF">カテゴリ名</th>
-            <th><font color="#FFFFF">作成日</th>
+    <table class="table table-striped">
+      <thead>
+        <tr bgcolor="#000000">
+          <th><font color="#FFFFF">カテゴリ名</th>
+          <th><font color="#FFFFF">作成日</th>
+          {% if is_teacher %}
             <th><font color="#FFFFF">操作</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-
+          {% endif %}
+        </tr>
+      </thead>
+      
+      <tbody>
         {% for category in category_list %}
           <tr>
             <td>{{ category.name }}</td>
             <td>{{ category.published_date }}</td>
-            <td><a href="{% url 'submission_form:category_update' category.pk %}" class="btn btn-info btn-sm">
-                  更新
-                </a>
-                <!--<form class="delete-form" action="{@% url 'submission_form:category_delete' category.pk %}" method="POST">
-                <button type="button" class="btn btn-warning btn-sm delete">削除</button>
-                    {@% csrf_token %}</form>-->
-               <a href="{% url 'submission_form:category_delete' category.pk %}" class="btn btn-warning btn-sm">
-                  削除
-               </a>
-               <!-- <a href="{@% url 'submission_form:dist_category' category.pk %}" class="btn btn-primary btn-sm">
-                  カテゴリのファイル一覧
-                </a>-->
-
-            </td>
+            {% if is_teacher %}
+              <td>
+                <a href="{% url 'submission_form:category_update' category_pk=category.pk %}" class="btn btn-info btn-sm">更新</a>
+                <a href="{% url 'submission_form:category_delete' catefory_pk=category.pk %}" class="btn btn-warning btn-sm">削除</a>
+              </td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>
     </table>
+
     <div class="text-center">
       {% include "submission_form/page.html" %}
     </div>
+
   </div>
 {% endblock %}
