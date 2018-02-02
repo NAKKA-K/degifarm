@@ -18,17 +18,17 @@
 
     <div id="main_page" class="header_bottom">
       <div class="title_logo" style="margin-top:30px;">
-        <img src="{% static 'images/degi.png' %}" class="title" alt="でじふぁーむ。">
+        <img src="{% static 'images/degilogo.png' %}" class="title" alt="でじふぁーむ。">
       </div>
-
-      <div class="text-center" style="font-size: 18px;">
-        <h2>みんなで、どこでも提出できる課題管理ツール</h2>
-        <p>課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
+      
+      <div class="text-center" style="font-size: 20px;">
+        <h2 style="font-weight:bold;color:#20B2AA;fonto-size:28px;padding-top:25px;font-famiry:ヒラギノ丸ゴ Pro W4,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,ヒラギノ角ゴ Pro W3,Hiragino Kaku Gothic Pro,HG丸ｺﾞｼｯｸM-PRO,HGMaruGothicMPRO;">みんなで、どこでも提出できる課題管理ツール</h2>
+        <p style="color:#444444;padding-top:20px;">課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
         <p><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
       </div>
 
-      <div style="padding-top: 15px;"></div>
-      <a class="home_link" href="{% url 'login' %}">LOGIN</a>
+        <div style="padding-top: 35px;"></div>
+        <a class="btn-info btn-lg" href="{% url 'login' %}">LOGIN</a>
     </div>
 
 
@@ -39,13 +39,12 @@
         <p>提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
 
         <div style="padding-top: 15px;"></div>
-        <a class="home_link" href="{% url 'service_start' %}">サービスを始める</a>
+        <a style="padding:20px 25px;" class="btn-info btn-lg" href="{% url 'service_start' %}">サービスを始める</a>
       </div>
     </div>
 
 
   </div>
-
   {% else %}
 
     <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
@@ -114,6 +113,6 @@
   <script>
     $('#ascensor').ascensor();
   </script>
-
+  <script src="{% static 'js/scroll.js' %}"></script>
   <script src="{% static 'js/data-href.js' %}"></script> 
 {% endblock script %}

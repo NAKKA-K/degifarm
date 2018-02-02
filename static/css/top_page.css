@@ -1,4 +1,4 @@
-a.home_link{
+.home_link{
   display: block;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -12,10 +12,16 @@ a.home_link{
   font-size:1.5em;
 }
 
-a.home_link:hover{
+.home_link:hover{
   background: #2060A0;
 
   color: #FFF;
+}
+
+.background{
+  background-image: url("/static/images/photo1.jpg");
+  background-position: center center;
+  background-size: cover;
 }
 
 
