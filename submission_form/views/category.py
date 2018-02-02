@@ -29,6 +29,12 @@ class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
     except Task.DoesNotExist:
       return None
 
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+
+    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+    return context
+
 
 class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
   """科目の作成."""
