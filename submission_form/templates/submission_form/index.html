@@ -22,24 +22,24 @@
       </div>
       
       <div class="text-center" style="font-size: 20px;">
-        <h2 style="font-weight:bold;color:#20B2AA;fonto-size:28px;padding-top:25px;font-famiry:ヒラギノ丸ゴ Pro W4,ヒラギノ丸ゴ Pro,Hiragino Maru Gothic Pro,ヒラギノ角ゴ Pro W3,Hiragino Kaku Gothic Pro,HG丸ｺﾞｼｯｸM-PRO,HGMaruGothicMPRO;">みんなで、どこでも提出できる課題管理ツール</h2>
-        <p style="color:#444444;padding-top:20px;">課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
-        <p><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
+        <h2 class="phrase1">みんなで、どこでも提出できる課題管理ツール</h2>
+        <p class="phrase2">課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
+        <p  style="padding-top:10px;" class="phrase2"><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
       </div>
 
         <div style="padding-top: 35px;"></div>
-        <a class="btn-info btn-lg" href="{% url 'login' %}">LOGIN</a>
+        <a class="home_link btn-info" href="{% url 'login' %}">LOGIN</a>
     </div>
 
 
     <div id="status_page" class="header_bottom">
-      <div class="block_center" style="font-size: 18px; background: #E7EAEF;">
+      <div class="block_center">
         <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面">
-        <h1>時間、人材、費用のすべてを削減できます</h1>
-        <p>提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
+        <h1  style="font-size:28px;" class="phrase1">時間、人材、費用のすべてを削減できます</h1>
+        <p class="phrase2">提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
 
-        <div style="padding-top: 15px;"></div>
-        <a style="padding:20px 25px;" class="btn-info btn-lg" href="{% url 'service_start' %}">サービスを始める</a>
+        <div style="padding-top: 35px;"></div>
+        <a class="service_start btn-info" href="{% url 'service_start' %}">サービスを始める</a>
       </div>
     </div>
 
