@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from . import views
 
-handler404 = 'submission_form.views.error_404'
 
 urlpatterns = [
   # 提出物
