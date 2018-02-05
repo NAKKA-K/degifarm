@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static 'css/checkbox.css' %}">
 {% endblock head %}
 
 
@@ -61,7 +62,7 @@
             <td>
               <a href="{% url 'submission_form:dist_download' pk=file.id %}" class="btn btn-info btn-sm">ダウンロード</a>
               <a href="{% url 'submission_form:dist_delete' pk=file.id %}" class="btn btn-warning btn-sm">削除</a>
-              <input type="checkbox" name="check" value="checked" />
+              <label><input type="checkbox" name="check" class="checkbox_input" value="{{ file.path }}"><span class="checkbox_parts"></span><label>
             </td>
           </tr>
         {% endfor %}
@@ -70,9 +71,11 @@
     </table>
 
     <div class="text-center">
-      <a href="" class="btn btn-primary btn-sm">一括ダウンロード</a>
+      <button id="all_download_button" class="btn btn-primary btn-sm">一括ダウンロード</button>
       {% include "submission_form/page.html" %}
     </div>
+
+    <div id="output"></div>
 
   </div>
 {% endblock contents%}
@@ -80,4 +83,33 @@
 
 {% block script %}
   <script src="{% static 'js/data-href.js' %}"></script> 
+
+  <script>
+    $('#all_download_button').click(function(event){
+      event.preventDefault(); //ボタン本来の機能を停止させる関数
+
+      /* チェックされていない */
+      if($('[name=check]').prop('checked') == false){
+        return;
+      }
+
+      /* 選択中のチェックボックスのvalue値を取得 */
+      let files_path = []
+      $('[name=check]:checked').each(function(){
+        files_path.push($(this).val());
+      });
+
+      /* URLタグの生成 */
+      let link = document.createElement('a');
+      link.href = '/submission_form/download/zip/?';
+
+      /* URLパラメータを追加 */
+      for(let i = 0; i < files_path.length; i++){
+        link.href += 'mydata[]=' + files_path[i] + '&';
+      }
+
+      link.click();
+    });
+  </script>
+
 {% endblock script %}

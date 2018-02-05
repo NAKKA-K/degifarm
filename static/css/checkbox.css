@@ -1,0 +1,55 @@
+.checkbox_input{
+  display: none;
+}
+
+/* チェックボックスの箱 */
+.checkbox_parts{
+  padding-left: 20px;
+  position: relative;
+  margin-right: 20px;
+}
+.checkbox_parts::before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #999;
+  border-radius: 4px;
+}
+
+/* チェックボックスの中のやつ */
+.checkbox_input:checked + .checkbox_parts{
+  color: #009a9a;
+}
+.checkbox_input:checked + .checkbox_parts::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;;
+  left: 10px;
+  width: 10px;
+  height: 25px;
+  transform: rotate(40deg);
+  border-bottom: 4px solid #009a9a;
+  border-right: 4px solid #009a9a;
+}
+
+.checkbox_input + .checkbox_parts{
+  color: #D2D2D2;
+}
+.checkbox_input + .checkbox_parts::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;;
+  left: 10px;
+  width: 10px;
+  height: 25px;
+  transform: rotate(40deg);
+  border-bottom: 4px solid #D2D2D2;
+  border-right: 4px solid #D2D2D2;
+}
+

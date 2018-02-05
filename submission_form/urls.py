@@ -27,4 +27,8 @@ urlpatterns = [
   url(r'^category/create/$', views.CategoryCreateView.as_view(), name='category_create'),
   url(r'^category/update/(?P<pk>[0-9]+)/$', views.CategoryUpdateView.as_view(), name='category_update'),
   url(r'^category/delete/(?P<pk>[0-9]+)/$', views.CategoryDeleteView.as_view(), name='category_delete'),
+
+
+
+  url(r'^download/zip/$', views.DownloadZipView.as_view(), name='download_zip'),
 ]
