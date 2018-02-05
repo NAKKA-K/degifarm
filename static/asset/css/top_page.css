@@ -12,11 +12,6 @@
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
 }
 
-.scroll{
-margin-left: 1rem;
-overflow: auto;
-height: 100vh;
-}
 
 .phrase1{
   font-weight: bold;
@@ -53,17 +48,22 @@ height: 100vh;
   color: #FFF;
 }
 
-/*.background{
-  background-image: url("/static/images/photo1.jpg");
-  background-position: center center;
-  background-size: cover;
-}*/
-
 
 .title_logo{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+.status_center {
+  padding-top: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(0%, 0%);
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  
 }
 
 
@@ -129,3 +129,39 @@ img.title {
 }
 
 
+/*トップページの動きをつけるためのcss(仮)*/
+#animation {
+  margin: 50px 0;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.fadeInDown {
+ -webkit-animation-fill-mode:both;
+ -ms-animation-fill-mode:both;
+ animation-fill-mode:both;
+ -webkit-animation-duration:1s;
+ -ms-animation-duration:1s;
+ animation-duration:1s;
+ -webkit-animation-name: fadeInDown;
+ animation-name: fadeInDown;
+ visibility: visible !important;
+}
+
+@-webkit-keyframes fadeInDown {
+ 0% { opacity: 0; -webkit-transform: translateY(-20px); }
+ 100% { opacity: 1; -webkit-transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+ 0% { opacity: 0; -webkit-transform: translateY(-20px); -ms-transform: translateY(-20px); transform: translateY(-20px); }
+ 100% { opacity: 1; -webkit-transform: translateY(0); -ms-transform: translateY(0); transform: translateY(0); }
+}
+
+
+.fade-in {
+ transition: opacity 0.4s;
+ -moz-transition: opacity 0.4s;
+ -webkit-transition: opacity 0.4s;
+}

@@ -32,16 +32,16 @@
 
         <div style="padding-top: 35px;"></div>
         <a class="home_link btn-info" href="{% url 'login' %}">LOGIN</a>
-    </div>
+    <!--</div>-->
 
-    <div id="status_page" class="header_bottom">
-      <div class="block_center">
-        <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面" data-scroll="">
+    <!--<div id="status_page" class="header_bottom">-->
+      <div class="block_center status_center"> 
+        <img src="{% static 'images/sample.jpg' %}" class="fade-in sample" alt="でじふぁーむ。サンプル画面">
         <h1  style="font-size:28px;" class="phrase1">時間、人材、費用のすべてを削減できます</h1>
         <p class="phrase2">提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
 
         <div style="padding-top: 35px;"></div>
-        <a class="service_start btn-info" href="{% url 'service_start' %}">サービスを始める</a>
+        <a class="service_start btn-info" style="margin-bottom:100px" href="{% url 'service_start' %}">サービスを始める</a>
       </div>
     </div>
 
@@ -116,4 +116,37 @@
     $('#ascensor').ascensor();
   </script>
   <script src="{% static 'js/data-href.js' %}"></script> 
+
+  <script>
+  $('#animation').css('visibility','hidden');
+  $(window).scroll(function(){
+    var windowHeight = $(window).height(),
+        topWindow = $(window).scrollTop();
+    $('#animation').each(function(){
+     var targetPosition = $(this).offset().top;
+     if(topWindow > targetPosition - windowHeight + 100){
+      $(this).addClass("fadeInDown");
+     }
+    });
+  });
+  </script>
+
+<script>
+$(window).on('load',function(){
+  // fade-in
+  $(window).scroll(function (){
+    $('.fade-in').each(function(){
+      var POS = $(this).offset().top;  //fade-inがついている要素の位置
+      var scroll = $(window).scrollTop();  //スクロール一
+      var windowHeight = $(window).height();  //ウィンドウの高さ
+                                                                
+      if (scroll > POS - windowHeight + windowHeight/5){
+          $(this).css("opacity","1" );
+      } else {
+          $(this).css("opacity","0" );
+      }
+    });
+  });
+})
+</script>
 {% endblock script %}
