@@ -4,7 +4,7 @@
 
 
 {% block head %}
-
+  <link rel="stylesheet" href="{% static 'css/checkbox.css' %}">
 {% endblock head %}
 
 
@@ -55,11 +55,19 @@
               {% with status=status_list|index:forloop.counter0 %}
                 {% if status == '未' %}
                   <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}">
-                    <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>{{ status }}</td>
+                    <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td>
+                    <td>
+                      <label><input type="checkbox" name="check" disabled="disabled" class="checkbox_input"><span class="checkbox_parts"></span><label>
+                    </td>
                   </tr>
                 {% else %}
                   <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}" class="success">
-                    <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td><td>{{ status }}</td>
+                    <td>{{ task.classification_id }}</td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td>
+                      <label><input type="checkbox" name="check" disabled="disabled" class="checkbox_input" checked="checked"><span class="checkbox_parts"></span><label>
+                    </td>
                   </tr>
                 {% endif %}
               {% endwith %}
