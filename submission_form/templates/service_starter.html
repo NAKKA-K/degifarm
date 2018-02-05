@@ -10,20 +10,30 @@
 {% block contents %}
   <h1>サービス登録</h1>
 
-  <form action="" method="POST">
+  <form style="padding-bottom:50px;" action="" method="POST">
     {% csrf_token %}
     {% bootstrap_form org_form %}
     {% bootstrap_form user_form %}
     {% bootstrap_form teacher_form %}
 
-    <button type="submit" class="btn btn-primary">サービス開始</button>
+  
+    <div style="padding-bottom:30px;" class="g-recaptcha" name="robot" data-callback="clearcall" data-sitekey="6LfnWkQUAAAAAJVug2O55Njh0M2jmh0pBuzWl2_t"></div>
+  
+    <input type="submit" name="button" class="btn btn-primary" value="サービス開始" disabled>
   </form>
 
 {% endblock contents%}
 
 
 {% block script %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
+<script type="text/javascript">
+function clearcall(code) {
+  if(code !== ""){
+     $(':submit[name=button]').removeAttr("disabled");
+  }
+}
+</script>
 {% endblock script %}
-
 
