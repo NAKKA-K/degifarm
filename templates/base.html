@@ -22,11 +22,10 @@
        background-image: url({% static 'images/photo1.jpg' %});
       } </style>
 
-
   </head>
 
   <body>
-
+  {% if user.is_authenticated %}  
     <!-- 画面上のバー -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -107,7 +106,8 @@
 
       </div>
     </nav>
-
+    {% else %}
+    {% endif %}
 
     <div class="container">
 
@@ -127,17 +127,15 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
 
-
     <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-
     <!-- sweetalertを導入するかもしれない時のため -->
     <link rel="stylesheet" type="text/css" href="{% static 'sweetalert2/css/sweetalert2.min.css' %}">
     <script src="{% static 'sweetalert2/js/sweetalert2.all.min.js' %}"></script>
     <script src="{% static 'sweetalert2/js/sweetalert2.min.js' %}"></script>
-  <!--  <script src="{% static 'sweetalert/js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'sweetalert/js/sweetalert.min.js' %}"></script>
     <script src="{% static 'sweetalert/css/sweetalert.css' %}"></script>
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css"/>-->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css"/>
 
     {% block script %}
     <!--<script>
@@ -157,9 +155,8 @@
         });
     });
     </script>-->
+    </script>
     {% endblock script %}
 
-    {% load sweetify %}
-    {% sweetify %}
   </body>
 </html>

@@ -12,6 +12,11 @@
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
 }
 
+.scroll{
+margin-left: 1rem;
+overflow: auto;
+height: 100vh;
+}
 
 .phrase1{
   font-weight: bold;
@@ -48,11 +53,11 @@
   color: #FFF;
 }
 
-.background{
+/*.background{
   background-image: url("/static/images/photo1.jpg");
   background-position: center center;
   background-size: cover;
-}
+}*/
 
 
 .title_logo{
