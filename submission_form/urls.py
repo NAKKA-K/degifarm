@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
 
+
 urlpatterns = [
   # 提出物
   url(r'^$', views.TaskHomeView.as_view(), name = 'index'),
