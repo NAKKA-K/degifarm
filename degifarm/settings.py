@@ -147,6 +147,7 @@ db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
 # Honor the 'X_Forwarded-Proto' header for request.is_secure()
+SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
