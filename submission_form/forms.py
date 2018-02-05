@@ -1,8 +1,8 @@
 from django import forms
-from submission_form.models import Classification,Distribution
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
 
-from submission_form.models import Classification, Organization, Teacher, User, Student
+from submission_form.models import Classification, Organization, Teacher, User, Student, Distribution
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 class UploadFilesForm(forms.Form):
@@ -37,6 +37,7 @@ class CategoryForm(forms.ModelForm):
             }),
         }
 
+
 class OrganizationForm(forms.ModelForm):
   class Meta:
     model = Organization
@@ -51,9 +52,19 @@ class TeacherForm(forms.ModelForm):
   class Meta:
     model = Teacher
     fields = ['sex_id']
+    labels = {
+      'sex_id': _('性別')
+    }
 
 class StudentForm(forms.ModelForm):
   class Meta:
     model = Student
     fields = ['group_id', 'sex_id', 'school_year', 'school_class', 'school_number']
+    labels = {
+      'group_id': _('学科'),
+      'sex_id': _('性別'),
+      'school_year': _('学年'),
+      'school_class': _('組'),
+      'school_number': _('番号'),
+    }
 
