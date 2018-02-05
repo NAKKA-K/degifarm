@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 404_page %}active{% endblock %}
+{% block contents %}
+   <img src="{% static "images/404_degihebi.png" %}">
+{% endblock %}
+
+{% block script %}
+<script language="JavaScript">
+  setTimeout('history.go(-1)',2000);
+</script>
+{% endblock script %}

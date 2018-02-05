@@ -19,13 +19,13 @@
     <style type="text/css">
       body {
        padding-top: 50px;
-      }
-    </style>
+       background-image: url({% static 'images/photo1.jpg' %});
+      } </style>
 
   </head>
 
   <body>
-
+  {% if user.is_authenticated %}  
     <!-- 画面上のバー -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -106,7 +106,8 @@
 
       </div>
     </nav>
-
+    {% else %}
+    {% endif %}
 
     <div class="container">
 
@@ -126,32 +127,10 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
 
-    <!-- sweetalertを導入するかもしれない時のため -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>-->
-    <!-- <link rel="stylesheet" type="text/css" href="{@% static 'css/sweetalert.css' %}">-->
-    <!-- <script src="{@% static 'js/sweetalert.min.js' %}"></script>-->
-    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-    // import swal from 'sweetalert';
-    $('.delete').on('click',function(e){
-        e.preventDefault();
-        var form = $(this).parents('form');
-        swal({
-            title: "確認します",
-            text: "削除してよろしいですか？",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "YES",
-            cancelButtonText: "NO",
-            closeOnConfirm: false
-        }, function(isConfirm){
-            if (isConfirm) form.submit();
-        });
-    });
-    </script>-->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css"/>
 
+    {% block script %}
+    {% endblock script %}
 
-    {% block script %}{% endblock script %}
   </body>
 </html>

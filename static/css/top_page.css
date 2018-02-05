@@ -1,18 +1,48 @@
-a.home_link{
+.home_link{
   display: block;
+  padding: 22px 35px;
+  font-size: 22px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  margin: 0 auto;
   padding-top: 15px;
   padding-bottom: 15px;
-  margin: 0 auto;
-
   width: 150px;
-  background: #337AB7;
-
   text-align: center;
-  color: #FFF;
-  font-size:1.5em;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
 }
 
-a.home_link:hover{
+
+.phrase1{
+  font-weight: bold;
+  color: #20B2AA;
+  font-size: 28px;
+  padding-top: 40px;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+}
+
+.phrase2{
+  padding-top: 20px;
+  font-size: 18px;
+  color: #444444;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+}
+
+.service_start{
+  display: block;
+  padding: 25px 20px;
+  font-size: 22px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  margin: 0 auto;
+  padding-bottom: 15px;
+  width: 150px;
+  text-align: center;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+  margin-bottom: 100px;
+}
+
+.home_link:hover{
   background: #2060A0;
 
   color: #FFF;
@@ -20,9 +50,22 @@ a.home_link:hover{
 
 
 .title_logo{
+  margin-top: 30px;
+  padding-top: 20px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+.status_center {
+  padding-top: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(0%, 0%);
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  
 }
 
 
@@ -88,3 +131,39 @@ img.title {
 }
 
 
+/*トップページの動きをつけるためのcss(仮)*/
+/*#animation {
+  margin: 50px 0;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.fadeInDown {
+ -webkit-animation-fill-mode:both;
+ -ms-animation-fill-mode:both;
+ animation-fill-mode:both;
+ -webkit-animation-duration:1s;
+ -ms-animation-duration:1s;
+ animation-duration:1s;
+ -webkit-animation-name: fadeInDown;
+ animation-name: fadeInDown;
+ visibility: visible !important;
+}
+
+@-webkit-keyframes fadeInDown {
+ 0% { opacity: 0; -webkit-transform: translateY(-20px); }
+ 100% { opacity: 1; -webkit-transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+ 0% { opacity: 0; -webkit-transform: translateY(-20px); -ms-transform: translateY(-20px); transform: translateY(-20px); }
+ 100% { opacity: 1; -webkit-transform: translateY(0); -ms-transform: translateY(0); transform: translateY(0); }
+}
+*/
+
+.fade-in {
+ transition: opacity 0.4s;
+ -moz-transition: opacity 0.4s;
+ -webkit-transition: opacity 0.4s;
+}
