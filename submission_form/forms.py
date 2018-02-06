@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
-from submission_form.models import Classification, Organization, Teacher, User, Student, Distribution
+from submission_form.models import Classification, Organization, Teacher, User, Student, Distribution, Group
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 class UploadFilesForm(forms.Form):
@@ -26,16 +26,24 @@ class FileForm(forms.Form):
 
 
 class CategoryForm(forms.ModelForm):
-    """Subjectモデルのフォーム."""
+  class Meta:
+    model = Classification
+    exclude = ('organization_id','published_date')
+    widgets = {
+        'name': forms.TextInput(attrs={
+            'class': "form-control",
+        }),
+    }
 
-    class Meta:
-        model = Classification
-        exclude = ('organization_id','published_date')
-        widgets = {
-            'name': forms.TextInput(attrs={
-                'class': "form-control",
-            }),
-        }
+class GroupForm(forms.ModelForm):
+  class Meta:
+    model = Group
+    exclude = ('organization_id', )
+    widgets = {
+        'name': forms.TextInput(attrs={
+            'class': "form-control",
+        }),
+    }
 
 
 class OrganizationForm(forms.ModelForm):
