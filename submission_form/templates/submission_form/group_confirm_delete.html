@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block category_page %}active{% endblock %}
+
+{% block contents %}
+  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+    <h1 class="text-center">グループ削除</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
+    <li class=""><a href="{% url 'submission_form:group_index' %}">グループ一覧</a></li>
+    <li class="active"><a href="#">グループ削除</a></li>
+  </ol>
+
+  <form action="" method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="text-center">
+      <h2>グループ名:{{ group.name }}</h2>
+      <button type="submit" class="btn btn-primary btn-lg">削除</button>
+      <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-danger btn-lg">戻る</a>
+      </div>
+  </form>
+
+{% endblock %}
+
