@@ -26,7 +26,7 @@ class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
       return Classification.objects\
               .filter(organization_id = user_info.organization_id)\
               .order_by('-published_date')
-    except Task.DoesNotExist:
+    except Classification.DoesNotExist:
       return None
 
   def get_context_data(self, **kwargs):
@@ -54,7 +54,7 @@ class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
     category = form.save(commit = False)
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
 
-    category.user_id = self.request.user
+    category.user_id = self.request.user # TODO: ??
     category.organization_id = user_info.organization_id
     category.save()
     return super().form_valid(form)
@@ -73,7 +73,7 @@ class CategoryUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
     user_info = StudentOrTeacherGetter.getInfo(request.user)
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     
-    if not is_teacher or user_info.organization_id == get_object_or_404(Classification, id = kwargs['pk']).organization_id:
+    if not is_teacher or user_info.organization_id != get_object_or_404(Classification, id = kwargs['pk']).organization_id:
       raise Http404
     return super().get(request, **kwargs)
 
@@ -91,7 +91,7 @@ class CategoryDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
     user_info = StudentOrTeacherGetter.getInfo(request.user)
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     
-    if not is_teacher or user_info.organization_id == get_object_or_404(Classification, id = kwargs['pk']).organization_id:
+    if not is_teacher or user_info.organization_id != get_object_or_404(Classification, id = kwargs['pk']).organization_id:
       raise Http404
     return super().get(request, **kwargs)
 
