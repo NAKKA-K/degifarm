@@ -5,16 +5,16 @@ from django.shortcuts import get_object_or_404
 
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
-from submission_form.models import Distribution,Organization,Classification
-from submission_form.forms import CategoryForm
+from submission_form.models import Group
+from submission_form.forms import GroupForm
 
 
-class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
+class GroupIndexView(LoginRequiredMessageMixin, generic.ListView):
   """科目の一覧."""
 
-  model = Classification
-  template_name = 'submission_form/category_list.html'
-  context_object_name='category_list'
+  model = Group
+  template_name = 'submission_form/group_list.html'
+  context_object_name='group_list'
   paginate_by = 20
 
   def get_queryset(self):
@@ -22,11 +22,9 @@ class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
     try:
       if user_info is None:
-        raise Classification.DoesNotExist
-      return Classification.objects\
-              .filter(organization_id = user_info.organization_id)\
-              .order_by('-published_date')
-    except Classification.DoesNotExist:
+        raise Group.DoesNotExist
+      return Group.objects.filter(organization_id = user_info.organization_id)
+    except Group.DoesNotExist:
       return None
 
   def get_context_data(self, **kwargs):
@@ -36,13 +34,13 @@ class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
     return context
 
 
-class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
+class GroupCreateView(LoginRequiredMessageMixin, generic.CreateView):
   """科目の作成."""
 
-  model = Classification
-  template_name = 'submission_form/category_form.html'
-  form_class = CategoryForm
-  success_url = reverse_lazy('submission_form:category_index')
+  model = Group
+  template_name = 'submission_form/group_form.html'
+  form_class = GroupForm
+  success_url = reverse_lazy('submission_form:group_index')
     
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
@@ -51,47 +49,47 @@ class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
     return super().get(request, **kwargs)
 
   def form_valid(self, form):
-    category = form.save(commit = False)
+    group = form.save(commit = False)
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
 
-    category.user_id = self.request.user # TODO: ??
-    category.organization_id = user_info.organization_id
-    category.save()
+    #group.user_id = self.request.user
+    group.organization_id = user_info.organization_id
+    group.save()
     return super().form_valid(form)
 
 
-class CategoryUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
+class GroupUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
   """科目名の更新."""
 
-  model = Classification
-  template_name = 'submission_form/category_form.html'
-  form_class = CategoryForm
-  success_url = reverse_lazy('submission_form:category_index')
+  model = Group
+  template_name = 'submission_form/group_form.html'
+  form_class = GroupForm
+  success_url = reverse_lazy('submission_form:group_index')
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
     user_info = StudentOrTeacherGetter.getInfo(request.user)
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     
-    if not is_teacher or user_info.organization_id != get_object_or_404(Classification, id = kwargs['pk']).organization_id:
+    if not is_teacher or user_info.organization_id != get_object_or_404(Group, id = kwargs['pk']).organization_id:
       raise Http404
     return super().get(request, **kwargs)
 
 
-class CategoryDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
+class GroupDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
   """科目の削除."""
 
-  model = Classification
-  context_object_name='category'
-  template_name = 'submission_form/category_confirm_delete.html'
-  success_url = reverse_lazy('submission_form:category_index')
+  model = Group
+  context_object_name='group'
+  template_name = 'submission_form/group_confirm_delete.html'
+  success_url = reverse_lazy('submission_form:group_index')
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
     user_info = StudentOrTeacherGetter.getInfo(request.user)
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     
-    if not is_teacher or user_info.organization_id != get_object_or_404(Classification, id = kwargs['pk']).organization_id:
+    if not is_teacher or user_info.organization_id != get_object_or_404(Group, id = kwargs['pk']).organization_id:
       raise Http404
     return super().get(request, **kwargs)
 

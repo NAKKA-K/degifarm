@@ -29,6 +29,11 @@ urlpatterns = [
   url(r'^category/update/(?P<pk>[0-9]+)/$', views.CategoryUpdateView.as_view(), name='category_update'),
   url(r'^category/delete/(?P<pk>[0-9]+)/$', views.CategoryDeleteView.as_view(), name='category_delete'),
 
+  # 分類(カテゴリ)
+  url(r'^group/$', views.GroupIndexView.as_view(), name='group_index'),
+  url(r'^group/create/$', views.GroupCreateView.as_view(), name='group_create'),
+  url(r'^group/update/(?P<pk>[0-9]+)/$', views.GroupUpdateView.as_view(), name='group_update'),
+  url(r'^group/delete/(?P<pk>[0-9]+)/$', views.GroupDeleteView.as_view(), name='group_delete'),
 
 
   url(r'^download/zip/$', views.DownloadZipView.as_view(), name='download_zip'),
