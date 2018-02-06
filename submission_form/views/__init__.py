@@ -4,6 +4,7 @@ from submission_form.views.upload import *
 from submission_form.views.StudentOrTeacherGetter import *
 
 from submission_form.views.category import *
+from submission_form.views.group import *
 from submission_form.views.distribution import *
 from submission_form.views.download import *
 
