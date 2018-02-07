@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
 
-
 {% block nav_index %}active{% endblock %}
 
 {% block contents %}
+
   {% if not user.is_authenticated %}
   <div id="ascensor">
 

@@ -4,11 +4,20 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
+
 {% endblock head %}
 
 
 
 {% block contents %}
+   <style type="text/css">
+      body {
+         padding-top: 50px;
+         background-image: url({% static 'images/photo1.jpg' %});
+      }
+   </style>
+
+
   <h1 class="phrase1" style="font-size:40px;padding-bottom:20px;">サービス登録</h1>
 
   <form class="phrase2" style="padding-bottom:85px;font-size:20px;" action="" method="POST">

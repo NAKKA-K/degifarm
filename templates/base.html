@@ -16,16 +16,16 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap3/css/bootstrap.min.css' %}" rel="stylesheet"/>
-    <style type="text/css">
-      body {
-       padding-top: 50px;
-       background-image: url({% static 'images/photo1.jpg' %});
-      } </style>
 
   </head>
 
   <body>
   {% if user.is_authenticated %}  
+    <style type="text/css">
+      body {
+       padding-top: 50px;
+      } </style>
+
     <!-- 画面上のバー -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -107,6 +107,14 @@
       </div>
     </nav>
     {% else %}
+
+    <style type="text/css">
+      body {
+         padding-top: 50px;
+         background-image: url({% static 'images/top_back.jpg' %});
+      }
+    </style>
+
     {% endif %}
 
     <div class="container">
