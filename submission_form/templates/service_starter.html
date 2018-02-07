@@ -3,23 +3,22 @@
 
 
 {% block head %}
+  <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
 
 
 
 {% block contents %}
-  <h1>サービス登録</h1>
+  <h1 class="phrase1" style="font-size:40px;padding-bottom:20px;">サービス登録</h1>
 
-  <form style="padding-bottom:50px;" action="" method="POST">
+  <form class="phrase2" style="padding-bottom:85px;font-size:20px;" action="" method="POST">
     {% csrf_token %}
     {% bootstrap_form org_form %}
     {% bootstrap_form user_form %}
     {% bootstrap_form teacher_form %}
-
+    <div class="g-recaptcha robot_judge" name="robot" data-callback="clearcall" data-sitekey="6LfnWkQUAAAAAJVug2O55Njh0M2jmh0pBuzWl2_t"></div>
   
-    <div style="padding-bottom:30px;" class="g-recaptcha" name="robot" data-callback="clearcall" data-sitekey="6LfnWkQUAAAAAJVug2O55Njh0M2jmh0pBuzWl2_t"></div>
-  
-    <input type="submit" name="button" class="btn btn-primary" value="サービス開始" disabled>
+    <input type="submit" name="button" class="start_link btn-info" value="サービス開始" disabled>
   </form>
 
 {% endblock contents%}
