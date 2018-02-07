@@ -66,12 +66,14 @@
         <tr>
           <th>提出ファイル</th>
           <td>&emsp;&emsp;{{ task.name }}</td>
+          <a class="upload_button btn-warning"  href="{% url 'submission_form:upload_form' %}">提出物アップロード</a>
         </tr>
         <tr>
           <th>説明</th>
           <td>&emsp;&emsp;{{ task.text }}</td>
         </tr>
       </table>
+
   </div>
 
 {% endblock contents %}

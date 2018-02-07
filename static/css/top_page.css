@@ -45,11 +45,6 @@
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
 }
 
-.text_font{
-  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
-}
-
-
 .service_start{
   display: block;
   padding: 20px 20px;
@@ -68,6 +63,13 @@
   background: #2060A0;
 
   color: #FFF;
+}
+
+.upload_button{
+  font-size: 20px;
+  color: #FFF;
+  border-radius: 6px;
+  padding: 22px 35px;
 }
 
 
@@ -194,6 +196,7 @@ table.list_view{
  width: 800px;
  border-collapse: separate;
  border-spacing: 0px 15px;
+ margin-top: 35px;
 }
 
 table.list_view th,
