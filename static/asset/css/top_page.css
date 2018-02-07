@@ -30,7 +30,7 @@
 
 .service_start{
   display: block;
-  padding: 25px 20px;
+  padding: 20px 20px;
   font-size: 22px;
   line-height: 1.3333333;
   border-radius: 6px;
@@ -47,7 +47,6 @@
 
   color: #FFF;
 }
-
 
 .title_logo{
   margin-top: 30px;
@@ -126,7 +125,7 @@ img.title {
 
   img.title {
     width: 60vw;
-    height: 40vh;
+    height: 50vh;
   }
 }
 
@@ -167,3 +166,4 @@ img.title {
  -moz-transition: opacity 0.4s;
  -webkit-transition: opacity 0.4s;
 }
+

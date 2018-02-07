@@ -3,6 +3,7 @@
 
 
 {% block head %}
+  <link rel="stylesheet" href="{% static 'css/submission_detail.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
 
 
@@ -14,14 +15,12 @@
 
   <ol class="breadcrumb">
     <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li>
-    <li class="active"><a href="#">課題詳細</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li> <li class="active"><a href="#">課題詳細</a></li>
   </ol>
 
 
-  <div style="font-size: 18px;">
+  <div style="font-size: 20px;">
 
-      
     {% url 'submission_form:task_detail' pk=task.pk as detail_url %}
     {% url 'submission_form:task_delete' pk=task.pk as delete_url %}
     {% if request.path == detail_url %}
@@ -49,25 +48,34 @@
     {% endif %}
 
 
+      {% if task.published_date %}
+        <p>公開日: {{ task.published_date }}</p>
+      {% else %}
+        <p>公開日: 未公開</p>
+      {% endif %}
 
-    {% if task.published_date %}
-      <p>公開日: {{ task.published_date }}</p>
-    {% else %}
-      <p>公開日: 未公開</p>
-    {% endif %}
-
-    <p>作成者: {{ task.user_id }}<p>
-    <Hr>
-    <h3>提出期限: </h3>
-    <p>{{ task.deadline }}</p>
-    <h3>提出ファイル: </h3>
-    <p>{{ task.name }}</p>
-    <h3>説明: </h3>
-    <p>{{ task.text }}</p>
+      <p>作成者: {{ task.user_id }}<p>
+      <Hr>
+      <br>
+       <a class="upload_button btn-warning"  href="{% url 'submission_form:upload_form' %}">提出物アップロード</a>
+      <table class="list_view">
+        <tr>
+          <th>提出期限</th>
+          <td>&emsp;&emsp;{{ task.deadline }}</td>
+        </tr>
+        <tr>
+          <th>提出ファイル</th>
+          <td>&emsp;&emsp;{{ task.name }}</td>
+        </tr>
+        <tr>
+          <th>説明</th>
+          <td>&emsp;&emsp;{{ task.text }}</td>
+        </tr>
+      </table>
 
   </div>
 
-{% endblock contents%}
+{% endblock contents %}
 
 
 {% block script %}

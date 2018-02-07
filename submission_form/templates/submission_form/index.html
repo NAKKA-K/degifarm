@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
 
-
 {% block nav_index %}active{% endblock %}
 
 {% block contents %}
+
   {% if not user.is_authenticated %}
   <div id="ascensor">
 
     <div >
       <div class="title_logo">
-        <img src="{% static 'images/degilogo.png' %}" class="title" alt="でじふぁーむ。">
+        <img src="{% static 'images/degi_logo.png' %}" class="title" alt="でじふぁーむ。">
       </div>
       
       <div class="text-center" style="font-size: 20px;">
@@ -110,20 +110,6 @@
     $('#ascensor').ascensor();
   </script>
   <script src="{% static 'js/data-href.js' %}"></script> 
-
- <!-- <script>
-  $('#animation').css('visibility','hidden');
-  $(window).scroll(function(){
-    var windowHeight = $(window).height(),
-        topWindow = $(window).scrollTop();
-    $('#animation').each(function(){
-     var targetPosition = $(this).offset().top;
-     if(topWindow > targetPosition - windowHeight + 100){
-      $(this).addClass("fadeInDown");
-     }
-    });
-  });
-  </script>-->
 
 <script>
 $(window).on('load',function(){
