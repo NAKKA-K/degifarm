@@ -10,6 +10,7 @@ table.list_view{
  border-collapse: separate;
  border-spacing: 0px 15px;
  margin-top: 35px;
+ margin-bottom: 60px;
 }
 
 table.list_view th,
