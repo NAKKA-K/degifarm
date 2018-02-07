@@ -6,7 +6,7 @@
 }
 
 table.list_view{
- width: 800px;
+ width: 1150px;
  border-collapse: separate;
  border-spacing: 0px 15px;
  margin-top: 35px;
@@ -65,7 +65,7 @@ table.list_view th:after {
 
 table.list_view td {
  background: #f8f8f8;
- width: 360px;
+ width: 700px;
  padding-left: 20px;
 }
 
