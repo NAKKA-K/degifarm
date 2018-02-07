@@ -8,6 +8,7 @@ urlpatterns = [
   url(r'^upload/$', views.UploadList.as_view(), name = 'upload_index'),
   url(r'^upload/form/$', views.UploadFilesView.as_view(), name = 'upload_form'),
   url(r'^submission/download/(?P<pk>.*)/$',views.DownloadSubView.as_view(), name='sub_download'),
+  url(r'^submission/delete/(?P<pk>.*)/$',views.DeleteSubmissionView.as_view(), name='sub_delete'),
 
   # 先生のみアクセス可
   url(r'^task/create/$', views.TaskCreateView.as_view(), name = 'task_create'),
