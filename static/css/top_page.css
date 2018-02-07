@@ -12,23 +12,6 @@
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
 }
 
-.start_link{
-  padding: 22px 35px;
-  font-size: 25px;
-  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
-  border-radius: 4px;
-}
-
-.start_link[disabled]{
-  opacity: .65;
-}
-
-
-.robot_judge{
-  padding-bottom: 60px;
-  padding-top: 25px;
-}
-
 
 .phrase1{
   font-weight: bold;
@@ -64,14 +47,6 @@
 
   color: #FFF;
 }
-
-.upload_button{
-  font-size: 20px;
-  color: #FFF;
-  border-radius: 6px;
-  padding: 22px 35px;
-}
-
 
 .title_logo{
   margin-top: 30px;
@@ -191,69 +166,4 @@ img.title {
  -moz-transition: opacity 0.4s;
  -webkit-transition: opacity 0.4s;
 }
-
-table.list_view{
- width: 800px;
- border-collapse: separate;
- border-spacing: 0px 15px;
- margin-top: 35px;
-}
-
-table.list_view th,
-table.list_view td {
- padding: 10px;
-}
-
-table.list_view th {
- background: #FF8C00;
- vertical-align: middle;
- text-align: left;
- overflow: visible;
- position: relative;
- color: #fff;
- width: 150px;
-}
-
-
-
-table.list_view th:after {
- left: 100%;
- top: 50%;
- border: solid transparent;
- content: " ";
- height: 0;
- width: 0;
- position: absolute;
- pointer-events: none;
- border-color: rgba(136, 183, 213, 0);
- border-left-color: #FF8C00;
- border-width: 24px;
- margin-top: -24px;
-}
-
-
-/* firefox */
-@-moz-document url-prefix(){
-  table.list_view th::after {
-   float: right;
-   padding: 0;
-   left: 30px;
-   top: 10px;
-   height: 0;
-   width: 0;
-   position: relative;
-   pointer-events: none;
-   border: 10px solid transparent;
-   border-left: #295890 10px solid;
-   margin-top: -10px;
-  }
-}
-
-
-table.list_view td {
- background: #f8f8f8;
- width: 360px;
- padding-left: 20px;
-}
-
 

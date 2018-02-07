@@ -3,7 +3,7 @@
 
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/service_start.css' %}?date={% now "jS F Y H:i" %}">
 
 {% endblock head %}
 
@@ -18,9 +18,9 @@
    </style>
 
 
-  <h1 class="phrase1" style="padding-top:30px;font-size:40px;padding-bottom:20px;">サービス登録</h1>
+  <h1 class="start_regist" style="padding-top:30px;font-size:40px;padding-bottom:20px;">サービス登録</h1>
 
-  <form class="phrase2" style="padding-bottom:85px;font-size:20px;" action="" method="POST">
+  <form class="input_items" style="padding-bottom:85px;font-size:20px;" action="" method="POST">
     {% csrf_token %}
     {% bootstrap_form org_form %}
     {% bootstrap_form user_form %}
