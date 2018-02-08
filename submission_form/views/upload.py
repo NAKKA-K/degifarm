@@ -72,16 +72,11 @@ class DeleteSubmissionView(LoginRequiredMessageMixin, generic.DeleteView):
   success_url = reverse_lazy('submission_form:index')
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
-      template_name=ERROR_404_TEMPLATE_NAME
-      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
-      raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
   def post(self, request, **kwargs):
-    submission = Submission.objects.get(id = kwargs.get('pk'))
     try:
+      submission = Submission.objects.get(id = kwargs.get('pk'))
       os.remove(submission.path)
     except:
       pass
