@@ -59,9 +59,8 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
         if task.classification_id == sub.classification_id and task.name == sub.name:
           status_list.append('済')
           break
-        else:
-          status_list.append('未')
-          break
+      else:
+        status_list.append('未')
     else:
       context['status_list'] = status_list
 
