@@ -95,7 +95,7 @@
           <!-- ヘッダー右側のアイコン -->
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-              <li><a href=""><span class="glyphicon glyphicon-plus"></span></a></li>
+              <li><a href="{% url 'submission_form:upload_form' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
               <p class="navbar-text"><span class="glyphicon glyphicon-user"></span>Hello (<a href="{% url 'logout' %}">Logout</a>)</p>
             {% else %}
               <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-lock"></span></a></li>
