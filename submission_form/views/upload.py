@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from django.views import generic
 from django.shortcuts import get_object_or_404
 
 # app module
@@ -60,6 +61,35 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
       return self.form_valid(form)
     else:
       return self.form_invalid(form)
+
+
+class DeleteSubmissionView(LoginRequiredMessageMixin, generic.DeleteView):
+  """ファイルの削除."""
+
+  model = Submission
+  context_object_name = 'file'
+  template_name = 'submission_form/submission_confirm_delete.html'
+  success_url = reverse_lazy('submission_form:index')
+
+  def get(self, request, **kwargs):
+    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
+    if not is_teacher:
+      template_name=ERROR_404_TEMPLATE_NAME
+      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
+      raise Http404 # 先生でなければ、PageNotFound
+    return super().get(request, **kwargs)
+
+  def post(self, request, **kwargs):
+    submission = Submission.objects.get(id = kwargs.get('pk'))
+    try:
+      os.remove(submission.path)
+    except:
+      pass
+
+    return super().post(request, **kwargs)
+
+
+
 
 
 # メモリ展開されたバイトデータを文字列に変換する
