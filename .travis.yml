@@ -18,3 +18,15 @@ before_script:
 script:
   - python -Wall manage.py test
 
+notifications:
+  slack:
+    secure: ArKaxD8EswkprhC0DsKn2taBMVbFtHY5jh9/zpWcK0c+kAfMhPVKtjNtHx6UqF4zgmj/aj544EOC
+      CgeNsz9zrSqS7J17VJ0vcc5HlOOOsIpS+p6VfKpxHwHxPoo3RAFoWmMrc5vm1Dt462HDb2/zFzIT
+      EoRiI7ubU0VErX9W/j9zEhXlW2+bWyv3COFss7NCtwBH8oPHwnQrrOKSaz4Wcq+6QDsqIxbqKfuE
+      ywSqktxDf9ofB48Oe32tapXbdMxul6vU0t+6/Q3UyVlcS5dv7raVUfs3bvF3bBYXYgjVrTCzCfnR
+      0R/gmclVx8DIzZhgns/z4V2p0+oVzDwIpo3i/wyQHcnaxygBDNbkcINAv3Y3cMYHNeX9dHobiqyk
+      CCXkcjHq8FaHsV0ha03UW/SMB4+ue0z0CzTt7jr+uVhSrjSWMImApZomx3nrj3wwxv2Ui9j0/W4g
+      qADigMPo1DKxvRUyvEODeGbFokeYYsa5ubJ1LGrRgI6X2nCblitRTKHzZIVz400pQXOvaVclS3dK
+      iD6Z8CIanfLyZsgV48g4p95z86FGGSBMCgThImlMZNfAfJt+25cLW2w8sCeViSS71rMn94C3qDeq
+      u0tA9BitmQj2oX3/m4pBcXblsfpu1MrewkVj8FIIzursfTH2u+kn7Y+eyyaHBk09RYVH0WxERJc=
+
