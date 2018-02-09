@@ -19,7 +19,7 @@ class IndexView(ListView):
   context_object_name = 'task_list'
 
   def get_queryset(self):
-    if self.request.user.is_anonymous() == True:
+    if self.request.user.is_anonymous:
       return
 
     user_info = StudentOrTeacherGetter.getInfo(self.request.user)
@@ -32,7 +32,7 @@ class IndexView(ListView):
       return None
 
   def get_context_data(self, **kwargs):
-    if self.request.user.is_anonymous() == True:
+    if self.request.user.is_anonymous:
       return None
 
     context = super().get_context_data(**kwargs)
