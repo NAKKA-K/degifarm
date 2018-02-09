@@ -178,3 +178,16 @@ except ImportError:
   pass
 
 
+if os.getenv('BUILD_ON_TRAVIS', Nonw):
+  DEBUG = False
+  TEMPLATE_DEBUG = True
+
+  DATABASES = {
+    'default': {
+      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+      'NAME': 'test',
+      'USER': 'travis',
+      'PASSWORD': '',
+      'HOST': '127.0.0.1',
+    }
+  }

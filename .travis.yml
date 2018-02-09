@@ -3,12 +3,17 @@ language: python
 python:
   - "3.6"
 
+services:
+  - postgresql
+
 env:
   - DJANGO=django==1.11
-  - DJANGO=https://github.com/django/django/archive/master.tar.gz
 
 install:
   - pip install -r requirement.txt
+
+before_script:
+  - postgresql -e 'create database test;'
 
 script:
   - python -Wall manage.py test
