@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView, View
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.http import Http404
 from django.contrib import messages
 from django.shortcuts import render, redirect
