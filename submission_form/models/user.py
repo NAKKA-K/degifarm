@@ -95,11 +95,20 @@ class Student(models.Model):
     settings.AUTH_USER_MODEL,
     on_delete = models.CASCADE,
     primary_key = True,
-    related_name="student"
+    related_name = "student"
   )
-  organization_id = models.ForeignKey(Organization)
-  group_id = models.ForeignKey(Group)
-  sex_id = models.ForeignKey(Sex)
+  organization_id = models.ForeignKey(
+    Organization,
+    on_delete = models.CASCADE
+  )
+  group_id = models.ForeignKey(
+    Group,
+    on_delete = models.CASCADE
+  )
+  sex_id = models.ForeignKey(
+    Sex,
+    on_delete = models.CASCADE
+  )
 
   school_year = models.IntegerField(_('school year'), blank = True, null = True)
   school_class = models.IntegerField(_('school class'), blank = True, null = True)
@@ -115,10 +124,16 @@ class Teacher(models.Model):
     settings.AUTH_USER_MODEL,
     on_delete = models.CASCADE,
     primary_key = True,
-    related_name="teacher"
+    related_name = "teacher"
   )
-  organization_id = models.ForeignKey(Organization)
-  sex_id = models.ForeignKey(Sex)
+  organization_id = models.ForeignKey(
+    Organization,
+    on_delete = models.CASCADE
+  )
+  sex_id = models.ForeignKey(
+    Sex,
+    on_delete = models.CASCADE
+  )
 
   def __str__(self):
     return self.user.get_full_name()

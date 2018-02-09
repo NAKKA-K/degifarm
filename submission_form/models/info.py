@@ -32,7 +32,11 @@ class Sex(models.Model):
 
 # 学科テーブル
 class Group(models.Model):
-  organization_id = models.ForeignKey(Organization, verbose_name = _('所属ID'))
+  organization_id = models.ForeignKey(
+    Organization,
+    verbose_name = _('所属ID'),
+    on_delete = models.CASCADE
+  )
   name = models.CharField(_('学科'), max_length = 64)
 
   def __str__(self):
@@ -41,7 +45,11 @@ class Group(models.Model):
 
 # 分類テーブル
 class Classification(models.Model):
-  organization_id = models.ForeignKey(Organization, verbose_name = _('所属ID'))
+  organization_id = models.ForeignKey(
+    Organization,
+    verbose_name = _('所属ID'),
+    on_delete = models.CASCADE
+  )
   name = models.CharField(_('科目名'), max_length = 64)
   published_date = models.DateTimeField(_('作成日'), default=timezone.now)
 
@@ -51,10 +59,22 @@ class Classification(models.Model):
 
 # 提出物テーブル
 class Submission(models.Model):
-  organization_id = models.ForeignKey(Organization, verbose_name = _('所属ID'))
-  user_id = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name = _('提出者'))
+  organization_id = models.ForeignKey(
+    Organization,
+    verbose_name = _('所属ID'),
+    on_delete = models.CASCADE
+  )
+  user_id = models.ForeignKey(
+    settings.AUTH_USER_MODEL,
+    verbose_name = _('提出者'),
+    on_delete = models.CASCADE
+  )
   id = models.UUIDField(_('提出ID'), primary_key = True, default = uuid.uuid4, editable = False)
-  classification_id = models.ForeignKey(Classification, verbose_name = _('科目'))
+  classification_id = models.ForeignKey(
+    Classification,
+    verbose_name = _('科目'),
+    on_delete = models.CASCADE,
+  )
   name = models.CharField(_('ファイル名'), max_length = 64)
   published_date = models.DateTimeField(_('公開日'), default=timezone.now)
   path = models.CharField(_('ファイルパス'), max_length = 255)
@@ -65,10 +85,22 @@ class Submission(models.Model):
 
 # 配布物テーブル
 class Distribution(models.Model):
-  organization_id = models.ForeignKey(Organization, verbose_name = _('所属ID'))
-  user_id = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name = _('配布者'))
+  organization_id = models.ForeignKey(
+    Organization,
+    verbose_name = _('所属ID'),
+    on_delete = models.CASCADE
+  )
+  user_id = models.ForeignKey(
+    settings.AUTH_USER_MODEL,
+    verbose_name = _('配布者'),
+    on_delete = models.CASCADE
+  )
   id = models.UUIDField(_('配布ID'), primary_key = True, default = uuid.uuid4, editable = False)
-  classification_id = models.ForeignKey(Classification, verbose_name = _('科目'))
+  classification_id = models.ForeignKey(
+    Classification,
+    verbose_name = _('科目'),
+    on_delete = models.CASCADE
+  )
   name = models.CharField(_('ファイル名', ), max_length = 64)
   published_date = models.DateTimeField(_('公開日'), default=timezone.now)
   path = models.CharField(_('ファイルパス'), max_length = 255)
