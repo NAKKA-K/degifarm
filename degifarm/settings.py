@@ -180,7 +180,6 @@ except ImportError:
 
 if 'TRAVIS' in os.environ:
   DEBUG = False
-  TEMPLATE_DEBUG = True
 
   DATABASES = {
     'default': {
