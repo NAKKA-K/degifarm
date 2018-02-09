@@ -178,7 +178,7 @@ except ImportError:
   pass
 
 
-if os.getenv('BUILD_ON_TRAVIS', Nonw):
+if 'TRAVIS' in os.environ:
   DEBUG = False
   TEMPLATE_DEBUG = True
 
