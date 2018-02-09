@@ -7,9 +7,21 @@ from django.urls import reverse
 from submission_form.models import Organization, Classification
 
 class Task(models.Model):
-  organization_id = models.ForeignKey(Organization, verbose_name = _('所属ID'))
-  user_id = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name = _('課題提出者'))
-  classification_id = models.ForeignKey(Classification, verbose_name = '科目')
+  organization_id = models.ForeignKey(
+    Organization,
+    verbose_name = _('所属ID'),
+    on_delete = models.CASCADE
+  )
+  user_id = models.ForeignKey(
+    settings.AUTH_USER_MODEL,
+    verbose_name = _('課題提出者'),
+    on_delete = models.CASCADE
+  )
+  classification_id = models.ForeignKey(
+    Classification,
+    verbose_name = _('科目'),
+    on_delete = models.CASCADE
+  )
   name = models.CharField(_('課題ファイル名'), max_length = 64)
   text = models.TextField(_('課題説明'))
   deadline = models.DateTimeField(_('提出期限'), help_text = 'xxxx-xx-xx の形式で入力してください')
