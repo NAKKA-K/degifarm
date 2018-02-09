@@ -10,7 +10,7 @@ env:
   - DJANGO=django==1.11
 
 install:
-  - pip install -r requirement.txt
+  - pip install -r requirements.txt
 
 before_script:
   - postgresql -e 'create database test;'
