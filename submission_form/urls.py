@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
 
+app_name = 'submission_form'
 
 urlpatterns = [
   # 提出物
