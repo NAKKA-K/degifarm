@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - "3.6"
+
+env:
+  - DJANGO=django==1.11
+  - DJANGO=https://github.com/django/django/archive/master.tar.gz
+
+install:
+  - pip install DJANGO
+
+script:
+  - python -Wall manage.py test
+
