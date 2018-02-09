@@ -180,6 +180,7 @@ except ImportError:
 
 if 'TRAVIS' in os.environ:
   DEBUG = False
+  SECURE_SSL_REDIRECT = False
 
   DATABASES = {
     'default': {
