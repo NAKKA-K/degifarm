@@ -5,12 +5,12 @@ app_name = 'submission_form'
 
 urlpatterns = [
   # 提出物
-  url(r'^home/$', views.HomeView.as_view(), name = 'home'),
-  url(r'^$', views.TaskHomeView.as_view(), name = 'index'),
-  url(r'^upload/$', views.UploadList.as_view(), name = 'upload_index'),
+  url(r'^$', views.HomeView.as_view(), name = 'index'),
+  url(r'^list/$', views.TaskHomeView.as_view(), name = 'list'),
+  url(r'^upload/list/$', views.UploadList.as_view(), name = 'upload_index'),
   url(r'^upload/form/$', views.UploadFilesView.as_view(), name = 'upload_form'),
-  url(r'^submission/download/(?P<pk>.*)/$',views.DownloadSubView.as_view(), name='sub_download'),
-  url(r'^submission/delete/(?P<pk>.*)/$',views.DeleteSubmissionView.as_view(), name='sub_delete'),
+  url(r'^download/(?P<pk>.*)/$',views.DownloadSubView.as_view(), name='sub_download'),
+  url(r'^delete/(?P<pk>.*)/$',views.DeleteSubmissionView.as_view(), name='sub_delete'),
 
   # 先生のみアクセス可
   url(r'^task/create/$', views.TaskCreateView.as_view(), name = 'task_create'),
