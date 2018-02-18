@@ -13,7 +13,7 @@
 }
 
 
-.phrase1{
+.strong_phrase{
   font-weight: bold;
   color: #20B2AA;
   font-size: 28px;
@@ -21,7 +21,7 @@
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
 }
 
-.phrase2{
+.normal_phrase{
   padding-top: 20px;
   font-size: 18px;
   color: #444444;
@@ -39,7 +39,6 @@
   width: 150px;
   text-align: center;
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
-  margin-bottom: 100px;
 }
 
 .home_link:hover{
@@ -56,33 +55,8 @@
   margin-right: auto;
 }
 
-.status_center {
-  padding-top: 200px;
-  top: 50%;
-  left: 50%;
-  transform: translate(0%, 0%);
-  width: 100vw;
-  height: 100vh;
-  text-align: center;
-  
-}
 
 
-.header_bottom {
-  margin-top:50px;
-  position: relative;
-}
-
-
-.header_bottom .block_center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  text-align: center;
-}
 
 img.sample {
   width: 751px;
@@ -95,11 +69,6 @@ img.title {
 }
 
 @media screen and (max-width:479px){
-  .header_bottom {
-    margin-top: 50px;
-    position: relative;
-  }
-
   img.sample {
     width: 100vw;
     height: 40vh;
@@ -113,11 +82,6 @@ img.title {
 
 
 @media screen and (min-width:480px) and (max-width:1023px){
-  .header_bottom {
-    margin-top: 50px;
-    position: relative;
-  }
-
   img.sample {
     width: 80vw;
     height: 50vh;
@@ -129,37 +93,6 @@ img.title {
   }
 }
 
-
-/*トップページの動きをつけるためのcss(仮)*/
-/*#animation {
-  margin: 50px 0;
-  font-size: 40px;
-  font-weight: bold;
-  color: #ff0000;
-}
-
-.fadeInDown {
- -webkit-animation-fill-mode:both;
- -ms-animation-fill-mode:both;
- animation-fill-mode:both;
- -webkit-animation-duration:1s;
- -ms-animation-duration:1s;
- animation-duration:1s;
- -webkit-animation-name: fadeInDown;
- animation-name: fadeInDown;
- visibility: visible !important;
-}
-
-@-webkit-keyframes fadeInDown {
- 0% { opacity: 0; -webkit-transform: translateY(-20px); }
- 100% { opacity: 1; -webkit-transform: translateY(0); }
-}
-
-@keyframes fadeInDown {
- 0% { opacity: 0; -webkit-transform: translateY(-20px); -ms-transform: translateY(-20px); transform: translateY(-20px); }
- 100% { opacity: 1; -webkit-transform: translateY(0); -ms-transform: translateY(0); transform: translateY(0); }
-}
-*/
 
 .fade-in {
  transition: opacity 0.4s;

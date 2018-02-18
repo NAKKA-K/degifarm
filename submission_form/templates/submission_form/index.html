@@ -1,132 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
-{% load index %}
 
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
+    <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
+    <style type="text/css">
+        body {
+            background-imag: url({% static 'images/top_background.jpg' %})
+        }
+    </style>
 {% endblock head %}
 
-{% block nav_index %}active{% endblock %}
+
 
 {% block contents %}
-
-  {% if not user.is_authenticated %}
-  <div id="ascensor">
-
-    <div >
-      <div class="title_logo">
+    <div class="title_logo">
         <img src="{% static 'images/degi_logo.png' %}" class="title" alt="でじふぁーむ。">
-      </div>
-      
-      <div class="text-center" style="font-size: 20px;">
-        <h2 class="phrase1">みんなで、どこでも提出できる課題管理ツール</h2>
-        <p class="phrase2">課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
-        <p  style="padding-top:10px;" class="phrase2"><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
-      </div>
-
-        <div style="padding-top: 70px;"></div>
-        <a class="home_link btn-info" href="{% url 'login' %}">LOGIN</a>
-    <!--</div>-->
-
-    <!--<div id="status_page" class="header_bottom">-->
-      <div class="block_center status_center"> 
-        <img src="{% static 'images/sample.jpg' %}" class="fade-in sample" alt="でじふぁーむ。サンプル画面">
-        <h1  style="font-size:28px;" class="phrase1">時間、人材、費用のすべてを削減できます</h1>
-        <p class="phrase2">提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
-
-        <div style="padding-top: 70px;"></div>
-        <a class="service_start btn-info" href="{% url 'service_start' %}">サービスを始める</a>
-      </div>
     </div>
 
-  </div>
-  {% else %}
-
-    <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-      <h1 class="text-center">ホーム</h1>
+    <div class="text-center" style="font-size: 20px;">
+        <h2 class="strong_phrase">みんなで、どこでも提出できる課題管理ツール</h2>
+        <p class="normal_phrase">課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
+        <p style="padding-top:10px;" class="normal_phrase"><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
     </div>
 
-    <ol class="breadcrumb">
-      <li class="active"><a href="#">ホーム</a></li>
-    </ol>
+    <div style="padding-top: 75px;"></div>
+    <a class="home_link btn-info" href="{% url 'login' %}">LOGIN</a>
 
 
-    <div class="row">
-
-      <div class="col-xs-12 col-sm-3">
-        <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
-        <ul style="font-size:140%;">
-          {% for class in classification %}
-            <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
-          {% empty %}
-            <li><a href="{% url 'submission_form:upload_form' %}"> 分類がありません</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="col-xs-12 col-sm-9">
-        <h1 class="page-header">期限1週間以内の未提出課題
-          {% if is_teacher %}
-            <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_create' %}">
-              <span title="New Task" class="glyphicon glyphicon-plus"> 課題の追加</span>
-            </a>
-          {% endif %}
-        </h1>
-
-        <table class="table table-hover">
-          <thead>
-            <tr bgcolor="#000">
-              <th><font color="#FFFFF">科目</th>
-              <th><font color="#FFFFF">課題名</th>
-              <th><font color="#FFFFF">期限</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for task in task_list %}
-              {% with status=status_list|index:forloop.counter0 %}
-                {% if status == '未' %}
-                  <tr data-href="{% url 'submission_form:task_detail' pk=task.pk %}" class="danger">
-                    <td>{{ task.classification_id }}</td><td>{{ task.name }}</td><td>{{ task.deadline }}</td>
-                  </tr>
-                {% endif %}
-              {% endwith %}
-            {% endfor %}
-          </tbody>
-        </table>
-
-      </div>
-
+    <div class="text-center" style="padding-top: 160px;"> 
+        <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面">
+        <h2 class="strong_phrase">時間、人材、費用のすべてを削減できます</h2>
+        <p class="normal_phrase">提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
     </div>
 
-  {% endif %}
-
+    <div style="padding-top: 75px;"></div>
+    <a class="service_start btn-info" href="{% url 'service_start' %}">サービスを始める</a>
 {% endblock contents%}
 
-
-{% block script %}
-  <script src="{% static 'js/Ascensor.js' %}"></script>
-  <script>
-    $('#ascensor').ascensor();
-  </script>
-  <script src="{% static 'js/data-href.js' %}"></script> 
-
-<script>
-$(window).on('load',function(){
-  // fade-in
-  $(window).scroll(function (){
-    $('.fade-in').each(function(){
-      var POS = $(this).offset().top;  //fade-inがついている要素の位置
-      var scroll = $(window).scrollTop();  //スクロール一
-      var windowHeight = $(window).height();  //ウィンドウの高さ
-                                                                
-      if (scroll > POS - windowHeight + windowHeight/5){
-          $(this).css("opacity","1" );
-      } else {
-          $(this).css("opacity","0" );
-      }
-    });
-  });
-})
-</script>
-{% endblock script %}

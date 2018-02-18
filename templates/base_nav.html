@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+
+{% block navbar %}
+<style type="text/css">
+    body {
+        padding-top: 50px;
+    }
+</style>
+
+
+
+<!-- 画面上のバー -->
+<nav class="navbar navbar-inverse navbar-fixed-top"><div class="container">
+
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}">でじふぁーむ</a>
+    </div>
+
+    <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+
+            <li class="{% block nav_index %}{% endblock %}">
+                <a href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span> HOME</a>
+            </li>
+
+
+            <!-- プルダウンの提出 -->
+            <li role="presentation" class="dropdown {% block nav_submission_form %}{% endblock %}">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> 提出<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a href="{% url 'submission_form:index' %}">課題一覧</a></li>
+                    <li role="presentation"><a href="{% url 'submission_form:upload_index' %}">提出一覧</a></li>
+                    <li role="presentation"><a href="{% url 'submission_form:upload_form' %}">提出物アップロード</a></li>
+                </ul>
+            </li>
+
+
+            <!--プルダウンのダウンロード-->
+            <li role="presentation" class="dropdown {% block nav_download %}{% endblock nav_download %}">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-folder-open"></span> 配布<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a href="{% url 'submission_form:dist_index' %}">配布一覧</a></li>
+                    <li role="presentation"><a href="{% url 'submission_form:dist_create' %}">配布物アップロード</a></li>      
+                </ul>
+            </li>
+
+
+            <!--プルダウンのカテゴリ-->
+            <li role="presentation" class="dropdown {% block nav_category %}{% endblock nav_category %}">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span>  設定 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a href="{% url 'submission_form:group_index' %}">学科一覧</a></li>
+                    <li role="presentation"><a href="{% url 'submission_form:group_create' %}">学科追加</a></li>
+                    <li role="presentation"><a href="{% url 'submission_form:category_index' %}">カテゴリ一覧</a></li>
+                    <li role="presentation"><a href="{% url 'submission_form:category_create' %}">カテゴリ追加</a></li>
+                </ul>
+            </li>
+
+
+            <!-- プルダウンの出席 -->
+            <li role="presentation" class="dropdown {% block nav_attend %}{% endblock nav_attend %}">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span> 出席<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a href="#">出席確認</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+        <!-- ヘッダー右側のアイコン -->
+        <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'submission_form:upload_form' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
+                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span>Hello (<a href="{% url 'logout' %}">Logout</a>)</p>
+            {% else %}
+                <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-lock"></span></a></li>
+            {% endif %}
+        </ul>
+
+    </div><!--/.nav-collapse -->
+
+</div></nav>
+{% endblock navbar %}
+
