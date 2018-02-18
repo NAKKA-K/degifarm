@@ -5,6 +5,7 @@ app_name = 'submission_form'
 
 urlpatterns = [
   # 提出物
+  url(r'^home/$', views.HomeView.as_view(), name = 'home'),
   url(r'^$', views.TaskHomeView.as_view(), name = 'index'),
   url(r'^upload/$', views.UploadList.as_view(), name = 'upload_index'),
   url(r'^upload/form/$', views.UploadFilesView.as_view(), name = 'upload_form'),
