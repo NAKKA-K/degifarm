@@ -24,7 +24,8 @@ class SiteGetTest(TestCase):
     self.assertEqual(client.get('/accounts/login/').status_code, 200)
     self.assertEqual(client.get('/accounts/logout/').status_code, 302)
     self.assertEqual(client.get('/submission_form/').status_code, 302)
-    self.assertEqual(client.get('/submission_form/upload/').status_code, 302)
+    self.assertEqual(client.get('/submission_form/list/').status_code, 302)
+    self.assertEqual(client.get('/submission_form/upload/list/').status_code, 302)
     self.assertEqual(client.get('/submission_form/upload/form/').status_code, 302)
 
 
@@ -35,7 +36,8 @@ class SiteGetTest(TestCase):
     self.assertEqual(client.get('/accounts/').status_code, 200)
     self.assertEqual(client.get('/accounts/login/').status_code, 200)
     self.assertEqual(client.get('/submission_form/').status_code, 200)
-    self.assertEqual(client.get('/submission_form/upload/').status_code, 200)
+    self.assertEqual(client.get('/submission_form/list/').status_code, 200)
+    self.assertEqual(client.get('/submission_form/upload/list/').status_code, 200)
     self.assertEqual(client.get('/submission_form/upload/form/').status_code, 200)
 
     self.assertEqual(client.get('/accounts/logout/').status_code, 302)

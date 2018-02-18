@@ -13,7 +13,7 @@ from datetime import timedelta
 
 # here views====================================
 
-class HomeView(ListView):
+class HomeView(LoginRequiredMessageMixin, ListView):
     model = Task
     template_name = 'submission_form/home.html'
     context_object_name = 'task_list'
