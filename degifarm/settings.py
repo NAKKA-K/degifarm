@@ -134,7 +134,7 @@ STATICFILES_DIRS = (
 )
 
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/submission_form/'
 
 AUTH_USER_MODEL = 'submission_form.User'
 
@@ -154,7 +154,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
-import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/asset')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
@@ -165,19 +164,8 @@ DEBUG = False
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-try:
-  from .local_settings import *
 
-  DATABASES = {
-    'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-  }
-except ImportError:
-  pass
-
-
+# Travis CI settings ====================================
 if 'TRAVIS' in os.environ:
   DEBUG = False
   SECURE_SSL_REDIRECT = False
@@ -191,3 +179,12 @@ if 'TRAVIS' in os.environ:
       'HOST': 'localhost',
     }
   }
+
+
+
+# local settings ================================
+try:
+  from .local_settings import *
+except ImportError:
+  pass
+
