@@ -1,47 +1,41 @@
 {% extends "base.html" %}
 
 
-{% block head %}
-{% endblock head %}
-
-
-
 {% block contents %}
-  <div class="row">
+    <div class="row">
 
-      <div class="text-center" style="font-size: 18px;">
-        <h1>先生追加URL
-          <button class="btn" onclick="clipTeacher()">リンクをコピー</button>
-        </h1>
-        <p>追加したい先生に渡してください</p>
-        <p>URL:<input id="teacher_link" value="{{ teacher_url }}"></input></p>
+        <div class="text-center" style="font-size: 18px;">
+            <h1>先生追加URL
+                <button class="btn" onclick="clipTeacher()">リンクをコピー</button>
+            </h1>
+            <p>追加したい先生に渡してください</p>
+            <p>URL:<input id="teacher_link" value="{{ teacher_url }}"></input></p>
 
-        <h1 style="margin-top:50px;">生徒追加URL
-          <button class="btn" onclick="clipStudent()">リンクをコピー</button>
-        </h1>
-        <p>追加したい生徒に渡してください</p>
-        <p>URL:<input id="student_link" value="{{ student_url }}"></a></p>
-      </div>
+            <h1 style="margin-top:50px;">生徒追加URL
+                <button class="btn" onclick="clipStudent()">リンクをコピー</button>
+            </h1>
+            <p>追加したい生徒に渡してください</p>
+            <p>URL:<input id="student_link" value="{{ student_url }}"></a></p>
+        </div>
 
-  </div>
+    </div>
 {% endblock contents%}
 
 
+
 {% block script %}
-  <script>
-    const clipTeacher = function(){
-      const url = document.getElementById('teacher_link');
-      url.select();
-      document.execCommand('copy');
-    }
+    <script>
+        const clipTeacher = function(){
+            const url = document.getElementById('teacher_link');
+            url.select();
+            document.execCommand('copy');
+        }
 
-    const clipStudent = function(){
-      const url = document.getElementById('student_link');
-      url.select();
-      document.execCommand('copy');
-    }
-  </script>
-
+        const clipStudent = function(){
+            const url = document.getElementById('student_link');
+            url.select();
+            document.execCommand('copy');
+        }
+    </script>
 {% endblock script %}
-
 
