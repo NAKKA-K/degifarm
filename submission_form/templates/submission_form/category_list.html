@@ -9,22 +9,27 @@
 {% block contents %}
  
   <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">カテゴリ</h1>
+    <h1 class="text-center">科目一覧</h1>
   </div>
 
   <ol class="breadcrumb">
     <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class="active"><a href="#">カテゴリ一覧</a></li>
+    <li class="active"><a href="#">科目一覧</a></li>
   </ol>
 
 
-  <div class="">
-    <h1 class="page-header">カテゴリ一覧</h1>
+    <h1 class="page-header">科目一覧
+      {% if is_teacher %}
+        <a class="btn btn-default pull-rigth" href="{% url 'submission_form:category_create' %}">
+          <span title="科目の追加" class="glyphicon glyphicon-plus"> 科目の追加</span>
+        </a>
+      {% endif %}
+    </h1>
 
     <table class="table table-striped">
       <thead>
         <tr bgcolor="#000000">
-          <th><font color="#FFFFF">カテゴリ名</th>
+          <th><font color="#FFFFF">科目名</th>
           <th><font color="#FFFFF">作成日</th>
           {% if is_teacher %}
             <th><font color="#FFFFF">操作</th>
@@ -52,5 +57,4 @@
       {% include "submission_form/page.html" %}
     </div>
 
-  </div>
 {% endblock %}
