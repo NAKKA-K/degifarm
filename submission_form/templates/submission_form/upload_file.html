@@ -1,6 +1,8 @@
 {% extends "submission_form/base.html" %}
 {% load static %}
 
+
+
 {% block head %}
   <!-- Djangoのフォームを見えなくするため -->
   <style type="text/css">
@@ -10,6 +12,11 @@
   </style>
   <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
 {% endblock head %}
+
+
+{% block nav_submission_form %}active{% endblock nav_submission_form %}
+
+
 
 {% block contents %}
   <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
