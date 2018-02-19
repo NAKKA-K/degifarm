@@ -9,17 +9,16 @@
 
 {% block contents %}
    <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">カテゴリ作成</h1>
+    <h1 class="text-center">科目作成</h1>
   </div>
 
   <ol class="breadcrumb">
-    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class="active"><a href="#">カテゴリ作成</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">ホーム</a></li>
+    <li class=""><a href="{% url 'submission_form:category_list' %}">科目一覧</a></li>
+    <li class="active"><a href="#">科目作成</a></li>
   </ol>
 
 
-
-  <div class="container">
     <form action="" method="POST" enctype='multipart/form-data'>
       {% csrf_token %}
 
@@ -40,5 +39,4 @@
       </div>
 
     </form>
-  </div>
 {% endblock %}
