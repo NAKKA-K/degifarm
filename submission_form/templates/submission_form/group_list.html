@@ -19,7 +19,13 @@
 
 
   <div class="">
-    <h1 class="page-header">グループ一覧</h1>
+    <h1 class="page-header">グループ一覧
+        {% if is_teacher %}
+            <a class="btn btn-default pull-rigth" href="{% url 'submission_form:group_create' %}">
+                <span title="グループ追加" class="glyphicon glyphicon-plus"> グループの追加</span>
+            </a>
+        {% endif %}
+    </h1>
 
     <table class="table table-striped">
       <thead>
