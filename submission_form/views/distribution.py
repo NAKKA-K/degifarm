@@ -43,14 +43,16 @@ class DistClassListView(LoginRequiredMessageMixin, generic.ListView):
   """科目別の配布物一覧"""
 
   model = Distribution
+  context_object_name='file_list'
   paginate_by = 20
   template_name = 'submission_form/dist_list.html'
 
   def get_queryset(self):
     """科目ごとにフィルターかける"""
     category_pk = self.kwargs['category_pk']
-    return Distribution.objects.filter(
-      classification_id = category_pk).order_by('-published_date')
+    return Distribution.objects\
+           .filter(classification_id = category_pk)\
+           .order_by('-published_date')
 
   def get_context_data(self, **kwargs):
     """科目のpkをテンプレートへ渡す"""
