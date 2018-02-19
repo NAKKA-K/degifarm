@@ -8,19 +8,19 @@
 
 {% block contents %}
   <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">カテゴリ削除</h1>
+    <h1 class="text-center">科目削除</h1>
   </div>
 
   <ol class="breadcrumb">
-    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class=""><a href="{% url 'submission_form:category_index' %}">カテゴリリスト</a></li>
-    <li class="active"><a href="#">カテゴリ削除</a></li>
+    <li><a href="{% url 'index' %}">ホーム</a></li>
+    <li><a href="{% url 'submission_form:category_index' %}">科目一覧</a></li>
+    <li class="active"><a href="#">科目削除</a></li>
   </ol>
 
   <form action="" method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
     <div class="text-center">
-      <h2>カテゴリ名:{{ category.name }}</h2>
+      <h2>科目名:{{ category.name }}</h2>
       <button type="submit" class="btn btn-primary btn-lg">削除</button>
       <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-danger btn-lg">戻る</a>
       </div>

@@ -15,10 +15,9 @@ from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessage
 
 import os
 
-ERROR_404_TEMPLATE_NAME = '404.html'
 
-class FileIndexView(LoginRequiredMessageMixin, generic.ListView):
-  """ファイル一覧"""
+class DistListView(LoginRequiredMessageMixin, generic.ListView):
+  """配布物一覧"""
 
   model = Distribution
   template_name = 'submission_form/dist_list.html'
@@ -26,22 +25,37 @@ class FileIndexView(LoginRequiredMessageMixin, generic.ListView):
   queryset = Distribution.objects.order_by('-published_date')
   paginate_by = 20
 
+  def get_context_data(self, **kwargs):
+    """科目のpkをテンプレートへ渡す"""
+    context = super().get_context_data(**kwargs) 
 
-class FileCategoryView(LoginRequiredMessageMixin, generic.ListView):
-  """カテゴリ別の配布ファイル一覧"""
+    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
+    if user_info is None:
+      return context
+
+    context['class_list'] = Classification.objects.filter(organization_id = user_info.organization_id)
+    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+
+    return context
+
+
+class DistClassListView(LoginRequiredMessageMixin, generic.ListView):
+  """科目別の配布物一覧"""
 
   model = Distribution
+  context_object_name='file_list'
   paginate_by = 20
   template_name = 'submission_form/dist_list.html'
 
   def get_queryset(self):
-    """カテゴリ(分類)ごとにフィルターかける"""
+    """科目ごとにフィルターかける"""
     category_pk = self.kwargs['category_pk']
-    return Distribution.objects.filter(
-      classification_id = category_pk).order_by('-published_date')
+    return Distribution.objects\
+           .filter(classification_id = category_pk)\
+           .order_by('-published_date')
 
   def get_context_data(self, **kwargs):
-    """カテゴリのpkをテンプレートへ渡す"""
+    """科目のpkをテンプレートへ渡す"""
     context = super().get_context_data(**kwargs) 
     context['category_pk'] = self.kwargs.get('category_pk')
 
@@ -55,8 +69,8 @@ class FileCategoryView(LoginRequiredMessageMixin, generic.ListView):
     return context
 
 
-class FileCreateView(LoginRequiredMessageMixin, FormView):
-  """ファイルの作成"""
+class DistUploadView(LoginRequiredMessageMixin, FormView):
+  """配布物のアップロードフォーム"""
 
   template_name = 'submission_form/dist_form.html'
   form_class = FileForm
@@ -65,8 +79,6 @@ class FileCreateView(LoginRequiredMessageMixin, FormView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
-      template_name=ERROR_404_TEMPLATE_NAME
-      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
@@ -108,8 +120,8 @@ class FileCreateView(LoginRequiredMessageMixin, FormView):
       os.makedirs(file_dir)
 
 
-class FileUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
-  """ファイルの更新."""
+class DistUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
+  """配布物の更新"""
 
   model = Distribution
   template_name = 'submission_form/dist_form.html'
@@ -119,14 +131,12 @@ class FileUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
-      template_name=ERROR_404_TEMPLATE_NAME
-      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
 
-class FileDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
-  """ファイルの削除."""
+class DistDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
+  """配布物の削除"""
 
   model = Distribution
   context_object_name = 'file'
@@ -136,8 +146,6 @@ class FileDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
   def get(self, request, **kwargs):
     is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     if not is_teacher:
-      template_name=ERROR_404_TEMPLATE_NAME
-      sweetify.warning(self.request, title='ページがありません',confirmButtonColor='#dd6b55',button='OK')
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
