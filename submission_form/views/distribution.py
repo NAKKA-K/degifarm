@@ -89,7 +89,7 @@ class DistUploadView(LoginRequiredMessageMixin, FormView):
         for chunk in file.chunks():
           dest.write(chunk)
 
-      org = Organization.objects
+      org = Organization.objects\
             .get(id = self.request.session['user_info']['org'])
 
       res = Distribution.objects.create(
