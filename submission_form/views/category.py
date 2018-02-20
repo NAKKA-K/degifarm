@@ -62,11 +62,8 @@ class CategoryUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
-    org_id = request.session['user_info']['org']
-    is_teacher = request.session['is_teacher']
-    
-    if not is_teacher\
-       or org_id != str(\
+    if not request.session['is_teacher']\
+       or request.session['user_info']['org'] != str(\
            get_object_or_404(Classification, id = kwargs['pk'])\
            .organization_id.id):
       raise Http404
@@ -83,11 +80,9 @@ class CategoryDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
-    org_id = request.session['user_info']['org']
-    is_teacher = request.session['is_teacher']
     
-    if not is_teacher\
-       or org_id != str(\
+    if not request.session['is_teacher']\
+       or request.session['user_info']['org'] != str(\
            get_object_or_404(Classification, id = kwargs['pk'])\
            .organization_id.id):
       raise Http404

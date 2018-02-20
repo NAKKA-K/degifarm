@@ -4,7 +4,6 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 from submission_form.models import Group
 from submission_form.forms import GroupForm
 
@@ -19,19 +18,13 @@ class GroupIndexView(LoginRequiredMessageMixin, generic.ListView):
 
   def get_queryset(self):
     """所属Orgの科目のみ抽出"""
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
     try:
-      if user_info is None:
+      if self.request.session['user_info']['org'] is None:
         raise Group.DoesNotExist
-      return Group.objects.filter(organization_id = user_info.organization_id)
+      return Group.objects\
+             .filter(organization_id = self.request.session['user_info']['org'])
     except Group.DoesNotExist:
       return None
-
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-
-    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
-    return context
 
 
 class GroupCreateView(LoginRequiredMessageMixin, generic.CreateView):
@@ -50,10 +43,10 @@ class GroupCreateView(LoginRequiredMessageMixin, generic.CreateView):
 
   def form_valid(self, form):
     group = form.save(commit = False)
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
 
-    #group.user_id = self.request.user
-    group.organization_id = user_info.organization_id
+    group.organization_id = \
+        Organization.objects\
+        .get(id = self.request.session['user_info']['org'])
     group.save()
     return super().form_valid(form)
 
@@ -69,9 +62,11 @@ class GroupUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
     user_info = StudentOrTeacherGetter.getInfo(request.user)
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     
-    if not is_teacher or user_info.organization_id != get_object_or_404(Group, id = kwargs['pk']).organization_id:
+    if not request.session['is_teacher']\
+       or request.session['user_info']['org'] != str(\
+           get_object_or_404(Group, id = kwargs['pk'])\
+           .organization_id.id):
       raise Http404
     return super().get(request, **kwargs)
 
@@ -86,10 +81,11 @@ class GroupDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
-    user_info = StudentOrTeacherGetter.getInfo(request.user)
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
     
-    if not is_teacher or user_info.organization_id != get_object_or_404(Group, id = kwargs['pk']).organization_id:
+    if not request.session['is_teacher']\
+       or request.session['user_info']['org'] != str(\
+           get_object_or_404(Group, id = kwargs['pk'])\
+           .organization_id.id):
       raise Http404
     return super().get(request, **kwargs)
 
