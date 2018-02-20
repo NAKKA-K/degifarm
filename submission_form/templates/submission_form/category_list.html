@@ -19,7 +19,7 @@
 
 
     <h1 class="page-header">科目一覧
-      {% if is_teacher %}
+      {% if request.session.is_teacher %}
         <a class="btn btn-default pull-rigth" href="{% url 'submission_form:category_create' %}">
           <span title="科目の追加" class="glyphicon glyphicon-plus"> 科目の追加</span>
         </a>
@@ -31,7 +31,7 @@
         <tr bgcolor="#000000">
           <th><font color="#FFFFF">科目名</th>
           <th><font color="#FFFFF">作成日</th>
-          {% if is_teacher %}
+          {% if request.session.is_teacher %}
             <th><font color="#FFFFF">操作</th>
           {% endif %}
         </tr>
@@ -42,7 +42,7 @@
           <tr>
             <td>{{ category.name }}</td>
             <td>{{ category.published_date }}</td>
-            {% if is_teacher %}
+            {% if request.session.is_teacher %}
               <td>
                 <a href="{% url 'submission_form:category_update' pk=category.pk %}" class="btn btn-info btn-sm">更新</a>
                 <a href="{% url 'submission_form:category_delete' pk=category.pk %}" class="btn btn-warning btn-sm">削除</a>

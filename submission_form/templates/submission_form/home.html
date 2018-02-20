@@ -31,7 +31,7 @@
 
       <div class="col-xs-12 col-sm-9">
         <h1 class="page-header">期限1週間以内の未提出課題
-          {% if is_teacher %}
+          {% if request.session.is_teacher %}
             <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_create' %}">
               <span title="New Task" class="glyphicon glyphicon-plus"> 課題の追加</span>
             </a>
