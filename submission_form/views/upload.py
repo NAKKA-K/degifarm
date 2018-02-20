@@ -11,7 +11,6 @@ from submission_form.forms import UploadFilesForm
 from submission_form.views.FileUploader import FileUploader
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 from submission_form.models import Submission, Classification
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 # lib
 
@@ -29,11 +28,8 @@ class UploadList(LoginRequiredMessageMixin, ListView):
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-
-    # userにリーレーションされるStudentかTeacherのレコードを取得する
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is not None:
-      context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
+    context['classification'] = Classification.objects\
+                                .filter(organization_id = self.request.session['user_info']['org'])
     return context
 
 
@@ -44,11 +40,8 @@ class UploadFilesView(LoginRequiredMessageMixin, FormView):
   success_url = reverse_lazy('submission_form:upload_index') # urlsの項目からURLを生成するメソッド
 
   def get_form(self, form_class = None):
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is None:
-      return UploadFilesForm()   
-
-    return UploadFilesForm(org_id = user_info.organization_id) 
+    #return UploadFilesForm(org_id = user_info.organization_id) 
+    return UploadFilesForm(org_id = self.request.session['user_info']['org'])
 
   def post(self, request, *args, **kwargs):
     form_class = self.get_form_class()
@@ -71,9 +64,6 @@ class DeleteSubmissionView(LoginRequiredMessageMixin, generic.DeleteView):
   template_name = 'submission_form/submission_confirm_delete.html'
   success_url = reverse_lazy('submission_form:index')
 
-  def get(self, request, **kwargs):
-    return super().get(request, **kwargs)
-
   def post(self, request, **kwargs):
     try:
       submission = Submission.objects.get(id = kwargs.get('pk'))
@@ -82,7 +72,6 @@ class DeleteSubmissionView(LoginRequiredMessageMixin, generic.DeleteView):
       pass
 
     return super().post(request, **kwargs)
-
 
 
 

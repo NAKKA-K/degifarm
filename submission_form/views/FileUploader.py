@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 # app module
 from submission_form.models import Organization, Classification, Student, Teacher, Submission
-from submission_form.views import StudentOrTeacherGetter
+from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 # lib
 import mimetypes

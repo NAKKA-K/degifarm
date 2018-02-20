@@ -7,7 +7,6 @@ from django.shortcuts import render, redirect
 from django.db import transaction
 
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 from submission_form.models import Organization
 from submission_form.forms import CustomUserCreationForm, TeacherForm, StudentForm
 
@@ -18,20 +17,16 @@ class LinkUserCreateView(TemplateView):
   template_name = 'link_to_user_create.html'
 
   def get(self, request, **kwargs):
-    if not request.user.is_authenticated:
+    if request.session.get('is_teacher', False) == False:
       raise Http404
 
-    if not StudentOrTeacherGetter.is_teacher(request.user):
-      raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is None:
-      return context
+    org = self.request.session['user_info']['org']
 
     # ユーザー作成ViewのURLを作成
     if self.request.is_secure():
@@ -41,23 +36,23 @@ class LinkUserCreateView(TemplateView):
     domain = get_current_site(self.request).domain
     url = "{}://{}".format(protocol, domain)
     
-    teacher_hash = hashlib.sha224(str(user_info.organization_id.id).encode('utf-8'))
+    teacher_hash = hashlib.sha224(org.encode('utf-8'))
     teacher_hash.update('teacher'.encode('utf-8'))
     teacher_hash = teacher_hash.hexdigest() 
 
-    student_hash = hashlib.sha224(str(user_info.organization_id.id).encode('utf-8'))
+    student_hash = hashlib.sha224(org.encode('utf-8'))
     student_hash.update('student'.encode('utf-8'))
     student_hash = student_hash.hexdigest()
 
     context['teacher_url'] = "{}{}".format(url,
       reverse('user_create', kwargs = {
-        'uuid': user_info.organization_id.id,
+        'uuid': org,
         'uuid_hash': teacher_hash
       })
     )
     context['student_url'] = "{}{}".format(url,
       reverse('user_create', kwargs = {
-        'uuid': user_info.organization_id.id,
+        'uuid': org,
         'uuid_hash': student_hash
       })
     )

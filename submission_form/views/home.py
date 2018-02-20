@@ -4,7 +4,6 @@ from django.utils import timezone
 
 # app module
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 from submission_form.models import Task, Classification, Teacher, Submission
 
 # lib
@@ -19,25 +18,26 @@ class HomeView(LoginRequiredMessageMixin, ListView):
     context_object_name = 'task_list'
 
     def get_queryset(self):
-        user_info = StudentOrTeacherGetter.getInfo(self.request.user)
         try:
-            if user_info is None:
-                raise Task.DoesNotExist
             # 提出期限が1週間後までの課題のみ取得
-            return Task.objects.filter(organization_id = user_info.organization_id).filter(published_date__lte = timezone.now(), deadline__gte = timezone.now(), deadline__lte = timezone.now() + timedelta(days = 7))
+            return Task.objects\
+                   .filter(
+                       organization_id = self.request.session['user_info']['org']
+                   )\
+                   .filter(
+                       published_date__lte = timezone.now(),
+                       deadline__gte = timezone.now(),
+                       deadline__lte = timezone.now() + timedelta(days = 7)
+                   )
         except Task.DoesNotExist:
             return None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # userにリーレーションされるStudentかTeacherのレコードを取得する
-        user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-        if user_info is None:
-            return context
-
-        context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
-        context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+        context['classification'] = Classification.objects\
+                                    .filter(organization_id = 
+                                        self.request.session['user_info']['org'])
 
         if not context['task_list']: # 1週間以内の課題がない場合に、Submissionを取得すると処理の無駄になるため
             return context

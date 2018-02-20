@@ -8,7 +8,6 @@ from django.http import Http404
 
 # app module
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 from submission_form.models import Task, Classification, Teacher, Submission
 
 # lib
@@ -22,24 +21,18 @@ class TaskHomeView(LoginRequiredMessageMixin, ListView):
   context_object_name = 'task_list'
 
   def get_queryset(self):
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
     try:
-      if user_info is None:
-        raise Task.DoesNotExist
-      return Task.objects.filter(organization_id = user_info.organization_id).filter(published_date__lte = timezone.now())
+      return Task.objects\
+             .filter(organization_id = self.request.session['user_info']['org'])\
+             .filter(published_date__lte = timezone.now())
     except Task.DoesNotExist:
       return None
 
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-
-    # userにリーレーションされるStudentかTeacherのレコードを取得する
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is None:
-      return context
-
-    context['classification'] = Classification.objects.filter(organization_id = user_info.organization_id)
-    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+    context['classification'] = Classification.objects\
+                                .filter(organization_id =\
+                                    self.request.session['user_info']['org'])
 
     """ # TODO:
     現状、submissionの取得。taskの取得。その後2つのリストを2重ループで比較という処理になっている。
@@ -71,19 +64,18 @@ class TaskCreateView(LoginRequiredMessageMixin, CreateView):
   model = Task
   fields = ['classification_id', 'name', 'text', 'deadline']
   template_name = 'submission_form/task_create.html'
-#  success_url = reverse_lazy('submission_form:detail', kwargs = {'pk':pk})
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
+    if not request.session['is_teacher']:
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
   def form_valid(self, form):
     task = form.save(commit = False)
     task.user_id = self.request.user
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    task.organization_id = user_info.organization_id
+    task.organization_id = \
+        Organization.objects\
+        .get(id = self.request.session['user_info']['org'])
     task.save()
     return super().form_valid(form)
 
@@ -92,11 +84,6 @@ class TaskDetailView(LoginRequiredMessageMixin, DetailView):
   model = Task
   template_name = 'submission_form/task_detail.html' 
 
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
-    return context
-
 
 class TaskEditView(LoginRequiredMessageMixin, UpdateView):
   model = Task
@@ -104,9 +91,8 @@ class TaskEditView(LoginRequiredMessageMixin, UpdateView):
   template_name = 'submission_form/task_edit.html'
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
-      raise Http404 # 先生でなければ、PageNotFound
+    if not request.session['is_teacher']:
+      raise Http404
     return super().get(request, **kwargs)
 
 
@@ -116,8 +102,7 @@ class TaskDeleteView(LoginRequiredMessageMixin, DeleteView):
   success_url = reverse_lazy('submission_form:index')
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
-      raise Http404 # 先生でなければ、PageNotFound
+    if not request.session['is_teacher']:
+      raise Http404
     return super().get(request, **kwargs)
 

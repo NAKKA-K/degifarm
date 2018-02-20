@@ -19,8 +19,6 @@ class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
   def get_queryset(self):
     """所属Orgの科目のみ抽出"""
     try:
-      if self.request.session['user_info'] is None:
-        raise Classification.DoesNotExist
       return Classification.objects\
              .filter(organization_id = self.request.session['user_info']['org'])\
              .order_by('-published_date')
@@ -38,7 +36,7 @@ class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
     
   def get(self, request, **kwargs):
     if not request.session['is_teacher']:
-      raise Http404 # 先生でなければ、PageNotFound
+      raise Http404
     return super().get(request, **kwargs)
 
   def form_valid(self, form):
