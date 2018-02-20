@@ -3,7 +3,6 @@ from django.http import HttpResponse, Http404
 from wsgiref.util import FileWrapper
 
 from submission_form.models import Distribution, Submission
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 
 import urllib
 import tempfile, zipfile
@@ -26,8 +25,8 @@ class DownloadDistView(DownloadView):
   def get_object(self, pk):
     """所属Orgの配布物のみ取得できる"""
     distribution = Distribution.objects.get(id = pk)
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info.organization_id == distribution.organization_id:
+    org = self.request.session['user_info']['org']
+    if org == str(distribution.organization_id.id):
       return distribution
     raise Http404
 
@@ -36,10 +35,10 @@ class DownloadSubView(DownloadView):
   def get_object(self, pk):
     """所属Orgかつ、自分の提出物か先生のみ取得できる"""
     submission = Submission.objects.get(id = pk)
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info.organization_id == submission.organization_id\
+    org = self.request.session['user_info']['org']
+    if org == str(submission.organization_id.id)\
        and (self.request.user == submission.user_id\
-       or StudentOrTeacherGetter.is_teacher(self.request.user)):
+       or self.request.session['is_teacher']):
       return submission
     raise Http404
 
