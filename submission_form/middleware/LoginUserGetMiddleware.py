@@ -26,6 +26,8 @@ class LoginUserGetMiddleware(object):
 
         user_info = StudentOrTeacherGetter.getInfo(request.user)
         is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
+        if user_info is None:
+            return
 
         # UUID and Model not serialize
         user_info_dict = {
