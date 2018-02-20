@@ -38,7 +38,7 @@
 
   <div class="col-xs-12 col-sm-9">
       <h1 class="page-header">配布物
-        {% if is_teacher %}
+        {% if request.session.is_teacher %}
           <a class="btn btn-default pull-rigth" href="{% url 'submission_form:dist_create' %}">
             <span title="New Dist" class="glyphicon glyphicon-plus"> 配布の追加</span>
           </a>
@@ -51,7 +51,9 @@
             <th><font color="#FFFFF">分野</th>
             <th><font color="#FFFFF">ファイル名</th>
             <th><font color="#FFFFF">更新日</th>
-            <th><font color="#FFFFF">操作</th>
+            {% if request.session.is_teacher %}
+                <th><font color="#FFFFF">操作</th>
+            {% endif %}
           </tr>
         </thead>
         
@@ -62,11 +64,13 @@
             <td>{{ file.classification_id.name }}</td>
             <td>{{ file.name }}</td>
             <td>{{ file.published_date }}</td>
-            <td>
-              <a href="{% url 'submission_form:dist_download' pk=file.id %}" class="btn btn-info btn-sm">ダウンロード</a>
-              <a href="{% url 'submission_form:dist_delete' pk=file.id %}" class="btn btn-warning btn-sm">削除</a>
-              <label><input type="checkbox" name="check" class="checkbox_input" value="{{ file.path }}"><span class="checkbox_parts"></span><label>
-            </td>
+            {% if request.session.is_teacher %}
+                <td>
+                  <a href="{% url 'submission_form:dist_download' pk=file.id %}" class="btn btn-info btn-sm">ダウンロード</a>
+                  <a href="{% url 'submission_form:dist_delete' pk=file.id %}" class="btn btn-warning btn-sm">削除</a>
+                  <label><input type="checkbox" name="check" class="checkbox_input" value="{{ file.path }}"><span class="checkbox_parts"></span><label>
+                </td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>
