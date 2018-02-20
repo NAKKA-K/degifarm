@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'submission_form.middleware.LoginUserGetMiddleware.LoginUserGetMiddleware',
 ]
 
 ROOT_URLCONF = 'degifarm.urls'
