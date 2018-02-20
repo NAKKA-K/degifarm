@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 
 # app module
 from submission_form.models import Organization, Classification, Student, Teacher, Submission
+from submission_form.views import StudentOrTeacherGetter
 
 # lib
 import mimetypes
@@ -39,14 +40,7 @@ class FileUploader(object):
 
   def set_user_info(self):
     # userの追加情報を取得(生徒か先生かわからないため、両方で取得を試みる)
-    try:
-      user_info = Student.objects.get(user = self.user)
-    except Student.DoesNotExist:
-      try:
-        user_info = Teacher.objects.get(user = self.user)
-      except Teacher.DoesNotExist:
-        user_info = None
-
+    user_info = StudentOrTeacherGetter.getInfo(self.user)
     self.org_id = user_info.organization_id
 
   
