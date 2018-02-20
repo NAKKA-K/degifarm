@@ -3,9 +3,8 @@ from django.urls import reverse_lazy
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
-from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
-from submission_form.models import Distribution,Organization,Classification
+from submission_form.views import LoginRequiredMessageMixin
+from submission_form.models import Distribution, Organization, Classification
 from submission_form.forms import CategoryForm
 
 
@@ -19,21 +18,14 @@ class CategoryIndexView(LoginRequiredMessageMixin, generic.ListView):
 
   def get_queryset(self):
     """所属Orgの科目のみ抽出"""
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
     try:
-      if user_info is None:
+      if self.request.session['user_info'] is None:
         raise Classification.DoesNotExist
       return Classification.objects\
-              .filter(organization_id = user_info.organization_id)\
-              .order_by('-published_date')
+             .filter(organization_id = self.request.session['user_info']['org'])\
+             .order_by('-published_date')
     except Classification.DoesNotExist:
       return None
-
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-
-    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
-    return context
 
 
 class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
@@ -45,17 +37,17 @@ class CategoryCreateView(LoginRequiredMessageMixin, generic.CreateView):
   success_url = reverse_lazy('submission_form:category_index')
     
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
+    if not request.session['is_teacher']:
       raise Http404 # 先生でなければ、PageNotFound
     return super().get(request, **kwargs)
 
   def form_valid(self, form):
     category = form.save(commit = False)
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
 
-    category.user_id = self.request.user # TODO: ??
-    category.organization_id = user_info.organization_id
+    category.user_id = self.request.session['user_info']['user']
+    category.organization_id = \
+        Organization.objects\
+        .get(id = self.request.session['user_info']['org'])
     category.save()
     return super().form_valid(form)
 
@@ -70,10 +62,13 @@ class CategoryUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
-    user_info = StudentOrTeacherGetter.getInfo(request.user)
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
+    org_id = request.session['user_info']['org']
+    is_teacher = request.session['is_teacher']
     
-    if not is_teacher or user_info.organization_id != get_object_or_404(Classification, id = kwargs['pk']).organization_id:
+    if not is_teacher\
+       or org_id != str(\
+           get_object_or_404(Classification, id = kwargs['pk'])\
+           .organization_id.id):
       raise Http404
     return super().get(request, **kwargs)
 
@@ -88,10 +83,13 @@ class CategoryDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
 
   def get(self, request, **kwargs):
     """先生、所属Orgの科目以外なら404を返す"""
-    user_info = StudentOrTeacherGetter.getInfo(request.user)
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
+    org_id = request.session['user_info']['org']
+    is_teacher = request.session['is_teacher']
     
-    if not is_teacher or user_info.organization_id != get_object_or_404(Classification, id = kwargs['pk']).organization_id:
+    if not is_teacher\
+       or org_id != str(\
+           get_object_or_404(Classification, id = kwargs['pk'])\
+           .organization_id.id):
       raise Http404
     return super().get(request, **kwargs)
 
