@@ -15,12 +15,18 @@ from PIL import Image
 
 class FileUploderClassTest(TestCase):
   def setUp(self):
-    self.user = User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+    self.user = User.objects.create_user(email = 'test@test.com',
+                                         password = 'testpass1')
     org = Organization.objects.create(name = 'test org')
-    group = Group.objects.create(organization_id = org, name = 'test group')
+    group = Group.objects.create(organization_id = org,
+                                 name = 'test group')
     sex = Sex.objects.create(name = '男性')
-    Student.objects.create(user = self.user, organization_id = org, group_id = group, sex_id = sex)
-    self.classes = Classification.objects.create(organization_id = org, name = 'test class')
+    Student.objects.create(user = self.user,
+                           organization_id = org,
+                           group_id = group,
+                           sex_id = sex)
+    self.classes = Classification.objects.create(organization_id = org,
+                                                 name = 'test class')
 
     # Generate test files
     self.upload_file_instances = []
@@ -69,19 +75,11 @@ class FileUploderClassTest(TestCase):
     self.assertEqual(client.get('/submission_form/upload/form/').status_code, 200)
 
     data = {
-      'classification': self.classes,
+      'classification': self.classes.id,
       'files': self.upload_file_instances
     }
     
     response = client.post('/submission_form/upload/form/', data)
-    self.assertEqual(response.status_code, 200)
-
-  def test_upload_page(self):
-    user = User.objects.create_user(email = 'test@test.jp', password = 'testpass1')
-
-    client = self.client
-    client.login(email = 'test@test.jp', password = 'testpass1')
-
-    self.assertEqual(client.get('/submission_form/upload/form/').status_code, 200)
+    self.assertEqual(response.status_code, 302)
 
 

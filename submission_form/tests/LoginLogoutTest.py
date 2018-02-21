@@ -2,7 +2,7 @@
 from django.test import TestCase
 
 # app module
-from submission_form.models import User
+from submission_form.models import User, Organization, Group, Sex, Student
 
 # lib
 
@@ -10,7 +10,12 @@ from submission_form.models import User
 
 class LoginLogoutTest(TestCase):
   def setUp(self):
-    User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+    org = Organization.objects.create(name = 'test org')
+    group = Group.objects.create(organization_id = org, name = 'test group')
+    sex = Sex.objects.create(name = '男性')
+
+    user = User.objects.create_user(email = 'test@test.com', password = 'testpass1')
+    Student.objects.create(user = user, organization_id = org, group_id = group, sex_id = sex)
 
   def test_login(self):
     client = self.client
