@@ -8,7 +8,7 @@ from django.http import Http404
 
 # app module
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
-from submission_form.models import Task, Classification, Teacher, Submission
+from submission_form.models import Organization, Task, Classification, Teacher, Submission
 
 # lib
 
