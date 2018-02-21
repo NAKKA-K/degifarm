@@ -10,7 +10,6 @@ import sweetify
 #app module
 from submission_form.models import Distribution, Organization, Classification
 from submission_form.forms import FileForm
-from submission_form.views.StudentOrTeacherGetter import StudentOrTeacherGetter
 from submission_form.views.LoginRequiredMessageMixin import LoginRequiredMessageMixin
 
 import os
@@ -28,13 +27,9 @@ class DistListView(LoginRequiredMessageMixin, generic.ListView):
   def get_context_data(self, **kwargs):
     """科目のpkをテンプレートへ渡す"""
     context = super().get_context_data(**kwargs) 
-
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is None:
-      return context
-
-    context['class_list'] = Classification.objects.filter(organization_id = user_info.organization_id)
-    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+    context['class_list'] = \
+        Classification.objects\
+        .filter(organization_id = self.request.session['user_info']['org'])
 
     return context
 
@@ -58,13 +53,9 @@ class DistClassListView(LoginRequiredMessageMixin, generic.ListView):
     """科目のpkをテンプレートへ渡す"""
     context = super().get_context_data(**kwargs) 
     context['category_pk'] = self.kwargs.get('category_pk')
-
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is None:
-      return context
-
-    context['class_list'] = Classification.objects.filter(organization_id = user_info.organization_id)
-    context['is_teacher'] = StudentOrTeacherGetter.is_teacher(self.request.user)
+    context['class_list'] = \
+        Classification.objects\
+        .filter(organization_id = self.request.session['user_info']['org'])
 
     return context
 
@@ -77,17 +68,12 @@ class DistUploadView(LoginRequiredMessageMixin, FormView):
   success_url = reverse_lazy('submission_form:dist_index')
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
-      raise Http404 # 先生でなければ、PageNotFound
+    if not request.session['is_teacher']:
+      raise Http404
     return super().get(request, **kwargs)
 
   def get_form(self, form_class = None):
-    user_info = StudentOrTeacherGetter.getInfo(self.request.user)
-    if user_info is None:
-      return FileForm()   
-
-    return FileForm(org_id = user_info.organization_id) 
+    return FileForm(org_id = self.request.session['user_info']['org']) 
 
   def post(self, request, *args, **kwargs):
     form = FileForm(request.POST)
@@ -103,7 +89,9 @@ class DistUploadView(LoginRequiredMessageMixin, FormView):
         for chunk in file.chunks():
           dest.write(chunk)
 
-      org = StudentOrTeacherGetter.getInfo(request.user).organization_id
+      org = Organization.objects\
+            .get(id = self.request.session['user_info']['org'])
+
       res = Distribution.objects.create(
         organization_id = org,
         user_id = request.user,
@@ -129,9 +117,8 @@ class DistUpdateView(LoginRequiredMessageMixin, generic.UpdateView):
   success_url = reverse_lazy('submission_form:dist_index')
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
-      raise Http404 # 先生でなければ、PageNotFound
+    if not request.session['is_teacher']:
+      raise Http404
     return super().get(request, **kwargs)
 
 
@@ -144,9 +131,8 @@ class DistDeleteView(LoginRequiredMessageMixin, generic.DeleteView):
   success_url = reverse_lazy('submission_form:dist_index')
 
   def get(self, request, **kwargs):
-    is_teacher = StudentOrTeacherGetter.is_teacher(request.user)
-    if not is_teacher:
-      raise Http404 # 先生でなければ、PageNotFound
+    if not request.session['is_teacher']:
+      raise Http404
     return super().get(request, **kwargs)
 
   def post(self, request, **kwargs):
