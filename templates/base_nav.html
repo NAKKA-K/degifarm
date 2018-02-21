@@ -62,11 +62,15 @@
             </li>
 
 
-            <!-- プルダウンの出席 -->
-            <li role="presentation" class="dropdown {% block nav_attend %}{% endblock nav_attend %}">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span> 出席<span class="caret"></span></a>
+
+            <!-- プルダウンのユーザー管理 -->
+            <li role="presentation" class="dropdown {% block nav_user %}{% endblock nav_user %}">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-tags"></span> ユーザー<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a href="#">出席確認</a></li>
+                    <li role="presentation"><a href="{% url 'user_page:mypage' %}">マイページ</a></li>
+                    {% if request.session.is_teacher %}
+                        <li role="presentation"><a href="{% url 'user_create_link' %}">ＵＲＬ生成ページ</a></li>
+                    {% endif %}
                 </ul>
             </li>
 

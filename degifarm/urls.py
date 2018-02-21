@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from submission_form import views 
+from submission_form import views as sub_views
+from user_page import views as user_views
 
 
 urlpatterns = [
@@ -24,10 +25,12 @@ urlpatterns = [
     url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name = 'registration/login.html'), name = 'login'),
     url(r'^accounts/logout/$', auth_views.LogoutView.as_view(next_page = 'index'), name = 'logout'),
 
-    url(r'^accounts/$', views.start_service, name = 'service_start'),
-    url(r'^accounts/create/$', views.LinkUserCreateView.as_view(), name = 'user_create_link'),
-    url(r'^accounts/(?P<uuid>.*)/(?P<uuid_hash>.*)/$', views.UserCreateView.as_view(), name = 'user_create'),
+    url(r'^accounts/$', sub_views.start_service, name = 'service_start'),
+    url(r'^accounts/create/$', sub_views.LinkUserCreateView.as_view(), name = 'user_create_link'),
+    url(r'^accounts/(?P<uuid>.*)/(?P<uuid_hash>.*)/$', sub_views.UserCreateView.as_view(), name = 'user_create'),
 
-    url(r'^$', views.IndexView.as_view(), name = 'index'),
+    url(r'^user/', include('user_page.urls')),
+
+    url(r'^$', sub_views.IndexView.as_view(), name = 'index'),
     url(r'^submission_form/', include('submission_form.urls')),
 ]

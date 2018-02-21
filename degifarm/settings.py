@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'submission_form',
+    'user_page',
+
     'django_extensions',
     'bootstrap3',
-    'submission_form',
     'sweetify',
 ]
 
