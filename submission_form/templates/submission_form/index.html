@@ -3,12 +3,10 @@
 
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
-    <style type="text/css">
-        body {
-            background-imag: url({% static 'images/top_background.jpg' %})
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/top_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/space.css' %}">
 {% endblock head %}
 
 
@@ -18,23 +16,23 @@
         <img src="{% static 'images/degi_logo.png' %}" class="title" alt="でじふぁーむ。">
     </div>
 
-    <div class="text-center" style="font-size: 20px;">
+    <div class="text-center font20">
         <h2 class="strong_phrase">みんなで、どこでも提出できる課題管理ツール</h2>
         <p class="normal_phrase">課題の提出が面倒...出し忘れた...何の課題があるのか忘れた...</p>
-        <p style="padding-top:10px;" class="normal_phrase"><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
+        <p class="normal_phrase padding-t10"><strong>でじふぁーむ。</strong>ならこれらの問題はすべて解決します。</p>
     </div>
 
-    <div style="padding-top: 75px;"></div>
+    <div class="padding-t75"></div>
     <a class="home_link btn-info" href="{% url 'login' %}">LOGIN</a>
 
 
-    <div class="text-center" style="padding-top: 160px;"> 
+    <div class="text-center padding-t160"> 
         <img src="{% static 'images/sample.jpg' %}" class="sample" alt="でじふぁーむ。サンプル画面">
         <h2 class="strong_phrase">時間、人材、費用のすべてを削減できます</h2>
         <p class="normal_phrase">提出したいデータをネットで出せる。提出状況を一目で確認できる。手作業での管理はなくなる。</p>
     </div>
 
-    <div style="padding-top: 75px;"></div>
+    <div class="padding-t75"></div>
     <a class="service_start btn-info" href="{% url 'service_start' %}">サービスを始める</a>
 {% endblock contents%}
 

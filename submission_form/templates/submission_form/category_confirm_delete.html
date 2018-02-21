@@ -2,12 +2,17 @@
 {% load static %}
 
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/page_title.css' %}?date={% now "jS F Y H:i" %}">
+{% endblock head %}
+
+
 {% block nav_master %}active{% endblock nav_master %}
 
 
 
 {% block contents %}
-  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+  <div class="jumbotron page_title">
     <h1 class="text-center">科目削除</h1>
   </div>
 
@@ -21,8 +26,8 @@
     {% csrf_token %}
     <div class="text-center">
       <h2>科目名:{{ category.name }}</h2>
-      <button type="submit" class="btn btn-primary btn-lg">削除</button>
-      <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-danger btn-lg">戻る</a>
+      <button type="submit" class="btn btn-danger btn-lg">削除</button>
+      <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-default btn-lg">戻る</a>
       </div>
   </form>
 

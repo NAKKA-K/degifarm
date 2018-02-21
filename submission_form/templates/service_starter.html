@@ -3,22 +3,18 @@
 
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/service_start.css' %}?date={% now "jS F Y H:i" %}">
-
-    <style type="text/css">
-        body {
-            padding-top: 50px;
-            background-image: url({% static 'images/photo1.jpg' %});
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/service_start.css' %}">
+    <link rel="stylesheet" href="{% static 'css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/space.css' %}">
 {% endblock head %}
 
 
 
 {% block contents %}
-    <h1 class="start_regist" style="padding-top:30px;font-size:40px;padding-bottom:20px;">サービス登録</h1>
+    <h1 class="start_regist padding-t30-b20 font40">サービス登録</h1>
 
-    <form class="input_items" style="padding-bottom:85px;font-size:20px;" action="" method="POST">
+    <form class="input_items padding-b85 font20" action="" method="POST">
         {% csrf_token %}
         {% bootstrap_form org_form %}
         {% bootstrap_form user_form %}
@@ -34,13 +30,6 @@
 
 {% block script %}
     <script src='https://www.google.com/recaptcha/api.js'></script>
-
-    <script type="text/javascript">
-        function clearcall(code) {
-            if(code !== ""){
-                $(':submit[name=button]').removeAttr("disabled");
-            }
-        }
-    </script>
+    <script src="{% static 'js/recaptcha_force.js' %}"></script>
 {% endblock script %}
 

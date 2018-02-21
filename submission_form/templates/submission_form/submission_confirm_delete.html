@@ -1,4 +1,10 @@
 {% extends "submission_form/base.html" %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+{% endblock head %}
 
 
 {% block nav_submission_form %}active{% endblock nav_submission_form %}
@@ -6,13 +12,24 @@
 
 
 {% block contents %}
+  <div class="jumbotron page_title">
+    <h1 class="text-center">提出物削除</h1>
+  </div>
+
+  <ol class="breadcrumb">
+    <li><a href="{% url 'index' %}">ホーム</a></li>
+    <li><a href="{% url 'submission_form:upload_index'">提出物一覧</a></li>
+    <li class="active"><a href="#">提出物削除</a></li>
+  </ol>
+
+
   <div class="container">
     <form action="" method="POST" enctype='multipart/form-data'>
 	  <div class="text-center">
-	    <p>タイトル:{{ file.name }}</p>
-	    <p>カテゴリ名:{{ file.category.name }}</p>
-	    <button type="submit" class="btn btn-primary">削除する</button>
-	    <a class="btn btn-primary" href="javascript:void(0);" onclick="window.history.back();">戻る</a>
+	    <h2>タイトル:{{ file.name }}</h2>
+	    <h2>カテゴリ名:{{ file.classification_id }}</h2>
+	    <button type="submit" class="btn btn-danger btn-lg">削除する</button>
+	    <a class="btn btn-default btn-lg" href="javascript:void(0);" onclick="window.history.back();">戻る</a>
 	  </div>
 	  {% csrf_token %}
     </form>

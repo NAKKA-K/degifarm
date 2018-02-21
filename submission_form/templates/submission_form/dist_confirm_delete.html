@@ -1,19 +1,33 @@
 {% extends "submission_form/base.html" %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+{% endblock head %}
 
 
 {% block nav_dist %}active{% endblock nav_dist %}
 
 
 {% block contents %}
-  <div class="container">
-    <form action="" method="POST" enctype='multipart/form-data'>
-	  <div class="text-center">
-	    <p>タイトル:{{ file.name }}</p>
-	    <p>カテゴリ名:{{ file.category.name }}</p>
-	    <button type="submit" class="btn btn-primary">削除する</button>
-	    <a class="btn btn-primary" href="javascript:void(0);" onclick="window.history.back();">戻る</a>
-	  </div>
-	  {% csrf_token %}
-    </form>
-  </div>
+<div class="jumbotron page_title">
+    <h1 class="text-center">科目一覧</h1>
+</div>
+
+<ol class="breadcrumb">
+    <li><a href="{% url 'index' %}">ホーム</a></li>
+    <li><a href="{% url 'submission_form:category_index' %}">科目一覧</a></li>
+    <li class="active"><a href="#">科目削除</a></li>
+</ol>
+
+<form action="" method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="text-center">
+        <h2>タイトル:{{ file.name }}</h2>
+        <h2>科目名:{{ file.classification_id }}</h2>
+        <button type="submit" class="btn btn-danger btn-lg">削除する</button>
+        <a class="btn btn-default btn-lg" href="javascript:void(0);" onclick="window.history.back();">戻る</a>
+    </div>
+</form>
 {% endblock %}

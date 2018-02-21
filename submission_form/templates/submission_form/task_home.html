@@ -5,6 +5,8 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/checkbox.css' %}">
+  <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
 {% endblock head %}
 
 
@@ -14,20 +16,20 @@
 
 
 {% block contents %}
-  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">課題ホーム</h1>
+  <div class="jumbotron page_title">
+    <h1 class="text-center">課題一覧</h1>
   </div>
 
   <ol class="breadcrumb">
     <li><a href="{% url 'index' %}">ホーム</a></li>
-    <li class="active"><a href="#">課題ホーム</li>
+    <li class="active"><a href="#">課題一覧</li>
   </ol>
 
 
   <div class="row">
 
     <div class="col-xs-12 col-sm-3">
-      <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
+      <h1 class="page-header text-center font130par">提出はこちらから</h1>
       <ul style="font-size:140%;">
         {% for class in classification %}
           <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>

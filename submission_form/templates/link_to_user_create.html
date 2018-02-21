@@ -1,17 +1,24 @@
 {% extends "base.html" %}
+{% load static %}
 
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/space.css' %}">
+{% endblock head %}
 
 {% block contents %}
     <div class="row">
+        <h1>URL生成ページ</h1>
 
-        <div class="text-center" style="font-size: 18px;">
+        <div class="text-center font18">
             <h1>先生追加URL
                 <button class="btn" onclick="clipTeacher()">リンクをコピー</button>
             </h1>
             <p>追加したい先生に渡してください</p>
             <p>URL:<input id="teacher_link" value="{{ teacher_url }}"></input></p>
 
-            <h1 style="margin-top:50px;">生徒追加URL
+            <h1 class="margin-t50">生徒追加URL
                 <button class="btn" onclick="clipStudent()">リンクをコピー</button>
             </h1>
             <p>追加したい生徒に渡してください</p>
@@ -24,18 +31,6 @@
 
 
 {% block script %}
-    <script>
-        const clipTeacher = function(){
-            const url = document.getElementById('teacher_link');
-            url.select();
-            document.execCommand('copy');
-        }
-
-        const clipStudent = function(){
-            const url = document.getElementById('student_link');
-            url.select();
-            document.execCommand('copy');
-        }
-    </script>
+    <script src="{% static 'js/url_clip.js' %}"></script>
 {% endblock script %}
 

@@ -4,6 +4,8 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/checkbox.css' %}">
+  <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
 {% endblock head %}
 
 
@@ -12,21 +14,21 @@
 
 
 {% block contents %}
-  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">提出リスト</h1>
+  <div class="jumbotron page_title">
+    <h1 class="text-center">提出物一覧</h1>
   </div>
 
   <ol class="breadcrumb">
-    <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li>
-    <li class="active"><a href="#">提出リスト</a></li>
+    <li><a href="{% url 'index' %}">ホーム</a></li>
+    <li><a href="{% url 'submission_form:index' %}">課題一覧</a></li>
+    <li class="active"><a href="#">提出物一覧</a></li>
   </ol>
 
 
   <div class="row">
     <div class="col-xs-12 col-sm-3">
-      <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
-      <ul style="font-size:140%;">
+      <h1 class="page-header text-center font130par">提出はこちらから</h1>
+      <ul class="font140par">
         {% for class in classification %}
           <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
         {% empty %}
@@ -41,11 +43,11 @@
 
       <table class="table table-striped">
         <thead>
-          <tr bgcolor="#000000">
-            <th><font color="#FFFFF">科目</th>
-            <th><font color="#FFFFF">ファイル名</th>
-            <th><font color="#FFFFF">更新日</th>
-            <th><font color="#FFFFF">操作</th>
+          <tr bgcolor="#000">
+            <th><font color="#FFF">科目</th>
+            <th><font color="#FFF">ファイル名</th>
+            <th><font color="#FFF">更新日</th>
+            <th><font color="#FFF">操作</th>
           </tr>
         </thead>
         <tbody>
