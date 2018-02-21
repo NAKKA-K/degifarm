@@ -4,6 +4,7 @@
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/checkbox.css' %}">
+  <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
 {% endblock head %}
 
 
@@ -14,13 +15,13 @@
 
 {% block contents %}
 
-  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">配布リスト</h1>
+  <div class="jumbotron page_title">
+    <h1 class="text-center">配布一覧</h1>
   </div>
 
   <ol class="breadcrumb">
     <li><a href="{% url 'index' %}">ホーム</a></li>
-    <li class="active"><a href="#">配布リスト</a></li>
+    <li class="active"><a href="#">配布一覧</a></li>
   </ol>
 
 
@@ -81,42 +82,11 @@
       <button id="all_download_button" class="btn btn-primary btn-sm">一括ダウンロード</button>
       {% include "submission_form/page.html" %}
     </div>
-
-    <div id="output"></div>
-
   </div>
 {% endblock contents%}
 
 
 {% block script %}
   <script src="{% static 'js/data-href.js' %}"></script> 
-
-  <script>
-    $('#all_download_button').click(function(event){
-      event.preventDefault(); //ボタン本来の機能を停止させる関数
-
-      /* チェックされていない */
-      if($('[name=check]').prop('checked') == false){
-        return;
-      }
-
-      /* 選択中のチェックボックスのvalue値を取得 */
-      let files_path = []
-      $('[name=check]:checked').each(function(){
-        files_path.push($(this).val());
-      });
-
-      /* URLタグの生成 */
-      let link = document.createElement('a');
-      link.href = '/submission_form/download/zip/?';
-
-      /* URLパラメータを追加 */
-      for(let i = 0; i < files_path.length; i++){
-        link.href += 'mydata[]=' + files_path[i] + '&';
-      }
-
-      link.click();
-    });
-  </script>
-
+  <script src="{% static 'js/zip_download.js' %}"></script> 
 {% endblock script %}

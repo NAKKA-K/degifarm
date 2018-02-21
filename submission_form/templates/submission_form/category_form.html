@@ -2,19 +2,24 @@
 {% load static %}
 
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+{% endblock head %}
+
+
 
 {% block nav_master %}active{% endblock nav_master %}
 
 
 
 {% block contents %}
-   <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+  <div class="jumbotron page_title">
     <h1 class="text-center">科目作成</h1>
   </div>
 
   <ol class="breadcrumb">
-    <li class=""><a href="{% url 'submission_form:index' %}">ホーム</a></li>
-    <li class=""><a href="{% url 'submission_form:category_index' %}">科目一覧</a></li>
+    <li><a href="{% url 'submission_form:index' %}">ホーム</a></li>
+    <li><a href="{% url 'submission_form:category_index' %}">科目一覧</a></li>
     <li class="active"><a href="#">科目作成</a></li>
   </ol>
 

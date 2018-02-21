@@ -10,7 +10,8 @@
       display: none;
     }
   </style>
-  <link rel="stylesheet" href="{% static 'css/top_page.css' %}?date={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/top_page.css' %}">
+  <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
 {% endblock head %}
 
 
@@ -19,13 +20,13 @@
 
 
 {% block contents %}
-  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
+  <div class="jumbotron page_title">
     <h1 class="text-center">課題提出</h1>
   </div>
 
   <ol class="breadcrumb">
     <li><a href="{% url 'index' %}">ホーム</a></li>
-    <li><a href="{% url 'submission_form:upload_index' %}">課題ホーム</a></li>
+    <li><a href="{% url 'submission_form:upload_index' %}">提出物一覧</a></li>
     <li class="active"><a href="{% url 'submission_form:upload_form' %}">課題提出</a></li>
   </ol>
 

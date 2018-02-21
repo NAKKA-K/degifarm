@@ -3,24 +3,30 @@
 {% load index %}
 
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+{% endblock head %}
+
+
 {% block nav_home %}active{% endblock nav_home %}
 
 
 {% block contents %}
-    <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-      <h1 class="text-center">ホーム</h1>
+    <div class="jumbotron page_title">
+        <h1 class="text-center">ホーム</h1>
     </div>
 
     <ol class="breadcrumb">
-      <li class="active"><a href="#">ホーム</a></li>
+        <li class="active"><a href="#">ホーム</a></li>
     </ol>
 
 
     <div class="row">
 
       <div class="col-xs-12 col-sm-3">
-        <h1 class="page-header text-center" style="font-size:130%;">提出はこちらから</h1>
-        <ul style="font-size:140%;">
+        <h1 class="page-header text-center font130par">提出はこちらから</h1>
+        <ul class="font140par">
           {% for class in classification %}
             <li><a href="{% url 'submission_form:upload_form' %}?classification={{ forloop.counter }}"> {{ class.name }}</a></li>
           {% empty %}
@@ -41,9 +47,9 @@
         <table class="table table-hover">
           <thead>
             <tr bgcolor="#000">
-              <th><font color="#FFFFF">科目</th>
-              <th><font color="#FFFFF">課題名</th>
-              <th><font color="#FFFFF">期限</th>
+              <th><font color="#FFF">科目</th>
+              <th><font color="#FFF">課題名</th>
+              <th><font color="#FFF">期限</th>
             </tr>
           </thead>
           <tbody>

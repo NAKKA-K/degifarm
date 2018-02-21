@@ -3,7 +3,10 @@
 
 
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/submission_detail.css' %}?date={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/submission_detail.css' %}">
+  <link rel="stylesheet" href="{% static 'css/page_title.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font.css' %}">
+  <link rel="stylesheet" href="{% static 'css/space.css' %}">
 {% endblock head %}
 
 
@@ -13,23 +16,23 @@
 
 
 {% block contents %}
-  <div class="jumbotron" style="color:#FFF; background:url({% static 'images/header2.jpg' %}); background-size:1150px 420px;">
-    <h1 class="text-center">ホーム</h1>
+  <div class="jumbotron page_title">
+    <h1 class="text-center">課題詳細</h1>
   </div>
 
   <ol class="breadcrumb">
     <li class=""><a href="{% url 'index' %}">ホーム</a></li>
-    <li class=""><a href="{% url 'submission_form:index' %}">課題ホーム</a></li> <li class="active"><a href="#">課題詳細</a></li>
+    <li class=""><a href="{% url 'submission_form:index' %}">課題一覧</a></li>
+    <li class="active"><a href="#">課題詳細</a></li>
   </ol>
 
 
-  <div style="font-size: 20px;">
-
+  <div class="font20">
     {% url 'submission_form:task_detail' pk=task.pk as detail_url %}
     {% url 'submission_form:task_delete' pk=task.pk as delete_url %}
     {% if request.path == detail_url %}
       <h2>{{ task.name }}
-        {% if is_teacher %}
+        {% if request.session.is_teacher %}
           <a class="btn btn-default pull-rigth" href="{% url 'submission_form:task_edit' pk=task.pk %}">
             <span title="Edit" class="glyphicon glyphicon-pencil"></span>
           </a>
@@ -39,14 +42,14 @@
         {% endif %}
       </h2>
     {% elif request.path == delete_url %}
-      <div style="margin-bottom: 100px;"><form action="" method="POST">
+      <div class="margin-b100"><form action="" method="POST">
         {% csrf_token %}
         <p><strong>{{ object.name }}</strong>を削除してもよろしいですか？</p>
-        <button type="submit" class="btn btn-danger">
+        <button type="submit" class="btn btn-danger btn-lg">
           {% bootstrap_icon "trash" %} 削除
         </button>
-        <a class="btn btn-default" href="javascript:void(0);" onclick="window.history.back();">
-          {% bootstrap_icon "remove" %} キャンセル 
+        <a class="btn btn-default btn-lg" href="javascript:void(0);" onclick="window.history.back();">
+          {% bootstrap_icon "remove" %} 戻る 
         </a>
       </form></div>
     {% endif %}
