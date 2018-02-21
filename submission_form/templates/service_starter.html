@@ -22,9 +22,13 @@
         {% bootstrap_form user_form %}
         {% bootstrap_form teacher_form %}
 
-        <div class="g-recaptcha robot_judge" name="robot" data-callback="clearcall" data-sitekey="6LdlpkcUAAAAAMYkuLztracKHqFq1fZG9QVShXVI"></div>
+        <div class="g-recaptcha robot_judge"
+             name="robot"
+             data-callback="clearcall"
+             data-sitekey="6LdlpkcUAAAAAMYkuLztracKHqFq1fZG9QVShXVI">
+        </div>
 
-        <input type="submit" name="submit" class="start_link btn-info" value="サービス開始" disabled>
+        <input type="submit" name="submit" class="start_link btn-primary" value="サービス開始" disabled>
     </form>
 
 {% endblock contents%}
