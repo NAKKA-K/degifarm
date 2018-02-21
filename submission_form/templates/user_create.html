@@ -1,20 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/service_start.css' %}">
+    <link rel="stylesheet" href="{% static 'css/background.css' %}">
+    <link rel="stylesheet" href="{% static 'css/space.css' %}">
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock head %}
 
 
 {% block contents %}
-    <h1>ユーザー作成フォーム</h1>
+    <h1 class="start_regist padding-t30-b20">ユーザー作成フォーム</h1>
 
-    <form action="" method="POST">
+    <form action="" method="POST" class="padding-b85">
         {% csrf_token %}
         {% bootstrap_form user_form %}
         {% bootstrap_form user_info_form %}
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg">
-                {% bootstrap_icon "upload" %} 作成
-            </button>
+        <div class="g-recaptcha robot_judge"
+             name="robot"
+             data-callback="clearcall"
+             data-sitekey="6LdlpkcUAAAAAMYkuLztracKHqFq1fZG9QVShXVI">
         </div>
+
+        <input type="submit"
+               name="submit"
+               class="start_link btn-primary"
+               value="アカウント作成"
+               disabled>
     </form>
 {% endblock contents%}
 
 
+{% block script %}
+    <script src="{% static 'js/recaptcha_force.js' %}"></script>
+{% endblock script %}
