@@ -3,13 +3,15 @@
 
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/service_start.css' %}">
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
     <link rel="stylesheet" href="{% static 'css/space.css' %}">
+    <link rel="stylesheet" href="{% static 'css/background.css' %}?a">
 {% endblock head %}
 
+
 {% block contents %}
-    <div class="row">
-        <h1>URL生成ページ</h1>
+        <h1 class="start_regist padding-t30-b20">URL生成ページ</h1>
 
         <div class="text-center font18">
             <h1>先生追加URL
@@ -18,14 +20,13 @@
             <p>追加したい先生に渡してください</p>
             <p>URL:<input id="teacher_link" value="{{ teacher_url }}"></input></p>
 
-            <h1 class="margin-t50">生徒追加URL
+
+            <h1 class="padding-t75">生徒追加URL
                 <button class="btn" onclick="clipStudent()">リンクをコピー</button>
             </h1>
             <p>追加したい生徒に渡してください</p>
             <p>URL:<input id="student_link" value="{{ student_url }}"></a></p>
         </div>
-
-    </div>
 {% endblock contents%}
 
 

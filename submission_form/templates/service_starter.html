@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{% static 'css/background.css' %}">
     <link rel="stylesheet" href="{% static 'css/font.css' %}">
     <link rel="stylesheet" href="{% static 'css/space.css' %}">
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock head %}
 
 
@@ -19,9 +21,14 @@
         {% bootstrap_form org_form %}
         {% bootstrap_form user_form %}
         {% bootstrap_form teacher_form %}
-        <div class="g-recaptcha robot_judge" name="robot" data-callback="clearcall" data-sitekey="6LfnWkQUAAAAAJVug2O55Njh0M2jmh0pBuzWl2_t"></div>
 
-        <input type="submit" name="button" class="start_link btn-info" value="サービス開始" disabled>
+        <div class="g-recaptcha robot_judge"
+             name="robot"
+             data-callback="clearcall"
+             data-sitekey="6LdlpkcUAAAAAMYkuLztracKHqFq1fZG9QVShXVI">
+        </div>
+
+        <input type="submit" name="submit" class="start_link btn-primary" value="サービス開始" disabled>
     </form>
 
 {% endblock contents%}
@@ -29,7 +36,6 @@
 
 
 {% block script %}
-    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="{% static 'js/recaptcha_force.js' %}"></script>
 {% endblock script %}
 
