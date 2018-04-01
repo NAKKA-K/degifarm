@@ -1,6 +1,6 @@
 # でじふぁーむ。
 
-[![Build Status](https://travis-ci.org/NAKKA-K/dw2018_server.svg?branch=master)](https://travis-ci.org/NAKKA-K/dw2018_server)
+[![Build Status](https://travis-ci.org/NAKKA-K/degifarm.svg?branch=master)](https://travis-ci.org/NAKKA-K/degifarm)
 
 ## 環境の導入
 環境の設定や導入に関しては`./installer/README.md`を参照  
